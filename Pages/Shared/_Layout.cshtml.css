@@ -46,3 +46,65 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+/* Change navbar background color */
+
+/* Important Note: Remove bg-white in 
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+ so that the top nav bar will display background color */
+
+.navbar {
+  background-color: #afeeee; /* lightcyan */
+}
+
+.navbar-brand {
+  background-color: red;
+}
+
+.run {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.run button {
+  background-image: url('/images/Play-Button-Triangle.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: none;
+  width: 30px;
+  height: 30px;
+}
+
+.run span {
+  margin-top: 2px;
+  font-size: 12px;
+  text-align: center;
+}
+
+
+.stop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.stop button {
+  background-image: url('/images/Pause-Button-Red-Icon.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: none;
+  width: 30px;
+  height: 30px;
+}
+
+.stop span {
+  margin-top: 2px;
+  font-size: 12px;
+  text-align: center;
+}

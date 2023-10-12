@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/COMP-4956-PROJECTS.styles.css" asp-append-version="true" />
+    @* <link rel="stylesheet" href="~/Pages/Shared/_Layout.cshtml.css" asp-append-version="true" /> *@
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg- border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">COMP_4956_Project: CodeBlocks</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
@@ -34,21 +35,30 @@
                                 <li><a class="dropdown-item" href="#">Open</a></li>
                             </ul>
                         </li>
+                   
+                        <li class="nav-item run">
+                            <div class="run"> <button></button><span><b>Run</b></span></div>
+                            @* <a class="nav-link text-light" asp-area="" asp-page="/Home">Run</a><button>Run</button> *@
+                            @* <a class="nav-link text-light" asp-area="" asp-page="/Home"><button></button><span>Run</span></a> *@                     
+                            @* <a class="nav-link text-light" asp-area="" asp-page="/Home"><button>Run</button></a> *@
+                             @* <a class="nav-link text-light" asp-area="" asp-page="/Home"><button>Run</button></a> *@
+                             
+                        </li>
+                          
+                        <li class="nav-item stop">
+                            <div class="stop"> <button></button><span><b>Pause</b></span></div>
+                            @* <a class="nav-link text-light" asp-area="" asp-page="/Home"><button></button></a> *@
+                            @* <a class="nav-link text-light" asp-area="" asp-page="/Home"><button>Stop</button></a> *@
+                            @* <a class="nav-link text-light" asp-area="" asp-page="/Home">Stop</a> *@
+                            @* <a class="nav-link text-light" asp-area="" asp-page="/Home"><button>Stop</button></a> *@
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item help">
 
                             <a class="nav-link text-dark" asp-area="" asp-page="/Help">Help</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Home">Run</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Home">Stop</a>
                         </li>
 
                         <li class="nav-item">
