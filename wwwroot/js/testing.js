@@ -1,42 +1,65 @@
-import { AssignmentBlock, EqualityBlock, FunctionBlock } from "./classes/CodeBlock.js";
+import { AssignmentBlock, EqualityBlock, ExpressionBlock, FunctionBlock, LogicBlock, ScopeBlock } from "./classes/CodeBlock.js";
+import { lineMaker } from "./drag_drop.js";
+import { VariableBlock, LiteralBlock, DummyLiteralBlock } from "./classes/ValueBlock.js";
 
 function test(){
     alert("Testing");
 }
 
-function allowDrop(ev) 
-{
-    ev.preventDefault();
-}
-  
-function drop(ev) 
-{
-  ev.preventDefault();
+let expressionCon = document.getElementById("expressionContainer");
+let varCon = document.getElementById("variableContainer");
+let logicCon = document.getElementById("logicContainer");
+let scopeCon = document.getElementById("scopeContainer");
+let equalityCon = document.getElementById("equalityContainer");
+let functionCon = document.getElementById("functionContainer");
+let assCon = document.getElementById("assignmentContainer");
 
-  if(ev.target.className != "testContainer")
-  {
-    return;
-  }
 
-  let data = ev.dataTransfer.getData("key");
-  let block = document.getElementById(data);
-  ev.target.appendChild(block);
+// iterate through all the subtypes in assignment block
+
+for (let i = 0; i < AssignmentBlock.subTypes.length; i++) 
+{
+    let block = new AssignmentBlock(AssignmentBlock.subTypes[i]);
+    assCon.appendChild(block.element);
 }
 
-function drag(ev) 
+// iterate through all the subtypes in equality block
+
+for (let i = 0; i < EqualityBlock.subTypes.length; i++)
 {
-  ev.dataTransfer.setData("key", ev.target.id);
+    let block = new EqualityBlock(EqualityBlock.subTypes[i]);
+    equalityCon.appendChild(block.element);
 }
 
-window.allowDrop = allowDrop;
-window.drop = drop;
-window.drag = drag;
+// iterate through all the subtypes in expression block
 
-let test1 = document.getElementById("test1");
-let block = new EqualityBlock("==", 1, 1); 
-//block.element.addEventListener("dragstart", function(event){drag(event)});
-let block2 = new AssignmentBlock("=", 1, 1);
-let block3 = new FunctionBlock("function", "test", 1, 1);
-test1.appendChild(block.element);
-test1.appendChild(block2.element);
-test1.appendChild(block3.element);
+for (let i = 0; i < ExpressionBlock.subTypes.length; i++)
+{
+    let block = new ExpressionBlock(ExpressionBlock.subTypes[i]);
+    expressionCon.appendChild(block.element);
+}
+
+// iterate through all the subtypes in function block
+
+functionCon.appendChild(new FunctionBlock().element);
+
+// iterate through all the subtypes in logic block
+
+for (let i = 0; i < LogicBlock.subTypes.length; i++)
+{
+    let block = new LogicBlock(LogicBlock.subTypes[i]);
+    logicCon.appendChild(block.element);
+}
+
+// iterate through all the subtypes in scope block
+
+for (let i = 0; i < ScopeBlock.subTypes.length; i++)
+{
+    let block = new ScopeBlock(ScopeBlock.subTypes[i]);
+    scopeCon.appendChild(block.element);
+}
+
+
+lineMaker(document.getElementById("test2"));
+
+

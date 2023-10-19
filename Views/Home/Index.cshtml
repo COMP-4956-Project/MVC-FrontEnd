@@ -11,10 +11,11 @@
       </h5>
     </div>
     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
-      <div class="card-body">
+      <div class="card-body" id="variableContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
       </div>
     </div>
   </div>
+  
   <div class="card">
     <div class="card-header" id="headingTwo">
       <h5 class="mb-0">
@@ -24,10 +25,11 @@
       </h5>
     </div>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
-      <div class="card-body">
+      <div class="card-body" id="logicContainer">
       </div>
     </div>
   </div>
+
   <div class="card">
     <div class="card-header" id="headingThree">
       <h5 class="mb-0">
@@ -37,10 +39,11 @@
       </h5>
     </div>
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
-      <div class="card-body">
+      <div class="card-body" id="expressionContainer"></div>
       </div>
     </div>
   </div>
+
     <div class="card">
     <div class="card-header" id="headingFour">
       <h5 class="mb-0">
@@ -50,10 +53,11 @@
       </h5>
     </div>
     <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-bs-parent="#accordion">
-      <div class="card-body">
+      <div class="card-body" id="functionContainer">
       </div>
     </div>
   </div>
+
     <div class="card">
     <div class="card-header" id="headingFive">
       <h5 class="mb-0">
@@ -63,12 +67,47 @@
       </h5>
     </div>
     <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
-      <div class="card-body">
+      <div class="card-body" id="scopeContainer">
       </div>
     </div>
   </div>  
-</div>
+
+  <div class="card">
+      <div class="card-header" id="headingSix">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+            Equality
+          </button>
+        </h5>
+      </div>
+      <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-bs-parent="#accordion">
+        <div class="card-body" id="equalityContainer">
+        </div>
+      </div>
+  </div>
+
+  <div class="card">
+      <div class="card-header" id="headingSeven">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+            Assignment
+          </button>
+        </h5>
+      </div>
+      <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-bs-parent="#accordion">
+        <div class="card-body" id="assignmentContainer">
+        </div>
+      </div>
+  </div>
+
 </nav>
 
+<div>
+
+  <div class="testContainer2 line-container" id="test2"></div>
 </div>
 
+
+</div>
+
+<script type="module" defer src="js/testing.js"></script>
