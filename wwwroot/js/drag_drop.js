@@ -198,6 +198,42 @@ export function drag(ev)
   ev.dataTransfer.setData("key", ev.target.id);
 }
 
+export function varDrop(ev)
+{
+    ev.preventDefault();
+
+    //ensure were only dropping into a varlit
+    if(ev.target.className != "varlit")
+    {
+      return;
+    }
+  
+    // get the stored element id
+    let elementId = ev.dataTransfer.getData("key");
+    let draggedBlock = document.getElementById(elementId);
+
+
+    switch(draggedBlock.dataset.blockType)
+    {
+        case "dummy_literal":
+            let literalBlock = new LiteralBlock(draggedBlock.dataset.subType);
+            ev.target.replaceWith(new LiteralBlock(draggedBlock.dataset.subType).element);
+            break;
+        case "variable":
+            let variableBlock = new VariableBlock(draggedBlock.dataset.subType, draggedBlock.dataset.varType, draggedBlock.dataset.varValue);
+            ev.target.replaceWith(variableBlock.element);
+            break;
+        default:
+            return;
+            break;
+    }
+}
+
+export function varLitDrop(ev)
+{
+
+}
+
 window.allowDrop = allowDrop;
 window.drop = drop;
 window.drag = drag;
