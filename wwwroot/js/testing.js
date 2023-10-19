@@ -20,6 +20,7 @@ let assCon = document.getElementById("assignmentContainer");
 for (let i = 0; i < AssignmentBlock.subTypes.length; i++) 
 {
     let block = new AssignmentBlock(AssignmentBlock.subTypes[i]);
+    block.element.className += " dummy";
     assCon.appendChild(block.element);
 }
 
@@ -28,6 +29,7 @@ for (let i = 0; i < AssignmentBlock.subTypes.length; i++)
 for (let i = 0; i < EqualityBlock.subTypes.length; i++)
 {
     let block = new EqualityBlock(EqualityBlock.subTypes[i]);
+    block.element.className += " dummy";
     equalityCon.appendChild(block.element);
 }
 
@@ -36,18 +38,21 @@ for (let i = 0; i < EqualityBlock.subTypes.length; i++)
 for (let i = 0; i < ExpressionBlock.subTypes.length; i++)
 {
     let block = new ExpressionBlock(ExpressionBlock.subTypes[i]);
+    block.element.className += " dummy";
     expressionCon.appendChild(block.element);
 }
 
 // iterate through all the subtypes in function block
-
-functionCon.appendChild(new FunctionBlock().element);
+let block = new FunctionBlock();
+block.element.className += " dummy";
+functionCon.appendChild(block.element);
 
 // iterate through all the subtypes in logic block
 
 for (let i = 0; i < LogicBlock.subTypes.length; i++)
 {
     let block = new LogicBlock(LogicBlock.subTypes[i]);
+    block.element.className += " dummy";
     logicCon.appendChild(block.element);
 }
 
@@ -56,6 +61,7 @@ for (let i = 0; i < LogicBlock.subTypes.length; i++)
 for (let i = 0; i < ScopeBlock.subTypes.length; i++)
 {
     let block = new ScopeBlock(ScopeBlock.subTypes[i]);
+    block.element.className += " dummy";
     scopeCon.appendChild(block.element);
 }
 
