@@ -13,7 +13,7 @@ for details on configuring this project to bundle and minify static web assets. 
   border-radius: 10px;
 }
 
-/* CodeBlocks Project logo CSS*/
+/* CodeCraft Project logo CSS*/
 .navbar-brand .logo {
   display: inline-block;
   width: 300px;
@@ -21,16 +21,16 @@ for details on configuring this project to bundle and minify static web assets. 
   margin-right: 10px;
  
 /* Project Logo - Version 1 - Current*/
-  background-image: url('/images/CodeBlocks_logo_Option1.png');
+  background-image: url('/images/CodeCraft_logo_Option1.png');
 
 /* Project Logo - Version 2 */
-  /* background-image: url('/images/CodeBlocks_logo_Option2.png'); */
+  /* background-image: url('/images/CodeCraft_logo_Option2.png'); */
 
 /* Project Logo - Version 3 */
-  /* background-image: url('/images/CodeBlocks_logo_Option3.png'); */
+  /* background-image: url('/images/CodeCraft_logo_Option3.png'); */
 
 /* Project Logo - Version 4 */
-  /* background-image: url('/images/CodeBlocks_logo_Option4.png'); */
+  /* background-image: url('/images/CodeCraft_logo_Option4.png'); */
 
   background-repeat: no-repeat;
   background-position: center;
