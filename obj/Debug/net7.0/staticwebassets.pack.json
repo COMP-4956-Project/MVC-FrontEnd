@@ -13,6 +13,30 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\kriso\\Documents\\COMP_4956_MVC\\MVC-FrontEnd\\wwwroot\\images\\CodeBlocks_logo_Option1.png",
+      "PackagePath": "staticwebassets\\images\\CodeBlocks_logo_Option1.png"
+    },
+    {
+      "Id": "C:\\Users\\kriso\\Documents\\COMP_4956_MVC\\MVC-FrontEnd\\wwwroot\\images\\CodeBlocks_logo_Option2.png",
+      "PackagePath": "staticwebassets\\images\\CodeBlocks_logo_Option2.png"
+    },
+    {
+      "Id": "C:\\Users\\kriso\\Documents\\COMP_4956_MVC\\MVC-FrontEnd\\wwwroot\\images\\CodeBlocks_logo_Option3.png",
+      "PackagePath": "staticwebassets\\images\\CodeBlocks_logo_Option3.png"
+    },
+    {
+      "Id": "C:\\Users\\kriso\\Documents\\COMP_4956_MVC\\MVC-FrontEnd\\wwwroot\\images\\CodeBlocks_logo_Option4.png",
+      "PackagePath": "staticwebassets\\images\\CodeBlocks_logo_Option4.png"
+    },
+    {
+      "Id": "C:\\Users\\kriso\\Documents\\COMP_4956_MVC\\MVC-FrontEnd\\wwwroot\\images\\Pause-Button-Red-icon.png",
+      "PackagePath": "staticwebassets\\images\\Pause-Button-Red-icon.png"
+    },
+    {
+      "Id": "C:\\Users\\kriso\\Documents\\COMP_4956_MVC\\MVC-FrontEnd\\wwwroot\\images\\Play-Button-Triangle.png",
+      "PackagePath": "staticwebassets\\images\\Play-Button-Triangle.png"
+    },
+    {
       "Id": "C:\\Users\\kriso\\Documents\\COMP_4956_MVC\\MVC-FrontEnd\\wwwroot\\images\\a.png",
       "PackagePath": "staticwebassets\\images\\a.png"
     },
