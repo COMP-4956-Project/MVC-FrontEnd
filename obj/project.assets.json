@@ -8,19 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\owner\\.nuget\\packages\\": {}
+    "C:\\Users\\holyc\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\owner\\Downloads\\Comp4956 Project\\COMP-4956-Projects\\COMP-4956-Projects.csproj",
+      "projectUniqueName": "C:\\Users\\holyc\\Desktop\\4956\\OLD-COMP-4956-Projects\\COMP-4956-Projects.csproj",
       "projectName": "COMP-4956-Projects",
-      "projectPath": "C:\\Users\\owner\\Downloads\\Comp4956 Project\\COMP-4956-Projects\\COMP-4956-Projects.csproj",
-      "packagesPath": "C:\\Users\\owner\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\owner\\Downloads\\Comp4956 Project\\COMP-4956-Projects\\obj\\",
+      "projectPath": "C:\\Users\\holyc\\Desktop\\4956\\OLD-COMP-4956-Projects\\COMP-4956-Projects.csproj",
+      "packagesPath": "C:\\Users\\holyc\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\holyc\\Desktop\\4956\\OLD-COMP-4956-Projects\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\owner\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\holyc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

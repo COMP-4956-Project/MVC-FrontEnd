@@ -102,6 +102,7 @@ button.accept-policy[b-pm2wphvbi2] {
     align-items: center;
     justify-content: center;
     height: 50vh;
+    width: 75vw;
     border: 1px solid black;    
 }
 
@@ -122,3 +123,4 @@ button.accept-policy[b-pm2wphvbi2] {
     width: 200px;
     color: #0000ff;
 }
+
