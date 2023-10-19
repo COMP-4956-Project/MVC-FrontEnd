@@ -1,11 +1,15 @@
 /* _content/COMP-4956-Projects/Pages/Index.cshtml.rz.scp.css */
 p[b-dr5i30qvxp]
 {
-    font-size: 2em;
+    font-size: 1em;
     font-weight: bold;
     text-align: center;
 }
  
+button[b-dr5i30qvxp] {
+    color: black;
+    text-decoration: none;
+}
 .sidebar[b-dr5i30qvxp] {
     position: fixed;
     top: 0;
@@ -20,7 +24,27 @@ p[b-dr5i30qvxp]
     border-radius: 5px;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 }
-  
+#headingOne[b-dr5i30qvxp] {
+    background-color: #E87A7A;
+}
+#headingTwo[b-dr5i30qvxp] {
+    background-color: #DFE87A;
+}
+#headingThree[b-dr5i30qvxp] {
+    background-color: #E8CF7A;
+}
+
+#collapseOne[b-dr5i30qvxp] {
+    background-color: #E5A4A4;
+}
+
+#headingFour[b-dr5i30qvxp] {
+    background-color: #7AE87E;
+}
+
+#headingFive[b-dr5i30qvxp] {
+    background-color: #7A85E8;
+}
 /* _content/COMP-4956-Projects/Pages/Shared/_Layout.cshtml.rz.scp.css */
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */

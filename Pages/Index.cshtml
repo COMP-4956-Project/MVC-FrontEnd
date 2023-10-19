@@ -5,45 +5,74 @@
 }
 @section Scripts
 {
-
 }
 
 <p>Hi</p>
-  <nav
-       id="sidebarMenu"
-       class="collapse d-lg-block sidebar collapse bg-white"
-       >
-    <div class="position-sticky">
-      <div class="list-group list-group-flush mx-3 mt-4">
-        <button
-           id="variables"
-           href="#"
-           class="list-group-item list-group-item-action py-2 ripple"
-           aria-current="true"
-           >
-          <i class="fas fa-tachometer-alt fa-fw me-3"></i
-            ><span>Variables</span>
+  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="button1">
+          Variables
         </button>
-        <button
-           href="#"
-           class="list-group-item list-group-item-action py-2 ripple"
-           ><i class="fas fa-lock fa-fw me-3"></i><span>Math</span></button
-          >
-        <button
-           href="#"
-           class="list-group-item list-group-item-action py-2 ripple"
-           ><i class="fas fa-lock fa-fw me-3"></i><span>Logic</span></button
-          >
-        <button
-           href="#"
-           class="list-group-item list-group-item-action py-2 ripple"
-           ><i class="fas fa-lock fa-fw me-3"></i><span>Functions</span></button
-          >
-        <button
-           href="#"
-           class="list-group-item list-group-item-action py-2 ripple"
-           ><i class="fas fa-lock fa-fw me-3"></i><span>Scope</span></button
-          >
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Logic
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
       </div>
     </div>
-  </nav>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Math
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+      </div>
+    </div>
+  </div>
+    <div class="card">
+    <div class="card-header" id="headingFour">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Functions
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+      </div>
+    </div>
+  </div>
+    <div class="card">
+    <div class="card-header" id="headingFive">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Scope
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+      </div>
+    </div>
+  </div>  
+</div>
+</nav>

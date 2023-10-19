@@ -38,7 +38,6 @@ C:\Users\owner\Downloads\Comp4956 Project\COMP-4956-Projects\bin\Debug\net7.0\CO
 C:\Users\owner\Downloads\Comp4956 Project\COMP-4956-Projects\bin\Debug\net7.0\COMP-4956-Projects.runtimeconfig.json
 C:\Users\owner\Downloads\Comp4956 Project\COMP-4956-Projects\bin\Debug\net7.0\COMP-4956-Projects.dll
 C:\Users\owner\Downloads\Comp4956 Project\COMP-4956-Projects\bin\Debug\net7.0\COMP-4956-Projects.pdb
-C:\Users\owner\Downloads\Comp4956 Project\COMP-4956-Projects\obj\Debug\net7.0\COMP-4956-Projects.csproj.AssemblyReference.cache
 C:\Users\owner\Downloads\Comp4956 Project\COMP-4956-Projects\obj\Debug\net7.0\COMP-4956-Projects.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\owner\Downloads\Comp4956 Project\COMP-4956-Projects\obj\Debug\net7.0\COMP-4956-Projects.AssemblyInfoInputs.cache
 C:\Users\owner\Downloads\Comp4956 Project\COMP-4956-Projects\obj\Debug\net7.0\COMP-4956-Projects.AssemblyInfo.cs

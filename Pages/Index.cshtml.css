@@ -1,10 +1,14 @@
 p
 {
-    font-size: 2em;
+    font-size: 1em;
     font-weight: bold;
     text-align: center;
 }
  
+button {
+    color: black;
+    text-decoration: none;
+}
 .sidebar {
     position: fixed;
     top: 0;
@@ -19,4 +23,24 @@ p
     border-radius: 5px;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 }
-  
+#headingOne {
+    background-color: #E87A7A;
+}
+#headingTwo {
+    background-color: #DFE87A;
+}
+#headingThree {
+    background-color: #E8CF7A;
+}
+
+#collapseOne {
+    background-color: #E5A4A4;
+}
+
+#headingFour {
+    background-color: #7AE87E;
+}
+
+#headingFive {
+    background-color: #7A85E8;
+}
