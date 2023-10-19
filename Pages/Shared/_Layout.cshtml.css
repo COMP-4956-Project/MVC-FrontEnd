@@ -1,15 +1,46 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+/*Nav bar padding*/
+.navbar-nav .nav-item{
+  padding-top: 5px;
+
+}
+
+/* Nav bar: Hover effect on all options that are not the Run and Pause buttons*/
+.navbar-nav .nav-item:hover{
+  background-color: #FED242;
+  border-radius: 10px;
+}
+
+/* CodeBlocks Project logo CSS*/
+.navbar-brand .logo {
+  display: inline-block;
+  width: 300px;
+  height: 50px;
+  margin-right: 10px;
+ 
+/* Project Logo - Version 1 - Current*/
+  background-image: url('/images/CodeBlocks_logo_Option1.png');
+
+/* Project Logo - Version 2 */
+  /* background-image: url('/images/CodeBlocks_logo_Option2.png'); */
+
+/* Project Logo - Version 3 */
+  /* background-image: url('/images/CodeBlocks_logo_Option3.png'); */
+
+/* Project Logo - Version 4 */
+  /* background-image: url('/images/CodeBlocks_logo_Option4.png'); */
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 a {
   color: #0077cc;
 }
+
 
 .btn-primary {
   color: #fff;
@@ -54,20 +85,33 @@ button.accept-policy {
  so that the top nav bar will display background color */
 
 .navbar {
-  background-color: #afeeee; /* lightcyan */
+  /* Navbar background color: lightcyan */
+  /* background-color: #afeeee; */
+
+  background-color: #FFC300;
 }
 
-.navbar-brand {
-  background-color: red;
-}
+/* Run Button Section */
 
 .run {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-left: 5px;
+  padding-top: 2.5px;
+  padding-right: 5px;
+  padding-left: 2.5px;
+ 
 }
 
+/* Hover effect */
+.navbar-nav .run:hover{
+  background-color: #228B22;
+  text-color: #ffffff;
+  border-radius: 10px;
+}
+
+/* Run button triangle image used*/
 .run button {
   background-image: url('/images/Play-Button-Triangle.png');
   background-repeat: no-repeat;
@@ -78,22 +122,31 @@ button.accept-policy {
   height: 30px;
 }
 
-.run span {
-  margin-top: 2px;
-  font-size: 12px;
-  text-align: center;
+.run button:active {
+  background-image: url('/images/Play-Button-Triangle-Active.png');
 }
 
 
-.stop {
+/* Pause Button Section */
+
+.pause {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 2.5px;
   margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 8px;
 }
 
-.stop button {
+/* Hover effect */
+.navbar-nav .pause:hover{
+  background-color: #EE4B2B;
+  text-color: #ffffff;
+  border-radius: 10px;
+}
+
+
+.pause button {
   background-image: url('/images/Pause-Button-Red-Icon.png');
   background-repeat: no-repeat;
   background-position: center;
@@ -103,8 +156,7 @@ button.accept-policy {
   height: 30px;
 }
 
-.stop span {
-  margin-top: 2px;
-  font-size: 12px;
-  text-align: center;
+.pause button:active {
+  background-image: url('/images/Pause-Button-Red-Icon-Active.png');
+  
 }
