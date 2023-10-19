@@ -26,6 +26,7 @@ button[b-dr5i30qvxp] {
 #headingOne[b-dr5i30qvxp] {
     background-color: #E87A7A;
 }
+
 #headingTwo[b-dr5i30qvxp] {
     background-color: #DFE87A;
 }
@@ -35,6 +36,21 @@ button[b-dr5i30qvxp] {
 
 #collapseOne[b-dr5i30qvxp] {
     background-color: #E5A4A4;
+}
+
+#collapseTwo[b-dr5i30qvxp] {
+    background-color: #E1E4BB;
+}
+#collapseThree[b-dr5i30qvxp] {
+    background-color: #DFD4B0;
+}
+
+#collapseFour[b-dr5i30qvxp] {
+    background-color: #BBE1BC;
+}
+
+#collapseFive[b-dr5i30qvxp] {
+    background-color: #D4D7F3;
 }
 
 #headingFour[b-dr5i30qvxp] {
