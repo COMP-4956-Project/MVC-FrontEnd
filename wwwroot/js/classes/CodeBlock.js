@@ -42,19 +42,19 @@ class CodeBlock
         this.element.setAttribute("draggable", "true");
         this.element.addEventListener("dragstart", function(event){drag(event)});
         
-        this.leftBar = document.createElement("div");
-        this.leftBar.className = "sideBar left";
-        this.element.appendChild(this.leftBar);
-        this.rightBar = document.createElement("div");
-        this.rightBar.className = "sideBar right";
+        this.addBar("left");
 
         this.element.id = "block_" + CodeBlock.count;
         CodeBlock.count++;
     }
 
-    addRightBar()
+
+
+    addBar(side)
     {
-        this.element.appendChild(this.rightBar);
+        let bar = document.createElement("div");
+        bar.className = "sideBar " + side;
+        this.element.appendChild(bar);
     }
 
     checkNeighbors(slot, goodLeftSide, goodRightSide)
@@ -169,12 +169,8 @@ export class ScopeBlock extends CodeBlock
         this.element.className += " threequarters"
 
         this.addExpression(subType.toUpperCase());
-        this.addRightBar();
+        this.addBar("right");
 
-        if(this.subType == "else")
-        {
-            this.rightBar.style.backgroundColor = "inherit";
-        }
     }
 
     hasValidNeighbors(slot)
@@ -190,6 +186,11 @@ export class ScopeBlock extends CodeBlock
 
 export class FunctionBlock extends CodeBlock
 {
+    static subTypes =
+    [
+        "print"
+    ]
+
     static goodLeftSide =
     [
         null
@@ -203,6 +204,11 @@ export class FunctionBlock extends CodeBlock
 
     constructor(subType, element = null)
     {
+        if (!FunctionBlock.subTypes.includes(subType))
+        {
+            throw new Error("Invalid sub type");
+        }
+
         super("function" , subType, element);
 
         if(element != null)
@@ -212,9 +218,14 @@ export class FunctionBlock extends CodeBlock
 
         this.element.className += " function-block";
 
+        if(subType == "print")
+        {
+            this.addExpression("Print");
+        }
+
         this.addVarLit();
-        this.addVar();
-        this.addRightBar();
+        //this.addVar();
+        this.addBar("right");
     }
 
     hasValidNeighbors(slot)
@@ -266,7 +277,7 @@ export class AssignmentBlock extends CodeBlock
         this.addVar();
         this.addExpression(subType);
         this.addVarLit();
-        this.addRightBar();
+        this.addBar("right");
     }
 
     hasValidNeighbors(slot)
@@ -317,7 +328,7 @@ export class ExpressionBlock extends CodeBlock
 
         this.addExpression(subType);
         this.addVarLit();
-        this.addRightBar();
+        this.addBar("right");
     }
 
     hasValidNeighbors(slot)
@@ -370,7 +381,7 @@ export class EqualityBlock extends CodeBlock
         this.addVarLit();
         this.addExpression(subType);
         this.addVarLit();
-        this.addRightBar();
+        this.addBar("right");
     }
 
     hasValidNeighbors(slot)
@@ -415,7 +426,7 @@ export class LogicBlock extends CodeBlock
         this.element.className += " logic-block threequarters";
 
         this.addExpression(subType.toUpperCase());
-        this.addRightBar();
+        this.addBar("right");
     }
 
     hasValidNeighbors(slot)

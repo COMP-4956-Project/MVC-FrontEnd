@@ -43,7 +43,7 @@ for (let i = 0; i < ExpressionBlock.subTypes.length; i++)
 }
 
 // iterate through all the subtypes in function block
-let block = new FunctionBlock();
+let block = new FunctionBlock("print");
 block.element.className += " dummy";
 functionCon.appendChild(block.element);
 
