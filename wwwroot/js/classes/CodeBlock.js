@@ -180,6 +180,7 @@ export class ScopeBlock extends CodeBlock
         {
             return false;
         }
+        
         return this.checkNeighbors(slot, ScopeBlock.goodLeftSide, ScopeBlock.goodRightSide)
     }
 }
