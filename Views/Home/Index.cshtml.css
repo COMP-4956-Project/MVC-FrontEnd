@@ -42,6 +42,38 @@ button {
     background-color: #7A85E8;
 }
 
+#collapseTwo {
+    background-color: #E1E4BB;
+}
+
+#collapseThree {
+    background-color: #DFD4B0;
+}
+
+#collapseFour {
+    background-color: #BBE1BC;
+}
+
+#collapseFive {
+    background-color: #D4D7F3;
+}
+
+#headingSix {
+    background-color: #E87AE3;
+}
+
+#collapseSix {
+    background-color: #EAA9E7;
+}
+
+#headingSeven {
+    background-color: #63CFF1;
+}
+
+#collapseSeven {
+    background-color: #9CD4E5;
+}
+
 #mainContainer
 {
     display: flex;
