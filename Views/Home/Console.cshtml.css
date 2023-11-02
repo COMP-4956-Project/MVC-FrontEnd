@@ -1,0 +1,40 @@
+.console {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    width: 55vw;
+    margin-left: -11px;
+  }
+  
+  .console-header {
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .console-content {
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    min-height: 292px;
+    margin: 5px 0;
+    padding: 10px;
+    overflow-y: auto;
+  }
+  
+  .console-line {
+    font-family: monospace;
+    margin: 2px 0;
+  }
+  
+  .console-input {
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding: 5px;
+  }
+  
