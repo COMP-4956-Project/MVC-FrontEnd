@@ -1,0 +1,29 @@
+h1 {
+    text-align: center; 
+}
+
+.label {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.easy-tasks {
+    display: grid;
+    grid-template-columns: repeat(10, 30px); 
+    grid-template-rows: repeat(2, 30px);  
+    grid-gap: 5px;
+}
+
+.medium-tasks {
+    display: grid;
+    grid-template-columns: repeat(10, 30px); 
+    grid-template-rows: repeat(6, 30px);  
+    grid-gap: 5px;
+}
+
+.difficult-tasks {
+    display: grid;
+    grid-template-columns: repeat(10, 30px); 
+    grid-template-rows: repeat(2, 30px);  
+    grid-gap: 5px;
+}
+
