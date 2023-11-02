@@ -240,3 +240,27 @@ body {
   font-size: 10rem;
   font-weight: bold;
 }
+
+.variable-block
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  background-color: red;
+  border: black 2px solid;
+}
+
+.variable-block.dummy
+{
+  width: 5vw;
+  height: 5vw;
+}
+
+.variable-name
+{
+  font-size: 2rem;
+  font-weight: bold;
+  text-decoration: underline;
+}

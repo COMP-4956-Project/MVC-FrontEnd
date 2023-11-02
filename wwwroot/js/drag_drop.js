@@ -203,11 +203,13 @@ export function varLitDrop(ev)
     ev.preventDefault();
 
     //ensure were only dropping into a varlit
-    if(ev.target.className != "varlit")
+    if(!(ev.target.className == "varlit" || ev.target.className == "var"))
     {
+      alert("You can only drop variables and literals into this slot");
       return;
     }
-  
+
+
     // get the stored element id
     let elementId = ev.dataTransfer.getData("key");
     let draggedBlock = document.getElementById(elementId);
@@ -216,11 +218,14 @@ export function varLitDrop(ev)
     switch(draggedBlock.dataset.blockType)
     {
         case "dummy_literal":
-            let literalBlock = new LiteralBlock(draggedBlock.dataset.subType);
+            if(ev.target.className != "varlit")
+            {
+                return;
+            }
             ev.target.replaceWith(new LiteralBlock(draggedBlock.dataset.subType).element);
             break;
         case "variable":
-            let variableBlock = new VariableBlock(draggedBlock.dataset.subType, draggedBlock.dataset.varType, draggedBlock.dataset.varValue);
+            let variableBlock = new VariableBlock(draggedBlock.dataset.subType, draggedBlock.dataset.name);
             ev.target.replaceWith(variableBlock.element);
             break;
         default:

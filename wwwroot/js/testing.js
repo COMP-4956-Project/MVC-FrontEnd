@@ -20,6 +20,8 @@ for(let i = 0; i < DummyLiteralBlock.subTypes.length; i++)
     varCon.appendChild(block.element);
 }
 
+varCon.append(new VariableBlock("string", "hello", "bob").element);
+
 // iterate through all the subtypes in assignment block
 
 for (let i = 0; i < AssignmentBlock.subTypes.length; i++) 
