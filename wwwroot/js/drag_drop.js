@@ -1,5 +1,5 @@
 import { CodeSlot, AssignmentBlock, EqualityBlock, FunctionBlock,ExpressionBlock, LogicBlock, ScopeBlock, isNullOrEmpty } from "./classes/CodeBlock.js";
-  
+import { LiteralBlock, DummyLiteralBlock, VariableBlock } from "./classes/ValueBlock.js";
 export function allowDrop(ev) 
 {
     ev.preventDefault();
@@ -198,7 +198,7 @@ export function drag(ev)
   ev.dataTransfer.setData("key", ev.target.id);
 }
 
-export function varDrop(ev)
+export function varLitDrop(ev)
 {
     ev.preventDefault();
 
@@ -229,9 +229,9 @@ export function varDrop(ev)
     }
 }
 
-export function varLitDrop(ev)
+export function varDrop(ev)
 {
-
+  
 }
 
 window.allowDrop = allowDrop;

@@ -2,7 +2,6 @@ import { allowDrop, drop, drag, varDrop, varLitDrop } from "../drag_drop.js";
 
 class CodeBlock 
 {
-    static count = 0;
     static blockTypes = 
     [
         "scope",       // if, else, elif, while
@@ -44,8 +43,13 @@ class CodeBlock
         
         this.addBar("left");
 
-        this.element.id = "block_" + CodeBlock.count;
-        CodeBlock.count++;
+        //generate a random id for the block
+        this.element.id = blockType + "-" + subtype + "-" + Math.floor(Math.random() * 1000000);
+
+        while(document.getElementById(this.element.id) != null)
+        {
+            this.element.id = blockType + "-" + subtype + "-" + Math.floor(Math.random() * 1000000);
+        }
     }
 
 

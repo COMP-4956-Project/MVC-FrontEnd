@@ -14,6 +14,11 @@ let equalityCon = document.getElementById("equalityContainer");
 let functionCon = document.getElementById("functionContainer");
 let assCon = document.getElementById("assignmentContainer");
 
+for(let i = 0; i < DummyLiteralBlock.subTypes.length; i++)
+{
+    let block = new DummyLiteralBlock(DummyLiteralBlock.subTypes[i]);
+    varCon.appendChild(block.element);
+}
 
 // iterate through all the subtypes in assignment block
 
