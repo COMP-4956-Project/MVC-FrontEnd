@@ -2,9 +2,8 @@ import { drag, allowDrop} from "../drag_drop.js";
 
 export class DummyLiteralBlock
 {
-    static count = 0;
 
-    static types = 
+    static subTypes = 
     [
         "string",
         "number",
@@ -14,19 +13,17 @@ export class DummyLiteralBlock
 
     constructor(type)
     {
-        if (!DummyLiteralBlock.types.includes(type))
+        if (!DummyLiteralBlock.subTypes.includes(type))
         {
             throw new Error("Invalid sub type");
         }
 
-        DummyLiteralBlock.count++;
-        if(DummyLiteralBlock.count > 1)
-        {
-            throw new Error("Only one dummy literal block allowed");
-        }
-
         this.element = document.createElement("div");
-        this.element.id = "dummy_literal";
+        this.element.id = "dummy_literal" + type;
+        if(document.getElementById(this.element.id) != null)
+        {
+            throw new Error("Duplicate id for dummy literal block, only one dummy literal block of each type is allowed");
+        }
         this.element.className = "dummy lit";
         this.element.dataset.blockType = "dummy_literal";
         this.element.dataset.subType = type;
@@ -45,8 +42,7 @@ export class DummyLiteralBlock
 
 export class LiteralBlock
 {
-    static count = 0;
-    static types = 
+    static subTypes = 
     [
         "string",
         "number",
@@ -56,7 +52,7 @@ export class LiteralBlock
 
     constructor(type, element = null)
     {
-        if (!LiteralBlock.types.includes(type))
+        if (!LiteralBlock.subTypes.includes(type))
         {
             throw new Error("Invalid sub type");
         }
@@ -69,8 +65,14 @@ export class LiteralBlock
         }
 
         this.element = document.createElement("div");
-        this.element.id = "literal_" + LiteralBlock.count;
-        LiteralBlock.count++;
+        //generate random id for the element
+        this.element.id =  "literal-" + type + "-" + Math.floor(Math.random() * 1000000);
+
+        while(document.getElementById(this.element.id) != null)
+        {
+            this.element.id =   "literal-" + type + "-" + Math.floor(Math.random() * 1000000);
+        }
+
         this.element.className = "literal-block";
         this.element.dataset.blockType = "literal";
         this.element.dataset.subType = type;
@@ -103,6 +105,9 @@ export class LiteralBlock
         input.type = "number";
         input.className = "number-input";
         input.value = 0;
+        input.step = "1";
+        input.placeholder = "0";
+        input.oninput = function() { this.value=(parseInt(this.value))}
         return input;
     }
 
@@ -127,7 +132,8 @@ export class LiteralBlock
         let input = document.createElement("input");
         input.type = "number";
         input.className = "float-input";
-        input.step = "any";
+        input.step = "0.1";
+        input.placeholder = "0.0";
         return input;
     }
 }
@@ -135,7 +141,6 @@ export class LiteralBlock
 
 export class VariableBlock
 {
-    static count = 0;
 
     constructor(type, value, name, element = null)
     {
@@ -150,8 +155,13 @@ export class VariableBlock
 
         this.element = document.createElement("div");
         this.element.className += "variable-" + name;
-        this.element.id = "variable_" + VariableBlock.count;
-        VariableBlock.count++;
+        //generate random id for the element
+        this.element.id =  "variable-" + type + "-" + Math.floor(Math.random() * 1000000);
+
+        while(document.getElementById(this.element.id) != null)
+        {
+            this.element.id =   "variable-" + type + "-" + Math.floor(Math.random() * 1000000);
+        }
 
         this.element.dataset.blockType = "variable";
         this.element.dataset.name = name;
