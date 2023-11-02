@@ -84,11 +84,13 @@ button {
 
 .content-wrapper {
     background-color: rgb(231, 231, 231);   
-    min-height: 100vh; 
+    height: 60vh; 
     width: 60vw;
     border-radius: 20px;
     margin-left: 20px;
 }
+
+
 
 .tab-headers {
     display: flex;
