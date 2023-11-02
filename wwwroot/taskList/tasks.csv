@@ -9,4 +9,4 @@ taskID,taskDifficulty,taskDescription
 23,medium,using a loop print a right angle triange made of asterisks (*) in three rows with each subsequent row containing one more * than the previous
 24,medium,using a loop print a square shape made of 5 the dollar signs ($) in each dimension
 25,medium,using a loop print a rectangle shape made of 8 equal signs (=) in each column of 4 rows
-100,hard,given the string '!yenruoj gnidoc uoy fo trap sa tfarCedoC gnisu rof uoy knahT\n.noitseuq lanifeht detelpmoc evah uoY !snoitalutargnoC' please print its reverse
+100,hard,given the string '!yenruoj gnidoc ruoy fo trap sa tfarCedoC gnisu rof uoy knahT\n.noitseuq lanif eht detelpmoc evah uoY !snoitalutargnoC' please print its reverse
