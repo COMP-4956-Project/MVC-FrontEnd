@@ -1,3 +1,9 @@
+#mainContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 p {
   font-size: 1em;
   font-weight: bold;
@@ -9,9 +15,9 @@ button {
   text-decoration: none;
 }
 .sidebar {
-  padding: 58px 0 0; /* Height of navbar */
+  padding: 58px 0 0;
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-  width: 240px;
+  width: 25%;
   z-index: 600;
 }
 .sidebar .active {
@@ -72,17 +78,13 @@ button {
   background-color: #9cd4e5;
 }
 
-#mainContainer {
-  display: flex;
-  flex-direction: row;
-}
-
 .content-wrapper {
   background-color: rgb(181, 181, 181);
-  height: 51vh;
-  width: 53.5vw;
+  height: 66vh;
+  width: 75vw;
   border-radius: 5px;
   margin-top: 10px;
+  max-width: 100%;
 }
 
 .tab-headers {
@@ -146,7 +148,7 @@ button {
   border-radius: 5px;
   margin: 10px;
   padding: 10px;
-  width: 55vw;
+  width: 62vw;
   margin-left: 20px;
 }
 
@@ -162,8 +164,10 @@ button {
   border: 1px solid #ccc;
   border-radius: 5px;
   margin: 10px;
+  margin-right: 10px;
+  margin-left: 50px;
   padding: 10px;
-  width: 55vw;
+  width: 25vw;
 }
 
 .left-sidebar-header {
@@ -173,3 +177,30 @@ button {
   text-align: center;
   font-weight: bold;
 }
+
+.tasks-button {
+  background-color: #a2a5a8;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  height: 40px;
+  margin-top: 10px;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  width: 100%;  
+}
+
+.tasks-button:hover {
+  background-color: #5b5b5b;
+}
+
+.task-button-header-parent {
+  width: 23.5vw;
+  margin-bottom: 20px;
+}
+

@@ -1,6 +1,11 @@
 ﻿<div id=mainContainer>
-  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white left-sidebar-menu">
-    <h5 class="left-sidebar-header">
+  <nav class="collapse d-lg-block sidebar left-sidebar-menu">
+    <div class="consistent-header-parent task-button-header-parent">
+        <h5 class="consistent-header">Tasks</h5>
+      <button class="tasks-button">Open Tasks</button>
+    </div>
+
+    <h5 class="consistent-header">
       Code Blocks
     </h5>
     <div class="card">
@@ -110,8 +115,8 @@
     </div>
   </nav>
 
-  <div class="code-editor">
-    <h5 class="code-editor-header">
+  <div class="consistent-header-parent">
+    <h5 class="consistent-header">
       Code Editor
     </h5>
 
@@ -123,6 +128,26 @@
         </div>
         <!-- Dynamically added tabs will appear here -->
         <button id="addTab">+</button>
+
+        <!-- ======================================== -->
+        <!-- ======= Run / Stop Code Section ======== -->
+        <!-- ======================================== -->
+        @* Run Button *@
+        @* <li class="nav-item run">
+        <div class="run">
+        <button id="run-button"></button>
+        <span><b>Run</b></span>
+        </div>
+        </li> *@
+
+        @* Stop Button *@
+        @* <li class="nav-item stop">
+        <div class="stop">
+        <button id="stop-button"></button>
+        <span><b>Stop</b></span>
+        </div>
+        </li> *@
+
       </div>
 
       <!-- Tab content -->
@@ -133,6 +158,7 @@
         </div>
         <!-- Dynamically added tab contents will appear here -->
       </div>
+
     </div>
 
     <!-- ======================================== -->
@@ -154,11 +180,11 @@
     <!-- ============ Tasks Section ============= -->
     <!-- ======================================== -->
 
-    <div class="tasks-container">
-      <partial name="Tasks" />
-    </div>
+    @* <div class="tasks-container">
+    <partial name="Tasks" />
+    </div> *@
 
-    <partial name="TutorialSidebar" />
+    @* <partial name="TutorialSidebar" /> *@
 
   </div>
 </div>
