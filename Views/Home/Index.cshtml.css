@@ -217,9 +217,9 @@ button {
   margin-top: 28px;
 }
 
-.checkmark {
+#checkmark {
   top: 50%;
-  transform: translate(710%, -70%);
+  transform: translate(910%, -70%);
   width: 100px;
 }
 
