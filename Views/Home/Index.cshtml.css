@@ -1,0 +1,175 @@
+p {
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+}
+
+button {
+  color: black;
+  text-decoration: none;
+}
+.sidebar {
+  padding: 58px 0 0; /* Height of navbar */
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+  width: 240px;
+  z-index: 600;
+}
+.sidebar .active {
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
+#headingOne {
+  background-color: #e87a7a;
+}
+#headingTwo {
+  background-color: #dfe87a;
+}
+#headingThree {
+  background-color: #e8cf7a;
+}
+
+#collapseOne {
+  background-color: #e5a4a4;
+}
+
+#headingFour {
+  background-color: #7ae87e;
+}
+
+#headingFive {
+  background-color: #7a85e8;
+}
+
+#collapseTwo {
+  background-color: #e1e4bb;
+}
+
+#collapseThree {
+  background-color: #dfd4b0;
+}
+
+#collapseFour {
+  background-color: #bbe1bc;
+}
+
+#collapseFive {
+  background-color: #d4d7f3;
+}
+
+#headingSix {
+  background-color: #e87ae3;
+}
+
+#collapseSix {
+  background-color: #eaa9e7;
+}
+
+#headingSeven {
+  background-color: #63cff1;
+}
+
+#collapseSeven {
+  background-color: #9cd4e5;
+}
+
+#mainContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.content-wrapper {
+  background-color: rgb(181, 181, 181);
+  height: 51vh;
+  width: 53.5vw;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.tab-headers {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+}
+
+.tab {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0 5px;
+  border-radius: 15px 15px 0 0;
+  background-color: #fff;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  top: 1px;
+  transition: all 0.3s ease;
+}
+
+.tab:hover {
+  background-color: #f0f0f0;
+}
+
+.tab.active {
+  background-color: #f0f0f0;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1) inset;
+}
+
+.close-tab {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.tab-content {
+  border-radius: 0 0 15px 15px;
+  padding: 20px;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.tutorial-sidebar {
+  width: 26.5%;
+  float: right;
+}
+
+.tasks-container {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  float: right;
+  clear: right;
+}
+
+.code-editor {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  width: 55vw;
+  margin-left: 20px;
+}
+
+.code-editor-header {
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.left-sidebar-menu {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  width: 55vw;
+}
+
+.left-sidebar-header {
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  text-align: center;
+  font-weight: bold;
+}

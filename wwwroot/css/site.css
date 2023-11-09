@@ -26,25 +26,52 @@ body {
     display: flex;
     align-items: center;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     aspect-ratio: 2/1;
-    width: 10%;
-    border: #0000ff 1px solid;
+    width: 10vw;
+
+    text-align: center;
+
+    border-top-style: solid;
+    border-bottom-style: solid;
+    
+    border-width: 2px;
+    border-color: black;
 }
+
+
+.code-block-slot
+{
+  width: 10vw;
+  aspect-ratio: 2/1;
+  border: black 2px solid;
+}
+
 
 .varlit
 {
-    width: 25%;
+    height: 45%;
     aspect-ratio: 1;
-    background-image: linear-gradient(to right,pink, white);
+    background-image: linear-gradient(to right, palevioletred, white);
     border: black 2px solid;
 }
 
 .var
 {
-    width: 25%;
+    height: 45%;
     aspect-ratio: 1;
     background-color: red;
+    border: black 2px solid;
+}
+
+.dummy.lit
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5vw;
+    aspect-ratio: 1;
+    background-color: white;
     border: black 2px solid;
 }
 
@@ -60,15 +87,180 @@ body {
 
 .assignment-block
 {
-  background-color: blue;
+  background-color: rgb(110, 75, 239);
 }
 
 .function-block
 {
-  background-color: green;
+  background-color: lightgreen;
 }
 
 .scope-block
 {
   background-color: cyan;
+  border: blue;
+}
+
+
+
+.logic-block
+{
+  background-color: yellow;
+}
+
+.sideBar
+{
+  height: 100%;
+  width: 5%;
+}
+
+.scope-block .right
+{
+  background-color: orchid;
+}
+
+.equality-block .right
+{
+  background-color: yellow;
+} 
+
+.assignment-block .right
+{
+  background-color: orange;
+}
+
+.logic-block .right
+{
+  background-color: orchid;
+}
+
+
+.expression
+{
+  height: fit-content;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+
+
+.line
+{
+  width: min-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scope-divider
+{
+  width: 10vw;
+  background-color: cyan;
+  background-image: linear-gradient(90deg, transparent 95%, black 5%);
+}
+
+.scope-container
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: min-content;
+}
+
+.else
+{
+  background-image: linear-gradient(90deg, cyan 95%, black 5%);
+}
+
+.threequarters
+{
+  width: 6.25vw;
+  aspect-ratio: 5/4;
+  justify-content: space-between;
+}
+
+.half
+{
+  width: 5vw;
+  aspect-ratio: 4/4;
+  justify-content: space-between;
+}
+
+.testContainer
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    border: 1px solid black;    
+}
+
+.card-body
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.code-block.dummy
+{
+
+}
+
+.literal-block input[type="text"]
+{
+  width: 80%;
+  height: 100%;
+  background-color: transparent;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.literal-block input[type="number"]
+{
+  width: 80%;
+  height: 100%;
+  background-color: transparent;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.literal-block input[type="checkbox"]
+{
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  text-align: center;
+  font-size: 10rem;
+  font-weight: bold;
+}
+
+.variable-block
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  background-color: red;
+  border: black 2px solid;
+}
+
+.variable-block.dummy
+{
+  width: 5vw;
+  height: 5vw;
+}
+
+.variable-name
+{
+  font-size: 2rem;
+  font-weight: bold;
+  text-decoration: underline;
 }

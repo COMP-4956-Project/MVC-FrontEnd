@@ -1,0 +1,168 @@
+﻿<div id=mainContainer>
+  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white left-sidebar-menu">
+    <h5 class="left-sidebar-header">
+      Code Blocks
+    </h5>
+    <div class="card">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+              aria-expanded="false" aria-controls="collapseOne">
+              Variables
+            </button>
+          </h5>
+        </div>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
+          <div class="card-body" id="variableContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" id="headingTwo">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+              aria-expanded="false" aria-controls="collapseTwo">
+              Logic
+            </button>
+          </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
+          <div class="card-body" id="logicContainer">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" id="headingThree">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+              aria-expanded="false" aria-controls="collapseThree">
+              Math
+            </button>
+          </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
+          <div class="card-body" id="expressionContainer"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" id="headingFour">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"
+            aria-expanded="false" aria-controls="collapseFour">
+            Functions
+          </button>
+        </h5>
+      </div>
+      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-bs-parent="#accordion">
+        <div class="card-body" id="functionContainer">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" id="headingFive">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFive"
+            aria-expanded="false" aria-controls="collapseFive">
+            Scope
+          </button>
+        </h5>
+      </div>
+      <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
+        <div class="card-body" id="scopeContainer">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" id="headingSix">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSix"
+            aria-expanded="false" aria-controls="collapseSix">
+            Equality
+          </button>
+        </h5>
+      </div>
+      <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-bs-parent="#accordion">
+        <div class="card-body" id="equalityContainer">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" id="headingSeven">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSeven"
+            aria-expanded="false" aria-controls="collapseSeven">
+            Assignment
+          </button>
+        </h5>
+      </div>
+      <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-bs-parent="#accordion">
+        <div class="card-body" id="assignmentContainer">
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="code-editor">
+    <h5 class="code-editor-header">
+      Code Editor
+    </h5>
+
+    <div class="content-wrapper">
+      <div class="tab-headers">
+        <div class="tab active" data-tab-id="1">
+          <span class="tab-title">Tab 1</span>
+          <button class="close-tab">x</button>
+        </div>
+        <!-- Dynamically added tabs will appear here -->
+        <button id="addTab">+</button>
+      </div>
+
+      <!-- Tab content -->
+      <div class="tab-contents">
+        <br><br>
+        <div class="tab-content active testContainer2 line-container" id="test2" data-tab-id="1">
+          @* Content for Tab 1 *@
+        </div>
+        <!-- Dynamically added tab contents will appear here -->
+      </div>
+    </div>
+
+    <!-- ======================================== -->
+    <!-- =========== Console Section ============ -->
+    <!-- ======================================== -->
+    <div class="console-container">
+      <partial name="Console" class="the-console" />
+    </div>
+
+  </div>
+
+  <!-- ======================================== -->
+  <!-- ========Tutorial Video Section ========= -->
+  <!-- ======================================== -->
+
+  <div class="container tutorial-sidebar">
+
+    <!-- ======================================== -->
+    <!-- ============ Tasks Section ============= -->
+    <!-- ======================================== -->
+
+    <div class="tasks-container">
+      <partial name="Tasks" />
+    </div>
+
+    <partial name="TutorialSidebar" />
+
+  </div>
+</div>
+
+<script type="module" defer src="js/testing.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="module" src="~/js/tabs.js"></script>

@@ -1,4 +1,4 @@
-
+import { allowDrop, drop, drag, varDrop, varLitDrop } from "../drag_drop.js";
 
 class CodeBlock 
 {
@@ -6,15 +6,14 @@ class CodeBlock
     [
         "scope",       // if, else, elif, while
         "function",     // user defined functions, built-in functions
-        "value",     // variable, literal
         "assignment",   // =, +=, -=, *=, /=
         "expression",   // +, -, *, /, %
         "equality",     // ==, !=, <, >, <=, >=
-        "logic",        // ||, &&, !
+        "logic",        // ||, &&
         "special"       // input, return
     ]
 
-    constructor(blockType, subtype) 
+    constructor(blockType, subtype, element = null) 
     {
         this.subType = subtype;
 
@@ -27,46 +26,106 @@ class CodeBlock
             throw new Error("Invalid block type");
         }
 
+        if(element != null)
+        {
+            this.element = element;
+            this.leftBar = element.children[0];
+            this.rightBar = element.children[element.children.length - 1];
+            return;
+        }
+
         this.element = document.createElement("div");
         this.element.className = "code-block";
         this.element.dataset.blockType = blockType;
+        this.element.dataset.subType = subtype;
         this.element.setAttribute("draggable", "true");
         this.element.addEventListener("dragstart", function(event){drag(event)});
-        this.element.id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    }
-}
+        
+        this.addBar("left");
 
-class LineCodeBlock extends CodeBlock
-{
-    constructor(blockType, subType, lineNumber, linePosition)
+        //generate a random id for the block
+        this.element.id = blockType + "-" + subtype + "-" + Math.floor(Math.random() * 1000000);
+
+        while(document.getElementById(this.element.id) != null)
+        {
+            this.element.id = blockType + "-" + subtype + "-" + Math.floor(Math.random() * 1000000);
+        }
+    }
+
+
+
+    addBar(side)
     {
-        super(blockType, subType);
-        this.element.className += " line-code-block";
+        let bar = document.createElement("div");
+        bar.className = "sideBar " + side;
+        this.element.appendChild(bar);
+    }
 
-        if (Number.isInteger(lineNumber) && lineNumber >= 0) 
+    checkNeighbors(slot, goodLeftSide, goodRightSide)
+    {
+        if(slot.previousElementSibling != null && goodLeftSide.includes(slot.previousElementSibling.dataset.blockType))
         {
-            this.lineNumber = lineNumber;
+            return CodeBlock.checkRightSide(slot, goodRightSide);
         }
-        else 
+        else if(slot.previousElementSibling == null && goodLeftSide.includes(null))
         {
-            throw new Error("Invalid line number");
+            return CodeBlock.checkRightSide(slot, goodRightSide);
         }
-
-        if (Number.isInteger(linePosition) && linePosition >= 0) 
+        else
         {
-            this.linePosition = linePosition;
-        }
-        else 
-        {
-            throw new Error("Invalid line position");
+            return false;
         }
 
-        this.element.dataset.lineNumber = lineNumber;
-        this.element.dataset.linePosition = linePosition;
+    }
+
+    static checkRightSide(slot, goodRightSide)
+    {
+        if(slot.nextElementSibling == null)
+        {
+            return true;
+        }
+        else if(slot.nextElementSibling != null && goodRightSide.includes(slot.nextElementSibling.dataset.blockType))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    addVarLit()
+    {
+        let varLit = document.createElement("div");
+        varLit.className = "varlit";
+        varLit.addEventListener("dragover", function(event){allowDrop(event)});
+        varLit.addEventListener("drop", function(event){varLitDrop(event)});
+        this.element.appendChild(varLit);
+
+        
+    }
+
+    addVar()
+    {
+        let varDiv = document.createElement("div");
+        varDiv.className = "var";
+        varDiv.addEventListener("dragover", function(event){allowDrop(event)});
+        varDiv.addEventListener("drop", function(event){varLitDrop(event)});
+        this.element.appendChild(varDiv);
+    }
+
+    addExpression(string)
+    {
+        let expressionElement = document.createElement("p");
+        expressionElement.className = "expression";
+        expressionElement.innerText = string;
+        this.element.appendChild(expressionElement);
     }
 }
 
-export class ScopeBlock extends LineCodeBlock
+
+
+export class ScopeBlock extends CodeBlock
 {
     static subTypes = 
     [
@@ -76,75 +135,112 @@ export class ScopeBlock extends LineCodeBlock
         "while"
     ]
 
-    constructor(subType, lineNumber, linePosition, endLineNumber = lineNumber + 1)
+    static goodLeftSide =
+    [
+        null
+    ]
+
+    static goodRightSide =
+    [
+        null,
+        "equality"
+    ]
+
+    constructor(subType, element = null)
     {
         if (!ScopeBlock.subTypes.includes(subType)) 
         {
             throw new Error("Invalid sub type");
         }
-        super("scope", subType, lineNumber, linePosition);
+        super("scope", subType, element);
 
-        this.element.className += " scope-block";
-
-        if(Number.isInteger(endLineNumber) && endLineNumber >= 0 && endLineNumber > lineNumber)
+        if(element != null)
         {
-            this.endLineNumber = endLineNumber;
+            return;
+        }
+
+        
+        if(subType == "else")
+        {
+            this.element.className += " else";
         }
         else
         {
-            throw new Error("Invalid end line number");
+            this.element.className += " scope-block";
+
         }
+
+        this.element.className += " threequarters"
+
+        this.addExpression(subType.toUpperCase());
+        this.addBar("right");
+
+    }
+
+    hasValidNeighbors(slot)
+    {
+
+        if(this.element.parentElement != null && this.element.parentElement.contains(slot))
+        {
+            return false;
+        }
+        
+        return this.checkNeighbors(slot, ScopeBlock.goodLeftSide, ScopeBlock.goodRightSide)
     }
 }
 
 export class FunctionBlock extends CodeBlock
 {
-    constructor(subType, lineNumber, linePosition, input = null, output = null)
-    {
-        super("function", lineNumber, linePosition);
-        this.element.className += " function-block";
-
-        this.subType = subType;
-
-        this.inputElement = document.createElement("div");
-        this.outputElement = document.createElement("div");
-
-        this.inputElement.className = "varlit";
-        this.outputElement.className = "var";
-
-        this.element.appendChild(this.inputElement);
-        this.element.appendChild(this.outputElement);
-    }
-}
-
-export class ValueBlock extends CodeBlock
-{
     static subTypes =
     [
-        "literal",
-        "variable"
+        "print"
     ]
 
-    constructor(blockType, subType, value, variableName = null)
+    static goodLeftSide =
+    [
+        null
+    ]
+
+    static goodRightSide 
+    [
+        null
+    ]
+    
+
+    constructor(subType, element = null)
     {
-        if (!ValueBlock.subTypes.includes(subType)) 
+        if (!FunctionBlock.subTypes.includes(subType))
         {
             throw new Error("Invalid sub type");
         }
 
-        super(blockType, subType);
+        super("function" , subType, element);
 
-        this.element.className += " value-block";
-        this.value = value;
-
-        if (subType == "variable")
+        if(element != null)
         {
-            this.variableName = variableName;
+            return;
         }
+
+        this.element.className += " function-block";
+
+        if(subType == "print")
+        {
+            this.addExpression("Print");
+        }
+
+        this.addVarLit();
+        //this.addVar();
+        this.addBar("right");
+    }
+
+    hasValidNeighbors(slot)
+    {
+        return this.checkNeighbors(slot, FunctionBlock.goodLeftSide, FunctionBlock.goodRightSide)
     }
 }
 
-export class AssignmentBlock extends LineCodeBlock
+
+export class AssignmentBlock extends CodeBlock
 {
     static subTypes =
     [
@@ -155,60 +251,47 @@ export class AssignmentBlock extends LineCodeBlock
         "/="
     ]
 
-    constructor(subType, lineNumber, linePosition)
+    static goodLeftSide =
+    [
+        null
+    ]
+
+    static goodRightSide =
+    [
+        "expression",
+        null
+    ]
+
+    constructor(subType, element = null)
     {
         if (!AssignmentBlock.subTypes.includes(subType)) 
         {
             throw new Error("Invalid sub type");
         }
 
-        super("assignment", subType, lineNumber, linePosition);
+        super("assignment", subType, element);
 
+        if(element != null)
+        {
+            return;
+        }
+
+        
         this.element.className += " assignment-block";
-        this.variableElement = document.createElement("div");
-        this.variableElement.className = "varlit";
 
-        this.expressionElement = document.createElement("p");
-        this.expressionElement.className = "expression";
-        this.expressionElement.innerText = subType;
-
-        this.element.appendChild(this.variableElement);
-        this.element.appendChild(this.expressionElement);
-
+        this.addVar();
+        this.addExpression(subType);
+        this.addVarLit();
+        this.addBar("right");
     }
 
-    setVariable(variableBlock)
+    hasValidNeighbors(slot)
     {
-        this.variableElement.children[0] = variableBlock;
+        return this.checkNeighbors(slot, AssignmentBlock.goodLeftSide, AssignmentBlock.goodRightSide);
     }
 }
 
-export class FullExpressionBlock extends LineCodeBlock
-{
-    constructor(blockType, subType, lineNumber, linePosition)
-    {
-        super("expression", "full", lineNumber, linePosition);
-
-        this.element.className += " expression-block";
-        this.element.innerText = "expression";
-
-        this.variableElement = document.createElement("div");
-        this.variableElement.className = "var";
-
-        this.expressionElement = document.createElement("p");
-        this.expressionElement.className = "expression";
-        this.expressionElement.innerText = subType;
-
-        this.secondVariableElement = document.createElement("div");
-        this.secondVariableElement.className = "varlit";
-
-        this.element.appendChild(this.variableElement);
-        this.element.appendChild(this.expressionElement);
-        this.element.appendChild(this.secondVariableElement);
-    }
-}
-
-export class ExpressionBlock extends LineCodeBlock
+export class ExpressionBlock extends CodeBlock
 {
     static subTypes =
     [
@@ -219,29 +302,48 @@ export class ExpressionBlock extends LineCodeBlock
         "%"
     ]
 
-    constructor(blockType, subType, lineNumber, linePosition)
+    static goodLeftSide =
+    [
+        "expression",
+        "assignment",
+    ]
+
+    static goodRightSide =
+    [
+        "expression",
+        null
+    ]
+
+
+    constructor(subType, element = null)
     {
-        if (!ExpressionBlock.subTypes.includes(subType)) 
+        if (!ExpressionBlock.subTypes.includes(subType))
         {
             throw new Error("Invalid sub type");
         }
 
-        super("expression", subType, lineNumber, linePosition);
+        super("expression", subType, element);
 
-        this.element.classList.add("expression-block");
-        this.variableElement = document.createElement("div");
-        this.variableElement.className = "varlit";
+        if(element != null)
+        {
+            return;
+        }
 
-        this.expressionElement = document.createElement("p");
-        this.expressionElement.className = "expression";
-        this.expressionElement.innerText = subType;
+        this.element.className += " expression-block threequarters";
 
-        this.element.appendChild(this.expressionElement);
-        this.element.appendChild(this.variableElement);
+        this.addExpression(subType);
+        this.addVarLit();
+        this.addBar("right");
+    }
+
+    hasValidNeighbors(slot)
+    {
+        return this.checkNeighbors(slot, ExpressionBlock.goodLeftSide, ExpressionBlock.goodRightSide);
     }
 }
 
-export class EqualityBlock extends LineCodeBlock
+
+export class EqualityBlock extends CodeBlock
 {
     static subTypes =
     [
@@ -250,40 +352,114 @@ export class EqualityBlock extends LineCodeBlock
         "<",
         ">",
         "<=",
-        ">=",
-        "||",
-        "&&"
+        ">="
     ]
 
-    constructor(subType, lineNumber, linePosition)
+    static goodLeftSide =
+    [
+        "logic",
+        "scope"
+    ]
+
+    static goodRightSide =
+    [
+        "logic",
+        null
+    ]
+
+    constructor(subType, element = null)
     {
         if (!EqualityBlock.subTypes.includes(subType)) 
         {
             throw new Error("Invalid sub type");
         }
 
-        super("equality", subType, lineNumber, linePosition);
+        super("equality", subType, element);
+
+        if(element != null)
+        {   
+            return;
+        }
 
         this.element.className += " equality-block";
 
-        this.variableElement = document.createElement("div");
-        this.variableElement.className = "varlit";
+        this.addVarLit();
+        this.addExpression(subType);
+        this.addVarLit();
+        this.addBar("right");
+    }
 
-        this.expressionElement = document.createElement("p");
-        this.expressionElement.className = "expression";
-        this.expressionElement.innerText = subType;
-
-        this.secondVariableElement = document.createElement("div");
-        this.secondVariableElement.className = "varlit";
-
-        this.element.appendChild(this.variableElement);
-        this.element.appendChild(this.expressionElement);
-        this.element.appendChild(this.secondVariableElement);
+    hasValidNeighbors(slot)
+    {
+        return this.checkNeighbors(slot, EqualityBlock.goodLeftSide, EqualityBlock.goodRightSide);
     }
 }
 
-function drag(ev) 
+export class LogicBlock extends CodeBlock
 {
-    console.log("dragging");
-  ev.dataTransfer.setData("key", ev.target.id);
+    static subTypes =
+    [
+        "or",
+        "and"
+    ]
+
+    static goodLeftSide =
+    [
+        "equality"
+    ]
+
+    static goodRightSide =
+    [
+        "equality",
+        null
+    ]
+
+    constructor(subType, element = null)
+    {
+        if (!LogicBlock.subTypes.includes(subType)) 
+        {
+            throw new Error("Invalid sub type");
+        }
+
+        super("logic", subType, element);
+
+        if(element != null)
+        {
+            return;
+        }
+
+        this.element.className += " logic-block threequarters";
+
+        this.addExpression(subType.toUpperCase());
+        this.addBar("right");
+    }
+
+    hasValidNeighbors(slot)
+    {
+        return this.checkNeighbors(slot, LogicBlock.goodLeftSide, LogicBlock.goodRightSide);
+    }
 }
+
+export class CodeSlot
+{
+    constructor()
+    {
+        this.element = document.createElement("div");
+        this.element.className = "code-block-slot";
+        this.element.addEventListener("dragover", function(event){allowDrop(event)});
+        this.element.addEventListener("drop", function(event){drop(event)});
+    }
+
+    
+}
+
+export function isNullOrEmpty(slot)
+{
+  if(slot == null || slot.className == "code-block-slot")
+  {
+    return true;
+  }
+
+  return false;
+}
+
