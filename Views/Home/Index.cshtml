@@ -193,25 +193,20 @@
           <div class="wrong-answer-message"></div>
         </div>
 
-      </div>
-
-      <!-- ======================================== -->
-      <!-- =========== Console Section ============ -->
-      <!-- ======================================== -->
-      @* <div class="console-container">
-      <partial name="Console" class="the-console" />
-      </div> *@
-
-      <div class="consistent-header-parent">
-        <h5 class="consistent-header">
-          Console Output
-        </h5>
-        <div class="console-content">
-          <textarea id="console-textarea" rows="18" oninput="updateConsoleOutput(this.value)"></textarea>
-          <div class="console-error-line"></div>
+        <!-- ======================================== -->
+        <!-- =========== Console Section ============ -->
+        <!-- ======================================== -->
+        <div class="consistent-header-parent console-container">
+          <h5 class="consistent-header">
+            Console Output
+          </h5>
+          <div class="console-content">
+            <textarea id="console-textarea" oninput="updateConsoleOutput(this.value)"></textarea>
+            <div class="console-error-line"></div>
+          </div>
         </div>
-      </div>
 
+      </div>
     </div>
 
     <!-- ======================================== -->
@@ -248,6 +243,11 @@
     {
       consoleOutput = value;
       console.log("consoleOutput: ", consoleOutput);
+
+      // Update the height of the textarea based on the content
+      const textarea = document.getElementById('console-textarea');
+      textarea.style.height = 'auto';
+      textarea.style.height = textarea.scrollHeight + 'px';
     }
 
     function checkAnswer()
@@ -279,7 +279,6 @@
         incorrectAnswerMessageContainer.innerHTML = 'Oops! Let us try again :) ';
       }
     }
-
 
 
     window.onload = function ()

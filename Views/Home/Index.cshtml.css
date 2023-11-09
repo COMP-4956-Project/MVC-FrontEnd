@@ -79,7 +79,7 @@ button {
 
 .content-wrapper {
   background-color: rgb(181, 181, 181);
-  height: 71vh;
+  height: auto;
   width: 75vw;
   border-radius: 5px;
   margin-top: 10px;
@@ -215,6 +215,7 @@ button {
   margin: 40px;
   margin-bottom: 28px;
   margin-top: 28px;
+  font-weight: bold;
 }
 
 .full-width {
@@ -227,15 +228,20 @@ button {
   border: none;
 }
 
+.console-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+}
+
 .console-content {
+  flex-grow: 1; 
   background-color: #f4f4f4;
   border: 1px solid #ccc;
   border-radius: 5px;
-  min-height: 292px;
   margin: 5px 0;
   padding: 10px;
   overflow-y: auto;
-  width: 100%;
 }
 
 .console-line {
@@ -253,11 +259,12 @@ button {
 
 #console-textarea {
   width: 100%;
-  height: 100%;
+  height: auto;
   resize: none;
   border: none;
   outline: none;
 }
+
 
 .run-button {
   margin-left: 1005px;
@@ -274,3 +281,9 @@ button {
 .run-button:hover {
   background-color: #45a049;
 }
+
+.content-wrapper {
+  position: sticky;
+  top: 0;
+}
+
