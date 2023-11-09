@@ -110,7 +110,7 @@ class CodeBlock
         let varDiv = document.createElement("div");
         varDiv.className = "var";
         varDiv.addEventListener("dragover", function(event){allowDrop(event)});
-        varDiv.addEventListener("drop", function(event){varDrop(event)});
+        varDiv.addEventListener("drop", function(event){varLitDrop(event)});
         this.element.appendChild(varDiv);
     }
 
