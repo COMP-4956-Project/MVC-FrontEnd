@@ -227,4 +227,5 @@ button {
 
 .padding-10, .card {
   padding: 10px;
+  border: none;
 }
