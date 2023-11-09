@@ -1,8 +1,9 @@
 ﻿<div id=mainContainer>
   <nav class="collapse d-lg-block sidebar left-sidebar-menu">
     <div class="consistent-header-parent task-button-header-parent">
-        <h5 class="consistent-header">Tasks</h5>
-      <button class="tasks-button">Open Tasks</button>
+      <h5 class="consistent-header">Tasks</h5>
+      @* <button class="tasks-button">Open Tasks</button> *@
+      <button class="tasks-button" onclick="openTasksModal()">Select a task</button>
     </div>
 
     <h5 class="consistent-header">
@@ -116,11 +117,18 @@
   </nav>
 
   <div class="consistent-header-parent">
-    <h5 class="consistent-header">
-      Code Editor
-    </h5>
-
+    <div class="task-description">
+      <h5 class="consistent-header">
+        Task Description
+      </h5>
+        <div class="description-of-selected-task"></div>
+      <br><br>
+    </div>
     <div class="content-wrapper">
+      <h5 class="consistent-header">
+        Code Editor
+      </h5>
+
       <div class="tab-headers">
         <div class="tab active" data-tab-id="1">
           <span class="tab-title">Tab 1</span>
@@ -174,21 +182,49 @@
   <!-- ========Tutorial Video Section ========= -->
   <!-- ======================================== -->
 
-  <div class="container tutorial-sidebar">
+  @* <div class="container tutorial-sidebar">
 
-    <!-- ======================================== -->
-    <!-- ============ Tasks Section ============= -->
-    <!-- ======================================== -->
+  <!-- ======================================== -->
+  <!-- ============ Tasks Section ============= -->
+  <!-- ======================================== -->
 
-    @* <div class="tasks-container">
-    <partial name="Tasks" />
-    </div> *@
+  <div class="tasks-container">
+  <partial name="TasksModal" />
+  </div>
 
-    @* <partial name="TutorialSidebar" /> *@
+  <partial name="TutorialSidebar" />
 
+  </div> *@
+
+  <div id="tasksContainer">
+    <partial name="TasksModal" />
   </div>
 </div>
+<script>
+  function openTasksModal()
+  {
+    $('#tasksModal').modal('show');
+  }
 
+  function closeModal()
+  {
+    document.querySelector('.modal-overlay').style.display = 'none';
+    document.getElementById('tasksModal').style.display = 'none';
+  }
+
+  document.querySelector('.modal-overlay').addEventListener('click', function ()
+  {
+    closeModal();
+  });
+
+  protected void Page_Load(object sender, EventArgs e) {
+    tasksContainer.Visible = false;
+  }
+
+  protected void openTasksModal_ServerClick(object sender, EventArgs e) {
+    tasksContainer.Visible = true;
+  }
+</script>
 <script type="module" defer src="js/testing.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="module" src="~/js/tabs.js"></script>
