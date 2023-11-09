@@ -75,4 +75,31 @@ for (let i = 0; i < ScopeBlock.subTypes.length; i++)
 
 lineMaker(document.getElementById("test2"));
 
+document.getElementById("test-button").onclick = function () {
+    console.log("clicked");
+    let lines = document.getElementsByClassName("tab-contents")[0].getElementsByClassName("line");
+    let list = [];
+    for (let i = 0; i < lines.length; i++) {
+        let blocks = lines[i].getElementsByClassName("code-block");
+        if (blocks.length) {
+            console.log(blocks[0].dataset.blockType + " : " + blocks[0].dataset.subType);
+            let blockObject = {"type": blocks[0].dataset.blockType, "field": blocks[0].dataset.subType};
+            if (blocks.length > 1) {
+                blockObject["input"] = [];
+                for (let j = 1; j < blocks.length; j++) {
+                    console.log("input: " + blocks[j].dataset.blockType + " : " + blocks[j].dataset.subType);
+                    blockObject["input"].push({"type": blocks[j].dataset.blockType, "field": blocks[0].dataset.subType});
+                }
+            }
+            list.push(blockObject);
+        }
+        
+        // if (blocks) {
+        //     
+        // }
+        
+    }
+    console.log(list);
+};
 
+console.log("here");

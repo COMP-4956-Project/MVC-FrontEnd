@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 namespace MVC_Backend_Frontend.Models
 {
     public class Block {
-        public string type { get; set; } // variable, function, control, logic, value
-        
+        public string type { get; set; } // variable, function, control (scope), logic, value
+        // variable = assignment
+        // control = scope
+        // logic = logic + equality
+        // value = expression + literals
+
         public string? instruction { get; set; } // only has print, if, while
 
         public Block? input { get; set; } // logic, values, variables, and chains
@@ -26,6 +30,8 @@ namespace MVC_Backend_Frontend.Models
 
         public int? num { get; set; } // int literal
 
+        // add float
+        // add boolean
 
         // OPERATOR BLOCKS
         public string? operation { get; set; } // + - * /, = += -= *= /=
