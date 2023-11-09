@@ -11,6 +11,13 @@
       transform: translate(910%, -70%);
       width: 100px;
     }
+
+    .wrong-answer-message {
+      top: 50%;
+      transform: translate(810%, -70%);
+      width: 120px;
+      font-size: 32px !important;
+    }
   </style>
 </head>
 
@@ -182,9 +189,8 @@
             @* Content for Tab 1 *@
           </div>
           <!-- Dynamically added tab contents will appear here -->
-          <div class="checkmark-image">
-
-          </div>
+          <div class="checkmark-image"></div>
+          <div class="wrong-answer-message"></div>
         </div>
 
       </div>
@@ -236,6 +242,7 @@
     let answer = "hello world"; // for question 1
     const checkmarkImage = document.getElementById('checkmark');
     const checkmarkContainer = document.querySelector('.checkmark-image');
+    const incorrectAnswerMessageContainer = document.querySelector('.wrong-answer-message');
 
     function updateConsoleOutput(value)
     {
@@ -245,6 +252,10 @@
 
     function checkAnswer()
     {
+      console.log("run button clicked");
+      console.log("consoleOutput: ", consoleOutput);
+      console.log("answer: ", answer);
+
       if (consoleOutput.trim() === answer)
       {
         answerIsCorrect = true;
@@ -253,15 +264,22 @@
         answerIsCorrect = false;
       }
 
-      if (!answerIsCorrect)
+      console.log("answerIsCorrect: ", answerIsCorrect);
+
+      if (answerIsCorrect)
       {
-        checkmarkImage.style.display = 'none';
-        checkmarkContainer.innerHTML = 'Oops! Let us try again :) ';
+        incorrectAnswerMessageContainer.innerHTML = '';
+        checkmarkContainer.innerHTML = '<img src="/images/checkMark.png" alt="check mark image" id="checkmark">';
+        console.log("IF checkmarkContainer: ", checkmarkContainer);
       } else
       {
-        checkmarkContainer.innerHTML = '<img src="/images/checkMark.png" alt="check mark image" id="checkmark">';
+        // Clear previous content in checkmarkContainer
+        checkmarkContainer.innerHTML = '';
+
+        incorrectAnswerMessageContainer.innerHTML = 'Oops! Let us try again :) ';
       }
     }
+
 
 
     window.onload = function ()
