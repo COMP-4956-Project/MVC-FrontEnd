@@ -123,10 +123,12 @@ button {
 .tab-content {
   border-radius: 0 0 15px 15px;
   padding: 20px;
+  width: 30vw;
 }
 
 .tab-content.active {
   display: block;
+  margin-left: 70px;
 }
 
 .tutorial-sidebar {
@@ -194,7 +196,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 3%;
 }
 
 .tasks-button:hover {
@@ -287,3 +288,19 @@ button {
   top: 0;
 }
 
+.tab-contents {
+  position: relative;
+}
+
+.checkmark-image {
+  position: absolute;
+  top: 120px; 
+  left: -140px; 
+}
+
+.wrong-answer-message {
+  position: absolute;
+  top: 120px; 
+  left: -250px; 
+  font-size: small;
+}

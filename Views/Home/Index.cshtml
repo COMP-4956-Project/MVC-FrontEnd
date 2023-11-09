@@ -10,13 +10,18 @@
       top: 50%;
       transform: translate(910%, -70%);
       width: 100px;
+      position: relative;
     }
 
     .wrong-answer-message {
       top: 50%;
-      transform: translate(810%, -70%);
+      transform: translate(275%, -70%);
       width: 120px;
       font-size: 32px !important;
+      white-space: nowrap;
+      overflow: visible;
+      width: auto;
+      text-overflow: clip;
     }
   </style>
 </head>
@@ -187,10 +192,11 @@
           <br><br>
           <div class="tab-content active testContainer2 line-container" id="test2" data-tab-id="1">
             @* Content for Tab 1 *@
+            <div class="checkmark-image"></div>
+            <div class="wrong-answer-message"></div>
           </div>
           <!-- Dynamically added tab contents will appear here -->
-          <div class="checkmark-image"></div>
-          <div class="wrong-answer-message"></div>
+
         </div>
 
         <!-- ======================================== -->
