@@ -21,4 +21,12 @@
     margin-top: 5px;
     padding: 5px;
   }
+
+  .console-textarea {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    border: none;
+    outline: none;
+  }
   
