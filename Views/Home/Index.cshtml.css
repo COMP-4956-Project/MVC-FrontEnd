@@ -204,3 +204,11 @@ button {
   margin-bottom: 20px;
 }
 
+.description-of-selected-task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; 
+  text-align: center; 
+  margin: 40px;
+}
