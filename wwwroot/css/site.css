@@ -206,10 +206,6 @@ body {
   flex-wrap: wrap;
 }
 
-.code-block.dummy
-{
-
-}
 
 .literal-block input[type="text"]
 {
@@ -242,7 +238,6 @@ body {
 }
 
 .consistent-header-parent {
-  border: 1px solid #ccc;
   border-radius: 5px;
   margin: 10px;
   width: 66vw;
