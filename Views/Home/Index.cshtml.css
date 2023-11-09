@@ -213,6 +213,8 @@ button {
   height: 100%;
   text-align: center;
   margin: 40px;
+  margin-bottom: 28px;
+  margin-top: 28px;
 }
 
 .checkmark {
