@@ -245,3 +245,54 @@ body {
   font-weight: bold;
   text-decoration: underline;
 }
+
+
+/* Login Page CSS */
+
+.login-box {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: #FFC300;
+  padding: 20px;
+
+  max-width: 500px; 
+  margin: auto;
+}
+
+/* Registration Page CSS */
+
+.registration-box {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: #FFC300;
+  padding: 20px;
+
+  max-width: 500px; 
+  margin: auto;
+}
+
+/* mobile screens */
+@media (max-width: 768px) {
+  .container.login-box {
+      width: 100%;
+  }
+
+  .text-center img {
+      width: 80%;
+      height: auto;
+  }
+
+  .form-group {
+      margin: 10px 0;
+  }
+
+  .btn {
+      display: block;
+      width: 50%;
+      margin-bottom: 10px;
+  }
+}
+
+.sticky-footer {
+  margin-top: 0px;
+}
