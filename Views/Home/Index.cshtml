@@ -1,9 +1,42 @@
-﻿<div id=mainContainer>
-  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white left-sidebar-menu">
-    <h5 class="left-sidebar-header">
-      Code Blocks
-    </h5>
-    <div class="card">
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Craft</title>
+  <style>
+    #checkmark {
+      top: 50%;
+      transform: translate(910%, -70%);
+      width: 100px;
+      position: relative;
+    }
+
+    .wrong-answer-message {
+      top: 50%;
+      transform: translate(275%, -70%);
+      width: 120px;
+      font-size: 32px !important;
+      white-space: nowrap;
+      overflow: visible;
+      width: auto;
+      text-overflow: clip;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id=mainContainer>
+    <nav class="collapse d-lg-block sidebar left-sidebar-menu consistent-header-parent">
+      <h5 class=" consistent-header full-width">Tasks</h5>
+      <button class="tasks-button padding-10" onclick="openTasksModal()">Select a task</button>
+      <br>
+      <h5 class="consistent-header full-width">
+        Code Blocks
+      </h5>
+
       <div class="card">
         <div class="card-header" id="headingOne">
           <h5 class="mb-0">
@@ -47,122 +80,243 @@
           <div class="card-body" id="expressionContainer"></div>
         </div>
       </div>
-    </div>
 
-    <div class="card">
-      <div class="card-header" id="headingFour">
-        <h5 class="mb-0">
-          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"
-            aria-expanded="false" aria-controls="collapseFour">
-            Functions
-          </button>
+
+      <div class="card">
+        <div class="card-header" id="headingFour">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"
+              aria-expanded="false" aria-controls="collapseFour">
+              Functions
+            </button>
+          </h5>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-bs-parent="#accordion">
+          <div class="card-body" id="functionContainer">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" id="headingFive">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFive"
+              aria-expanded="false" aria-controls="collapseFive">
+              Scope
+            </button>
+          </h5>
+        </div>
+        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
+          <div class="card-body" id="scopeContainer">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" id="headingSix">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSix"
+              aria-expanded="false" aria-controls="collapseSix">
+              Equality
+            </button>
+          </h5>
+        </div>
+        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-bs-parent="#accordion">
+          <div class="card-body" id="equalityContainer">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" id="headingSeven">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSeven"
+              aria-expanded="false" aria-controls="collapseSeven">
+              Assignment
+            </button>
+          </h5>
+        </div>
+        <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-bs-parent="#accordion">
+          <div class="card-body" id="assignmentContainer">
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="consistent-header-parent">
+      <div class="task-description">
+        <h5 class="consistent-header">
+          Task Description
         </h5>
+        <div class="description-of-selected-task">Currently no task selected</div>
       </div>
-      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-bs-parent="#accordion">
-        <div class="card-body" id="functionContainer">
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header" id="headingFive">
-        <h5 class="mb-0">
-          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFive"
-            aria-expanded="false" aria-controls="collapseFive">
-            Scope
-          </button>
+      <div class="content-wrapper">
+        <h5 class="consistent-header">
+          Code Editor
         </h5>
-      </div>
-      <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
-        <div class="card-body" id="scopeContainer">
-        </div>
-      </div>
-    </div>
 
-    <div class="card">
-      <div class="card-header" id="headingSix">
-        <h5 class="mb-0">
-          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSix"
-            aria-expanded="false" aria-controls="collapseSix">
-            Equality
-          </button>
-        </h5>
-      </div>
-      <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-bs-parent="#accordion">
-        <div class="card-body" id="equalityContainer">
-        </div>
-      </div>
-    </div>
+        <div class="tab-headers">
+          <div class="tab active" data-tab-id="1">
+            <span class="tab-title">Tab 1</span>
+            <button class="close-tab">x</button>
+          </div>
+          <!-- Dynamically added tabs will appear here -->
+          <button id="addTab">+</button>
 
-    <div class="card">
-      <div class="card-header" id="headingSeven">
-        <h5 class="mb-0">
-          <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSeven"
-            aria-expanded="false" aria-controls="collapseSeven">
-            Assignment
-          </button>
-        </h5>
-      </div>
-      <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-bs-parent="#accordion">
-        <div class="card-body" id="assignmentContainer">
-        </div>
-      </div>
-    </div>
-  </nav>
+          <button class="run-button" onclick="checkAnswer()">Run</button>
 
-  <div class="code-editor">
-    <h5 class="code-editor-header">
-      Code Editor
-    </h5>
 
-    <div class="content-wrapper">
-      <div class="tab-headers">
-        <div class="tab active" data-tab-id="1">
-          <span class="tab-title">Tab 1</span>
-          <button class="close-tab">x</button>
-        </div>
-        <!-- Dynamically added tabs will appear here -->
-        <button id="addTab">+</button>
-      </div>
+          <!-- ======================================== -->
+          <!-- ======= Run / Stop Code Section ======== -->
+          <!-- ======================================== -->
+          @* Run Button *@
+          @* <li class="nav-item run">
+          <div class="run">
+          <button id="run-button"></button>
+          <span><b>Run</b></span>
+          </div>
+          </li> *@
 
-      <!-- Tab content -->
-      <div class="tab-contents">
-        <br><br>
-        <div class="tab-content active testContainer2 line-container" id="test2" data-tab-id="1">
-          @* Content for Tab 1 *@
+          @* Stop Button *@
+          @* <li class="nav-item stop">
+          <div class="stop">
+          <button id="stop-button"></button>
+          <span><b>Stop</b></span>
+          </div>
+          </li> *@
+
         </div>
-        <!-- Dynamically added tab contents will appear here -->
+
+        <!-- Tab content -->
+        <div class="tab-contents">
+          <br><br>
+          <div class="tab-content active testContainer2 line-container" id="test2" data-tab-id="1">
+            @* Content for Tab 1 *@
+            <div class="checkmark-image"></div>
+            <div class="wrong-answer-message"></div>
+          </div>
+          <!-- Dynamically added tab contents will appear here -->
+
+        </div>
+
+        <!-- ======================================== -->
+        <!-- =========== Console Section ============ -->
+        <!-- ======================================== -->
+        <div class="consistent-header-parent console-container">
+          <h5 class="consistent-header">
+            Console Output
+          </h5>
+          <div class="console-content">
+            <textarea id="console-textarea" oninput="updateConsoleOutput(this.value)"></textarea>
+            <div class="console-error-line"></div>
+          </div>
+        </div>
+
       </div>
     </div>
 
     <!-- ======================================== -->
-    <!-- =========== Console Section ============ -->
+    <!-- ========Tutorial Video Section ========= -->
     <!-- ======================================== -->
-    <div class="console-container">
-      <partial name="Console" class="the-console" />
-    </div>
 
-  </div>
-
-  <!-- ======================================== -->
-  <!-- ========Tutorial Video Section ========= -->
-  <!-- ======================================== -->
-
-  <div class="container tutorial-sidebar">
+    @* <div class="container tutorial-sidebar">
 
     <!-- ======================================== -->
     <!-- ============ Tasks Section ============= -->
     <!-- ======================================== -->
 
     <div class="tasks-container">
-      <partial name="Tasks" />
+    <partial name="TasksModal" />
     </div>
 
     <partial name="TutorialSidebar" />
 
-  </div>
-</div>
+    </div> *@
 
-<script type="module" defer src="js/testing.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="module" src="~/js/tabs.js"></script>
+    <div id="tasksContainer">
+      <partial name="TasksModal" />
+    </div>
+  </div>
+  <script>
+    let answerIsCorrect = false;
+    let consoleOutput = "";
+    let answer = "hello world"; // for question 1
+    const checkmarkImage = document.getElementById('checkmark');
+    const checkmarkContainer = document.querySelector('.checkmark-image');
+    const incorrectAnswerMessageContainer = document.querySelector('.wrong-answer-message');
+
+    function updateConsoleOutput(value)
+    {
+      consoleOutput = value;
+      console.log("consoleOutput: ", consoleOutput);
+
+      // Update the height of the textarea based on the content
+      const textarea = document.getElementById('console-textarea');
+      textarea.style.height = 'auto';
+      textarea.style.height = textarea.scrollHeight + 'px';
+    }
+
+    function checkAnswer()
+    {
+      console.log("run button clicked");
+      console.log("consoleOutput: ", consoleOutput);
+      console.log("answer: ", answer);
+
+      if (consoleOutput.trim() === answer)
+      {
+        answerIsCorrect = true;
+      } else
+      {
+        answerIsCorrect = false;
+      }
+
+      console.log("answerIsCorrect: ", answerIsCorrect);
+
+      if (answerIsCorrect)
+      {
+        incorrectAnswerMessageContainer.innerHTML = '';
+        checkmarkContainer.innerHTML = '<img src="/images/checkMark.png" alt="check mark image" id="checkmark">';
+        console.log("IF checkmarkContainer: ", checkmarkContainer);
+      } else
+      {
+        // Clear previous content in checkmarkContainer
+        checkmarkContainer.innerHTML = '';
+
+        incorrectAnswerMessageContainer.innerHTML = 'Oops! Let us try again :) ';
+      }
+    }
+
+
+    window.onload = function ()
+    {
+      function openTasksModal()
+      {
+        $('#tasksModal').modal('show');
+      }
+
+      function closeModal()
+      {
+        document.querySelector('.modal-overlay').style.display = 'none';
+        document.getElementById('tasksModal').style.display = 'none';
+      }
+
+      document.querySelector('.modal-overlay').addEventListener('click', function ()
+      {
+        closeModal();
+      });
+
+      tasksContainer.Visible = false;
+
+      openTasksModal_ServerClick = function ()
+      {
+        tasksContainer.Visible = true;
+      };
+    };
+  </script>
+
+  <script type="module" defer src="js/testing.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="module" src="~/js/tabs.js"></script>
+</body>
+
+</html>
