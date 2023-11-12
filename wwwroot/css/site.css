@@ -30,40 +30,42 @@ body {
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  aspect-ratio: 2/1;
-  width: 10vw;
+  height: 5vw;
+  min-width: 10vw;
 
   text-align: center;
 
-  border-top-style: solid;
-  border-bottom-style: solid;
-
-  border-width: 2px;
-  border-color: black;
-  /* margin-left: 70px; */
-  transform: scale(0.9);
+  margin-top: 1vh;
+  
+  /* margin-left: 70px; 
+  transform: scale(0.9);*/
 }
 
 .code-block-slot {
-  width: 10vw;
-  aspect-ratio: 2/1;
+  height: 5vw;
+  min-width: 10vw;
   border: black 2px solid;
-  /* margin-left: 70px; */
-  transform: scale(0.9);
+  margin-top: 1vh;
+  /* margin-left: 70px; 
+  transform: scale(0.9);*/
 }
 
 .varlit {
-  height: 45%;
-  aspect-ratio: 1;
+  min-height:2.5vw;
+  min-width: 2.5vw;
   background-image: linear-gradient(to right, palevioletred, white);
   border: black 2px solid;
+  margin-right: 1vw;
+  margin-left: 1vw;
 }
 
 .var {
-  height: 45%;
-  aspect-ratio: 1;
+  min-height:2.5vw;
+  min-width: 2.5vw;
   background-color: red;
   border: black 2px solid;
+  margin-right: 1vw;
+  margin-left: 1vw;
 }
 
 .dummy.lit {
@@ -103,7 +105,7 @@ body {
 
 .sideBar {
   height: 100%;
-  width: 5%;
+  min-width: 0.5vw;
 }
 
 .scope-block .right {
@@ -136,10 +138,12 @@ body {
 }
 
 .scope-divider {
-  width: 10vw;
+  height: 5vw;
+  width: 5vw;
   background-color: cyan;
-  background-image: linear-gradient(90deg, transparent 95%, black 5%);
-  transform: scale(0.9);
+  background-image: linear-gradient(90deg, transparent 93%, white 7%);
+  margin-top: 0vh;
+  /*transform: scale(0.9);*/
 }
 
 .scope-container {
@@ -151,17 +155,17 @@ body {
 }
 
 .else {
-  background-image: linear-gradient(90deg, cyan 95%, black 5%);
+  background-image: linear-gradient(90deg, cyan 93%, black 7%);
 }
 
 .threequarters {
-  width: 6.25vw;
+  min-width: 6.25vw;
   aspect-ratio: 5/4;
   justify-content: space-between;
 }
 
 .half {
-  width: 5vw;
+  min-width: 5vw;
   aspect-ratio: 4/4;
   justify-content: space-between;
 }
@@ -183,32 +187,21 @@ body {
   flex-wrap: wrap;
 }
 
-.literal-block input[type="text"] {
-  width: 80%;
-  height: 100%;
+.literal-block input[type="text"], input[type="number"] {
   background-color: transparent;
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
+  border-width: 5px;
+  margin-right: 1vw;
+  margin-left: 1vw;
 }
 
 .literal-block input[type="number"] {
-  width: 80%;
-  height: 100%;
-  background-color: transparent;
-  text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
+  width: 3ch;
 }
 
-.literal-block input[type="checkbox"] {
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  text-align: center;
-  font-size: 10rem;
-  font-weight: bold;
-}
+
 
 .consistent-header-parent {
   border-radius: 5px;
@@ -233,17 +226,89 @@ body {
 
   background-color: red;
   border: black 2px solid;
+  margin-right: 1vw;
+  margin-left: 1vw;
+  max-height: 2.5vw;
 }
 
-.variable-block.dummy {
-  width: 5vw;
-  height: 5vw;
+.variable-block.dummy 
+{
+  max-height: 10vw;
 }
 
 .variable-name {
   font-size: 2rem;
   font-weight: bold;
   text-decoration: underline;
+}
+
+/* Checkbox CSS */
+
+input[type="checkbox"]{
+  -webkit-appearance: initial;
+  appearance: initial;
+  width: 2.5vw;
+  height: 2.5vw;
+  border: none;
+  background: white;
+  position: relative;
+  color: black;
+  cursor: pointer;
+  border: black 2px solid;
+  border-radius: 5px;
+  margin-right: 1vw;
+  margin-left: 1vw;
+  font-weight: bold;
+}
+
+input[type="checkbox"]:checked:after {
+  /* Heres your symbol replacement - this is a tick in Unicode. */
+  content: "True";
+  /* The following positions my tick in the center, 
+   * but you could just overlay the entire box
+   * with a full after element with a background if you want to */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  /*
+   * If you want to fully change the check appearance, use the following:
+   * content: " ";
+   * width: 100%;
+   * height: 100%;
+   * background: blue;
+   * top: 0;
+   * left: 0;
+   */
+}
+
+
+
+input[type="checkbox"]:not(:checked):after {
+  /* Heres your symbol replacement - this is a tick in Unicode. */
+  content: "False";
+  /* The following positions my tick in the center, 
+   * but you could just overlay the entire box
+   * with a full after element with a background if you want to */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  /*
+   * If you want to fully change the check appearance, use the following:
+   * content: " ";
+   * width: 100%;
+   * height: 100%;
+   * background: blue;
+   * top: 0;
+   * left: 0;
+   */
 }
 
 

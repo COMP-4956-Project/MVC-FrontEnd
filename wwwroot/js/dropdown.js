@@ -57,6 +57,6 @@ document.getElementById("createbutton").onclick = function()  {
             }, 3000)
         }
     } else {
-        varCon.appendChild(new VariableBlock(dropdown.value, textInput.value, valueInput.text).element)
+        varCon.appendChild(new VariableBlock(dropdown.value, textInput.value, valueInput.value).element)
     }
 }

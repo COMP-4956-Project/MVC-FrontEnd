@@ -97,6 +97,7 @@ export class LiteralBlock
         }
 
         this.element.appendChild(valueInput);
+
     }
 
     getNumberInput()
@@ -108,6 +109,10 @@ export class LiteralBlock
         input.step = "1";
         input.placeholder = "0";
         input.oninput = function() { this.value=(parseInt(this.value))}
+        input.addEventListener('input', function (event)
+        {
+            this.style.width = (this.value.length + 3) + "ch";
+        });
         return input;
     }
 
@@ -116,6 +121,7 @@ export class LiteralBlock
         let input = document.createElement("input");
         input.type = "checkbox";
         input.className = "boolean-input";
+        input.checked = true;
         return input;
     }
 
@@ -124,6 +130,11 @@ export class LiteralBlock
         let input = document.createElement("input");
         input.type = "text";
         input.className = "string-input";
+        input.size = 1;
+        input.addEventListener('input', function (event) 
+        {
+            this.size = this.value.length;
+        });
         return input;
     }
 
@@ -134,6 +145,11 @@ export class LiteralBlock
         input.className = "float-input";
         input.step = "0.1";
         input.placeholder = "0.0";
+        input.style.width = "5ch";
+        input.addEventListener('input', function (event)
+        {
+            this.style.width = (this.value.length + 5) + "ch";
+        });
         return input;
     }
 }
@@ -141,7 +157,6 @@ export class LiteralBlock
 
 export class VariableBlock
 {
-
     constructor(type, name, value = null)
     {
 
@@ -169,15 +184,23 @@ export class VariableBlock
         variableName.className = "variable-name";
         variableName.innerText = name;
 
+
+
         this.element.appendChild(variableName);
+        
 
         if(value != null)
         {
             let _value = document.createElement("p");
-            _value.innerText = value;
+            _value.innerText = "Value: " + value;
             this.element.appendChild(_value);
             this.element.dataset.value = value;
             this.element.className += " dummy";
+
+            let typeLabel = document.createElement("p");
+            typeLabel.className = "type-label";
+            typeLabel.innerText = "Type: " + type;
+            this.element.appendChild(typeLabel);
         }
         
     }
