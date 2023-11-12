@@ -38,13 +38,33 @@
       </h5>
 
       <div class="card">
-        <div class="card-header" id="headingOne">
+        <div class="card-header" id="headingOne" class="btn btn-link collapsed"
+         data-bs-toggle="collapse" data-bs-target="#collapseOne" title="Variables are objects.">
           <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-              aria-expanded="false" aria-controls="collapseOne">
+            <button class="btn btn-link collapsed">
               Variables
             </button>
-          </h5>
+            <button id="downarrow" class="btn btn-link collapsed">
+              ▼
+            </button>
+          <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapse"
+           aria-expanded="false" aria-controls="collapse" id="variableaddition">
+            Add Variable +
+          </a>
+          </h5>  
+        </div>
+        <div class="collapse" id="collapse">
+          <div id="errorcontainer"></div>
+          <div class="card card-body" id="createvariable">
+            <input type="text" placeholder="Input name of Variable" name="name" id="textInput"></input>
+            <select id="selectType" name="type" aria-placeholder="Type">
+              <option></option>
+            </select>
+            <input type="text" id="valueInput" placeholder="Input value of Variable"></input>
+          <a class="btn btn-primary" id="createbutton">
+            Create Variable
+          </a>
+          </div>
         </div>
         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
           <div class="card-body" id="variableContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
@@ -53,11 +73,14 @@
       </div>
 
       <div class="card">
-        <div class="card-header" id="headingTwo">
+        <div class="card-header" id="headingTwo" class="btn btn-link collapsed"
+         data-bs-toggle="collapse" data-bs-target="#collapseTwo">
           <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-              aria-expanded="false" aria-controls="collapseTwo">
+            <button class="btn btn-link collapsed">
               Logic
+            </button>
+            <button id="downarrow" class="btn btn-link collapsed">
+              ▼
             </button>
           </h5>
         </div>
@@ -68,11 +91,14 @@
       </div>
 
       <div class="card">
-        <div class="card-header" id="headingThree">
+        <div class="card-header" id="headingThree" class="btn btn-link collapsed"
+         data-bs-toggle="collapse" data-bs-target="#collapseThree">
           <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree"
-              aria-expanded="false" aria-controls="collapseThree">
+            <button class="btn btn-link collapsed">
               Math
+            </button>
+            <button id="downarrow" class="btn btn-link collapsed">
+              ▼
             </button>
           </h5>
         </div>
@@ -83,11 +109,14 @@
 
 
       <div class="card">
-        <div class="card-header" id="headingFour">
+        <div class="card-header" id="headingFour" class="btn btn-link collapsed"
+         data-bs-toggle="collapse" data-bs-target="#collapseFour"> 
           <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"
-              aria-expanded="false" aria-controls="collapseFour">
+            <button class="btn btn-link collapsed">
               Functions
+            </button>
+            <button id="downarrow" class="btn btn-link collapsed">
+              ▼
             </button>
           </h5>
         </div>
@@ -98,11 +127,14 @@
       </div>
 
       <div class="card">
-        <div class="card-header" id="headingFive">
+        <div class="card-header" id="headingFive" class="btn btn-link collapsed"
+         data-bs-toggle="collapse" data-bs-target="#collapseFive">
           <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFive"
-              aria-expanded="false" aria-controls="collapseFive">
+            <button class="btn btn-link collapsed">
               Scope
+            </button>
+            <button id="downarrow" class="btn btn-link collapsed">
+              ▼
             </button>
           </h5>
         </div>
@@ -113,11 +145,14 @@
       </div>
 
       <div class="card">
-        <div class="card-header" id="headingSix">
+        <div class="card-header" id="headingSix" class="btn btn-link collapsed"
+         data-bs-toggle="collapse" data-bs-target="#collapseSix">
           <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSix"
-              aria-expanded="false" aria-controls="collapseSix">
+            <button class="btn btn-link collapsed">
               Equality
+            </button>
+            <button id="downarrow" class="btn btn-link collapsed">
+              ▼
             </button>
           </h5>
         </div>
@@ -128,11 +163,14 @@
       </div>
 
       <div class="card">
-        <div class="card-header" id="headingSeven">
+        <div class="card-header" id="headingSeven" class="btn btn-link collapsed"
+         data-bs-toggle="collapse" data-bs-target="#collapseSeven">
           <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSeven"
-              aria-expanded="false" aria-controls="collapseSeven">
+            <button class="btn btn-link collapsed">
               Assignment
+            </button>
+            <button id="downarrow" class="btn btn-link collapsed">
+              ▼
             </button>
           </h5>
         </div>
@@ -317,6 +355,7 @@
   <script type="module" defer src="js/testing.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="module" src="~/js/tabs.js"></script>
+  <script type="module" src="js/dropdown.js"></script>
 </body>
 
 </html>
