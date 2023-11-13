@@ -8,7 +8,7 @@ using System.Text;
 using MVC_Backend_Frontend.Models;
 using MVC_Backend_Frontend;
 
-namespace Backend.Controllers
+namespace MVC_Backend_Frontend.Controllers
 {
     [ApiController]
     [Route("api/runPython")]
@@ -21,8 +21,8 @@ namespace Backend.Controllers
             Console.WriteLine(blockInput);
             try
             {
-                PythonRunner pyRunner = new PythonRunner();
-                string output = pyRunner.RunFromBlockList(blockInput);
+                BlockListRunner blockListRunner = new BlockListRunner();
+                string output = blockListRunner.RunFromBlockList(blockInput);
                 return Ok(output);
             }
             catch (Exception e)

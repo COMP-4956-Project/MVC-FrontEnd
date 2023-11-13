@@ -6,15 +6,16 @@ using MVC_Backend_Frontend.Models;
 
 namespace MVC_Backend_Frontend
 {
-    public class JsonParser
+    public static class BlockListParser
     {
-        public static string Parse(Block? block)
+        public static string ParseBlock(Block? block)
         {
             string code = "";
             if (block == null)
             {
                 return code;
             }
+
             switch (block.type) // variable, function, control, logic, value
             {
                 case "variable":
@@ -23,8 +24,8 @@ namespace MVC_Backend_Frontend
                 case "function":
                     if (block.field == "operation")
                     {
-                        string a = Parse(block.A);
-                        string b = Parse(block.B);
+                        string a = ParseBlock(block.A);
+                        string b = ParseBlock(block.B);
                         switch (block.operation) // assign, assign_add, assign_subtract, assign_multiply, assign_divide
                         {
                             case "assign_variable":
@@ -42,18 +43,18 @@ namespace MVC_Backend_Frontend
                             case "assign_divide":
                                 code += a + " /= " + b;
                                 break;
-                            default: break;
                         }
                     }
                     else
                     {
                         code += block.instruction + "(";
-                        code += Parse(block.input);
+                        code += ParseBlock(block.input);
                         code += ")";
                     }
+
                     break;
                 case "value":
-                    switch(block.field) // num, text, operation, var, assignment
+                    switch (block.field) // num, text, operation, var, assignment
                     {
                         case "num":
                             code += block.num;
@@ -62,8 +63,8 @@ namespace MVC_Backend_Frontend
                             code += "'" + block.text + "'";
                             break;
                         case "operation":
-                            string a = Parse(block.A);
-                            string b = Parse(block.B);
+                            string a = ParseBlock(block.A);
+                            string b = ParseBlock(block.B);
                             switch (block.operation) // add, subtract, multiply, divide
                             {
                                 case "add":
@@ -92,44 +93,54 @@ namespace MVC_Backend_Frontend
                                     break;
                                 default: break;
                             }
+
                             if (block.input != null)
                             {
-                                code += Parse(block.input);
+                                code += ParseBlock(block.input);
                             }
+
                             break;
                         default: break;
                     }
+
                     break;
                 case "control":
                     if (block.parent == null)
                     {
                         block.parent = 0;
                     }
+
                     code += block.instruction + " ";
-                    if (block.instruction != "else") {
-                        code += Parse(block.input);
-                    }
-                    code += ":";
-                    foreach (var child in block.children)
+                    if (block.instruction != "else")
                     {
-                        code += "\n";
-                        child.parent = block.parent + 1;
-                        for (int i = 0; i < block.parent; i++)
-                        {
-                            code += "\t";
-                        }
-                        code += "\t" + Parse(child);
+                        code += ParseBlock(block.input);
                     }
+
+                    code += ":";
+                    if (block.children != null)
+                        foreach (var child in block.children)
+                        {
+                            code += "\n";
+                            child.parent = block.parent + 1;
+                            for (int i = 0; i < block.parent; i++)
+                            {
+                                code += "\t";
+                            }
+
+                            code += "\t" + ParseBlock(child);
+                        }
+
                     break;
                 case "logic":
                     if (block.logic == "not")
                     {
                         code += block.logic + " ";
-                        code += Parse(block.input);
-                    } else
+                        code += ParseBlock(block.input);
+                    }
+                    else
                     {
-                        string a = Parse(block.A);
-                        string b = Parse(block.B);
+                        string a = ParseBlock(block.A);
+                        string b = ParseBlock(block.B);
                         switch (block.logic) // not_equals equals greater_equals less_equals greater less not and or
                         {
                             case "not_equals":
@@ -159,10 +170,23 @@ namespace MVC_Backend_Frontend
                             default: break;
                         }
                     }
+
                     break;
                 default: break;
             }
+
             return code;
+        }
+
+        public static string ParseBlockList(BlockList blockList)
+        {
+            string codeResult = "";
+            foreach (var block in blockList.blocks)
+            {
+                codeResult += ParseBlock(block) + "\n";
+            }
+
+            return codeResult;
         }
     }
 }

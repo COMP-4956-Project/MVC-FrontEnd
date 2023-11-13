@@ -27,32 +27,21 @@ namespace MVC_Backend_Frontend
 
             // Retrieve the captured output
             stream.Position = 0; // Reset the stream position
-            string capturedOutput;
-            using (var reader = new StreamReader(stream, Encoding.UTF8))
-            {
-                capturedOutput = reader.ReadToEnd();
-            }
+            using var reader = new StreamReader(stream, Encoding.UTF8);
+            var capturedOutput = reader.ReadToEnd();
             return capturedOutput;
-        }
-
-        public string RunFromBlockList(BlockList blocklist)
-        {
-            Console.WriteLine("=====================CODE=====================");
-            string code = "";
-            if (blocklist != null)
-            {
-                foreach (var block in blocklist.blocks)
-                {
-                    code += JsonParser.Parse(block) + "\n";
-                }
-            }
-            Console.WriteLine(code);
-            Console.WriteLine("====================RESULT====================");
-            var result = RunFromString(code);
-            Console.WriteLine(result);
-            return result;
         }
 
     }
 
+    class BlockListRunner : PythonRunner
+    {
+        public string RunFromBlockList(BlockList blockList)
+        {
+            string code = BlockListParser.ParseBlockList(blockList);
+            var result = RunFromString(code);
+            Console.WriteLine(result);
+            return result;
+        }
+    }
 }
