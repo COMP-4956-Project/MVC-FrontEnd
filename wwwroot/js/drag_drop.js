@@ -36,31 +36,47 @@ export function drop(ev)
 
   let block = makeIntoAppropriateBlock(draggedBlock.dataset.blockType, draggedBlock.dataset.subType, element);
 
-  // make sure we dot put blocks in the wrong places
-  if(block.hasValidNeighbors(ev.target) == false)
+  try
   {
+    // make sure we dot put blocks in the wrong places
+    block.hasValidNeighbors(ev.target)
+  }
+  catch(e)
+  {
+    let dialog = document.getElementById("okDialog");
+    let message = document.getElementById("okDialogMessage");
+
+    message.innerHTML = e.message;
+    dialog.showModal();
     return;
   }
 
-  //replace the code slot with the block
+    //replace the code slot with the block
   ev.target.replaceWith(block.element);
 
   //ensure were not creating logic errors in previous location
   while(rightNeighbor != null)
   {
     rightNeighbor = makeIntoAppropriateBlock(rightNeighbor.dataset.blockType, rightNeighbor.dataset.subType, rightNeighbor);
-    if(rightNeighbor != null && rightNeighbor.hasValidNeighbors(rightNeighbor.element) == false)
+    if(rightNeighbor != null)
     {
-      let oldNeighbor = rightNeighbor.element;
-      rightNeighbor = oldNeighbor.nextElementSibling;
-      oldNeighbor.remove();
+      try
+      {
+        rightNeighbor.hasValidNeighbors(rightNeighbor.element);
+        break;
+      }
+      catch(e)
+      {
+        let oldNeighbor = rightNeighbor.element;
+        rightNeighbor = oldNeighbor.nextElementSibling;
+        oldNeighbor.remove();
+      }
     }
     else
     {
       break;
     }
   }
-
 
 
   //check to see if we need to put a new code slot after

@@ -1,5 +1,17 @@
 import { allowDrop, drop, drag, varDrop, varLitDrop } from "../drag_drop.js";
 
+const LEFTSIDE_ERROR = "The block you are trying to place does not have a valid block to the left of it<br> Blocks that can be placed to the left of this block are:<br><br>";
+
+const RIGHTSIDE_ERROR = "The block you are trying to place does not have a valid block to the right of it<br> Blocks that can be placed to the right of this block are:<br><br>";
+
+const SCOPE_ERROR = "You cannot drag a scope block into its own scope";
+
+const ELSE_ELIF_ERROR = "You cannot drag an else or elif block into a slot that does not have an if or elif block above it";
+
+const SCOPE_ERROR_2 = "Scope blocks must be the first block in a line";
+
+const LEFT_SIDE_MUST_BE_BLANK_ERROR = "The left side of this block must be blank";
+
 class CodeBlock 
 {
     static blockTypes = 
@@ -62,6 +74,13 @@ class CodeBlock
         }
         else
         {
+            if(goodLeftSide.length == 1 && goodLeftSide[0] == null)
+            {
+                throw new Error(LEFT_SIDE_MUST_BE_BLANK_ERROR);
+                return false;
+            }
+
+            throw new Error(LEFTSIDE_ERROR + goodLeftSide);
             return false;
         }
 
@@ -79,6 +98,7 @@ class CodeBlock
         }
         else
         {
+            throw new Error(RIGHTSIDE_ERROR + goodRightSide);
             return false;
         }
     }
@@ -170,6 +190,7 @@ export class ScopeBlock extends CodeBlock
         let parentContainer = document.getElementById(this.element.id + "-scope-container");
         if(parentContainer != null && parentContainer.contains(slot))
         {
+            throw new Error(SCOPE_ERROR);
             return false;
         }
 
@@ -179,12 +200,9 @@ export class ScopeBlock extends CodeBlock
         {
             let currentLine = slot.parentElement;
             let previousLine = currentLine.previousElementSibling;
-            if(previousLine == null)
+            if(previousLine == null || previousLine.className != "scope-container")
             {
-                return false;
-            }
-            else if(previousLine.className != "scope-container")
-            {
+                throw new Error(ELSE_ELIF_ERROR);
                 return false;
             }
             else
@@ -194,6 +212,7 @@ export class ScopeBlock extends CodeBlock
 
                 if(!(firstBlock.dataset.subType == "if" || firstBlock.dataset.subType == "elif"))
                 {
+                    throw new Error(ELSE_ELIF_ERROR);
                     return false;
                 }
             }
@@ -201,6 +220,7 @@ export class ScopeBlock extends CodeBlock
 
         if(this.element.parentElement != null && this.element.parentElement.contains(slot))
         {
+            throw new Error(SCOPE_ERROR_2);
             return false;
         }
         

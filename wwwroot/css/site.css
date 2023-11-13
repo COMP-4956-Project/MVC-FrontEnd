@@ -106,6 +106,7 @@ p
 .scope-block {
   background-color: cyan;
   border-right: 0.5vw solid orchid;
+  border-bottom: 0.5vw solid white;
 }
 
 .logic-block {
@@ -144,6 +145,7 @@ p
 
 .else {
   background-color: cyan;
+  border-bottom: 0.5vw solid white;
   border-right: 0.5vw solid black;
 }
 
