@@ -28,7 +28,7 @@
 
 <body>
 
-  <div id="mainContainer" ondrop="deleteDrop(event)" ondragover="allowDrop(event)">
+  <div id="mainContainer">
     <nav class="collapse d-lg-block sidebar left-sidebar-menu consistent-header-parent">
       <h5 class=" consistent-header full-width">Tasks</h5>
       <button class="tasks-button padding-10" onclick="openTasksModal()">Select a task</button>
@@ -226,7 +226,7 @@
         </div>
 
         <!-- Tab content -->
-        <div class="tab-contents">
+        <div class="tab-contents" ondrop="deleteDrop(event)" ondragover="allowDrop(event)">
           <br><br>
           <div class="tab-content active testContainer2 line-container" id="test2" data-tab-id="1">
             @* Content for Tab 1 *@
@@ -355,12 +355,22 @@
   <dialog id="confirmDelete">
     <form method="dialog">
       <p>Are you sure you want to delete this?</p>
-      <div id="flexContainer">
+      <div class="dialogButtonContainer">
         <button value="Yes" formmethod="dialog" id="deleteButton">Delete</button>
         <button value="No" formmethod="dialog">Cancel</button>
       </div>
     </form>
   </dialog>
+
+  <dialog id="okDialog">
+    <form method="dialog">
+      <p id=okDialogMessage></p>
+      <div class="dialogButtonContainer">
+        <button value="Ok" formmethod="dialog">Ok</button>
+      </div>
+    </form>
+  </dialog>
+
 
   <script type="module" defer src="js/testing.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

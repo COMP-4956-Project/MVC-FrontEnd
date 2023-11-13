@@ -179,6 +179,38 @@ export class ScopeBlock extends CodeBlock
 
     hasValidNeighbors(slot)
     {
+        // prevent dragging a scope block into its own scope
+        let parentContainer = document.getElementById(this.element.id + "-scope-container");
+        if(parentContainer != null && parentContainer.contains(slot))
+        {
+            return false;
+        }
+
+        let subType = this.element.dataset.subType;
+
+        if(subType == "elif" || subType == "else")
+        {
+            let currentLine = slot.parentElement;
+            let previousLine = currentLine.previousElementSibling;
+            if(previousLine == null)
+            {
+                return false;
+            }
+            else if(previousLine.className != "scope-container")
+            {
+                return false;
+            }
+            else
+            {
+                let ppLine = previousLine.previousElementSibling;
+                let firstBlock = ppLine.children[0];
+
+                if(!(firstBlock.dataset.subType == "if" || firstBlock.dataset.subType == "elif"))
+                {
+                    return false;
+                }
+            }
+        }
 
         if(this.element.parentElement != null && this.element.parentElement.contains(slot))
         {

@@ -9,6 +9,8 @@ export function drop(ev)
 {
   ev.preventDefault();
 
+
+
   //ensure were only dropping into a code slot
   if(ev.target.className != "code-block-slot")
   {
@@ -19,60 +21,47 @@ export function drop(ev)
   let elementId = ev.dataTransfer.getData("key");
   let draggedBlock = document.getElementById(elementId);
 
+  let rightNeighbor = null;
+
   // if were pulling from the toolbox we need to make a new block
   let element = draggedBlock;
   if(draggedBlock.className.includes("dummy"))
   {
     element = null;
   }
-
-  let block = null;
-
-  switch(draggedBlock.dataset.blockType)
+  else
   {
-    case "assignment":
-      block = new AssignmentBlock(draggedBlock.dataset.subType, element);
-      break;
-    case "equality":
-      block = new EqualityBlock(draggedBlock.dataset.subType, element);
-      break;
-    case "function":
-      block = new FunctionBlock(draggedBlock.dataset.subType, element);
-      break;
-    case "expression":
-      block = new ExpressionBlock(draggedBlock.dataset.subType, element);
-      break;
-    case "logic":
-      block = new LogicBlock(draggedBlock.dataset.subType, element);
-      break;
-    case "scope":
-      block = new ScopeBlock(draggedBlock.dataset.subType, element);
-      break;
-    default:
-      return;
-      break;
+    rightNeighbor = draggedBlock.nextElementSibling;
   }
+
+  let block = makeIntoAppropriateBlock(draggedBlock.dataset.blockType, draggedBlock.dataset.subType, element);
 
   // make sure we dot put blocks in the wrong places
   if(block.hasValidNeighbors(ev.target) == false)
   {
     return;
   }
-  else
-  
+
   //replace the code slot with the block
   ev.target.replaceWith(block.element);
 
-  // user should never be able to create bad logic
-  removeBadLogic(block.element);
+  //ensure were not creating logic errors in previous location
+  while(rightNeighbor != null)
+  {
+    rightNeighbor = makeIntoAppropriateBlock(rightNeighbor.dataset.blockType, rightNeighbor.dataset.subType, rightNeighbor);
+    if(rightNeighbor != null && rightNeighbor.hasValidNeighbors(rightNeighbor.element) == false)
+    {
+      let oldNeighbor = rightNeighbor.element;
+      rightNeighbor = oldNeighbor.nextElementSibling;
+      oldNeighbor.remove();
+    }
+    else
+    {
+      break;
+    }
+  }
 
-  //defunct
-  //check to see if we need to put a new code slot before
-  // if(block.element.previousElementSibling == null && (block.blockType != "scope" && block.blockType != "function"))
-  // {
-  //     let newSlot = new CodeSlot();
-  //     block.element.parentElement.insertBefore(newSlot.element, block.element);
-  // }
+
 
   //check to see if we need to put a new code slot after
   if(block.element.nextElementSibling == null && (block.subType != "else" && block.blockType != "function"))
@@ -93,7 +82,7 @@ export function drop(ev)
   // make a whole new space for scopes
   if(block.blockType == "scope")
   {
-    newScope(lineContainer);
+    newScope(lineContainer, block.element.id);
     lineIndex++;
   }
 
@@ -109,28 +98,6 @@ export function drop(ev)
   adjustScopeDividers();
 }
 
-function removeBadLogic(element)
-{
-  let previousElementSibling = element.previousElementSibling;
-
-  // avert ye eyes matey
-  if(previousElementSibling != null && previousElementSibling.previousElementSibling != null)
-  {
-    if(previousElementSibling.previousElementSibling.dataset.blockType == "scope" && previousElementSibling.dataset.blockType == "logic")
-    {
-      previousElementSibling.remove();
-    }
-    else if(previousElementSibling.previousElementSibling.dataset.blockType == "logic" && previousElementSibling.dataset.blockType == "logic")
-    {
-      previousElementSibling.remove();
-    }
-    else if(previousElementSibling.previousElementSibling.dataset.blockType == "equality" && previousElementSibling.dataset.blockType == "equality")
-    {
-      previousElementSibling.remove();
-    }
-  }
-}
-
 function adjustScopeDividers()
 {
   let dividers = document.getElementsByClassName("scope-divider");
@@ -143,9 +110,10 @@ function adjustScopeDividers()
   }
 }
 
-function newScope(lineContainer)
+function newScope(lineContainer, parentIfId)
 {
   let scopeContainer = document.createElement("div");
+  scopeContainer.id = parentIfId + "-scope-container";
   scopeContainer.className = "scope-container";
 
   let scopeDivider = document.createElement("div");
@@ -195,6 +163,10 @@ export function lineMaker(lineContainer)
 
 export function drag(ev) 
 {
+  if(ev.target.className.includes("scope-block"))
+  {
+
+  }
   ev.dataTransfer.setData("key", ev.target.id);
 }
 
@@ -247,12 +219,24 @@ function deleteDrop(ev)
   {
     return;
   }
+
   let elementId = ev.dataTransfer.getData("key");
   let draggedBlock = document.getElementById(elementId);
+
+  if(draggedBlock.className.includes("dummy"))
+  {
+    return;
+  }
   
   let dialog = document.getElementById("confirmDelete");
   let deleteButton = document.getElementById("deleteButton");
   deleteButton.onclick = function() {doDelete(draggedBlock)};
+
+  if(draggedBlock.className.includes("scope-block"))
+  {
+    //deleteButton.onclick += function() {doDelete(document.getElementById(draggedBlock.id + "-scope-container"))};
+    deleteButton.addEventListener("click", function() {doDelete(document.getElementById(draggedBlock.id + "-scope-container"))});
+  }
   
   dialog.showModal();
 }
@@ -260,6 +244,37 @@ function deleteDrop(ev)
 function doDelete(element)
 {
   element.remove();
+}
+
+function makeIntoAppropriateBlock(blockType, subType, element)
+{
+  let block = null;
+
+  switch(blockType)
+  {
+    case "assignment":
+      block = new AssignmentBlock(subType, element);
+      break;
+    case "equality":
+      block = new EqualityBlock(subType, element);
+      break;
+    case "function":
+      block = new FunctionBlock(subType, element);
+      break;
+    case "expression":
+      block = new ExpressionBlock(subType, element);
+      break;
+    case "logic":
+      block = new LogicBlock(subType, element);
+      break;
+    case "scope":
+      block = new ScopeBlock(subType, element);
+      break;
+    default:
+      break;
+  }
+
+  return block;
 }
 
 window.allowDrop = allowDrop;
