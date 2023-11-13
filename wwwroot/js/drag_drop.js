@@ -239,6 +239,31 @@ export function varDrop(ev)
   
 }
 
+function deleteDrop(ev)
+{
+  ev.preventDefault();
+
+  if(ev.target.className == "code-block-slot")
+  {
+    return;
+  }
+  let elementId = ev.dataTransfer.getData("key");
+  let draggedBlock = document.getElementById(elementId);
+  
+  let dialog = document.getElementById("confirmDelete");
+  let deleteButton = document.getElementById("deleteButton");
+  deleteButton.onclick = function() {doDelete(draggedBlock)};
+  
+  dialog.showModal();
+}
+
+function doDelete(element)
+{
+  element.remove();
+}
+
 window.allowDrop = allowDrop;
 window.drop = drop;
 window.drag = drag;
+window.deleteDrop = deleteDrop;
+window.doDelete = doDelete;

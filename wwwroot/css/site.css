@@ -31,7 +31,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   height: 5vw;
-  min-width: 10vw;
+  min-width: 5vw;
 
   text-align: center;
 
@@ -158,16 +158,12 @@ body {
   background-image: linear-gradient(90deg, cyan 93%, black 7%);
 }
 
-.threequarters {
-  min-width: 6.25vw;
-  aspect-ratio: 5/4;
-  justify-content: space-between;
-}
-
-.half {
-  min-width: 5vw;
-  aspect-ratio: 4/4;
-  justify-content: space-between;
+#flexContainer
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .testContainer {
