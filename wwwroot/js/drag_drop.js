@@ -243,7 +243,14 @@ function deleteDrop(ev)
 
 function doDelete(element)
 {
-  element.remove();
+  let trashContainer = document.getElementById("trash-container");
+  trashContainer.appendChild(element);
+  if(trashContainer.children.length > 4)
+  {
+    trashContainer.removeChild(trashContainer.children[0]);
+  }
+  removeEmptyLines();
+  //element.remove();
 }
 
 function makeIntoAppropriateBlock(blockType, subType, element)

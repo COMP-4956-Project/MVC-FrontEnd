@@ -57,6 +57,16 @@ document.getElementById("createbutton").onclick = function()  {
             }, 3000)
         }
     } else {
-        varCon.appendChild(new VariableBlock(dropdown.value, textInput.value, valueInput.value).element)
+        let variableBlock;
+        if(dropdown.value == "boolean") 
+        {
+            variableBlock = new VariableBlock(dropdown.value, textInput.value, valueInput.checked);
+        }
+        else
+        {
+            variableBlock = new VariableBlock(dropdown.value, textInput.value, valueInput.value);
+        }
+
+        varCon.appendChild(variableBlock.element)
     }
 }

@@ -226,7 +226,7 @@
         </div>
 
         <!-- Tab content -->
-        <div class="tab-contents" ondrop="deleteDrop(event)" ondragover="allowDrop(event)">
+        <div class="tab-contents">
           <br><br>
           <div class="tab-content active testContainer2 line-container" id="test2" data-tab-id="1">
             @* Content for Tab 1 *@
@@ -236,6 +236,21 @@
           <!-- Dynamically added tab contents will appear here -->
 
         </div>
+
+        <!-- ======================================== -->
+        <!-- =========== Garbaje Section ============ -->
+        <!-- ======================================== -->
+        <div class="consistent-header-parent console-container">
+          <h5 class="consistent-header">
+            Trash
+          </h5>
+          <div class="trash-container">          
+            <img src="images/trash.png" alt="trash" class="trash-image" id="trash" ondrop="deleteDrop(event)" ondragover="allowDrop(event)">
+            <div id="trash-container" class="trash-container"></div>
+          </div>
+
+        </div>
+
 
         <!-- ======================================== -->
         <!-- =========== Console Section ============ -->
