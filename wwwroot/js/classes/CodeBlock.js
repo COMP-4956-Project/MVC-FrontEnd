@@ -41,8 +41,6 @@ class CodeBlock
         this.element.setAttribute("draggable", "true");
         this.element.addEventListener("dragstart", function(event){drag(event)});
         
-        this.addBar("left");
-
         //generate a random id for the block
         this.element.id = blockType + "-" + subtype + "-" + Math.floor(Math.random() * 1000000);
 
@@ -50,15 +48,6 @@ class CodeBlock
         {
             this.element.id = blockType + "-" + subtype + "-" + Math.floor(Math.random() * 1000000);
         }
-    }
-
-
-
-    addBar(side)
-    {
-        let bar = document.createElement("div");
-        bar.className = "sideBar " + side;
-        this.element.appendChild(bar);
     }
 
     checkNeighbors(slot, goodLeftSide, goodRightSide)
@@ -173,8 +162,6 @@ export class ScopeBlock extends CodeBlock
         this.element.className += " threequarters"
 
         this.addExpression(subType.toUpperCase());
-        this.addBar("right");
-
     }
 
     hasValidNeighbors(slot)
@@ -262,7 +249,6 @@ export class FunctionBlock extends CodeBlock
 
         this.addVarLit();
         //this.addVar();
-        this.addBar("right");
     }
 
     hasValidNeighbors(slot)
@@ -314,7 +300,6 @@ export class AssignmentBlock extends CodeBlock
         this.addVar();
         this.addExpression(subType);
         this.addVarLit();
-        this.addBar("right");
     }
 
     hasValidNeighbors(slot)
@@ -365,7 +350,6 @@ export class ExpressionBlock extends CodeBlock
 
         this.addExpression(subType);
         this.addVarLit();
-        this.addBar("right");
     }
 
     hasValidNeighbors(slot)
@@ -418,7 +402,6 @@ export class EqualityBlock extends CodeBlock
         this.addVarLit();
         this.addExpression(subType);
         this.addVarLit();
-        this.addBar("right");
     }
 
     hasValidNeighbors(slot)
@@ -463,7 +446,6 @@ export class LogicBlock extends CodeBlock
         this.element.className += " logic-block threequarters";
 
         this.addExpression(subType.toUpperCase());
-        this.addBar("right");
     }
 
     hasValidNeighbors(slot)

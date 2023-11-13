@@ -29,45 +29,51 @@ body {
   display: flex;
   align-items: center;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   height: 5vw;
   min-width: 5vw;
-
   text-align: center;
-
+  border-top: 0.5vw solid transparent;
+  border-bottom: 0.5vw solid transparent;
   margin-top: 1vh;
-  
   /* margin-left: 70px; 
   transform: scale(0.9);*/
+}
+
+p
+{
+  margin: 1vh;
+  white-space: nowrap;
 }
 
 .code-block-slot {
   height: 5vw;
   min-width: 10vw;
-  border: black 2px solid;
+  border: black 0.4vh solid;
   margin-top: 1vh;
   /* margin-left: 70px; 
   transform: scale(0.9);*/
 }
 
+/* This is for the slots of variables/literals */
 .varlit {
   min-height:2.5vw;
   min-width: 2.5vw;
   background-image: linear-gradient(to right, palevioletred, white);
   border: black 2px solid;
-  margin-right: 1vw;
-  margin-left: 1vw;
+  margin: 1vh;
 }
 
+/* This is for the slots of variables */
 .var {
   min-height:2.5vw;
   min-width: 2.5vw;
   background-color: red;
   border: black 2px solid;
-  margin-right: 1vw;
-  margin-left: 1vw;
+  margin: 1vh;
 }
 
+/* This is for literals in the sidebar */
 .dummy.lit {
   display: flex;
   align-items: center;
@@ -81,6 +87,7 @@ body {
 
 .equality-block {
   background-color: orchid;
+  border-right: 0.5vw solid yellow;
 }
 
 .expression-block {
@@ -88,6 +95,7 @@ body {
 }
 
 .assignment-block {
+  border-right: 0.5vw solid orange;
   background-color: rgb(110, 75, 239);
 }
 
@@ -97,32 +105,12 @@ body {
 
 .scope-block {
   background-color: cyan;
-  border: blue;
+  border-right: 0.5vw solid orchid;
 }
 
 .logic-block {
   background-color: yellow;
-}
-
-.sideBar {
-  height: 100%;
-  min-width: 0.5vw;
-}
-
-.scope-block .right {
-  background-color: orchid;
-}
-
-.equality-block .right {
-  background-color: yellow;
-}
-
-.assignment-block .right {
-  background-color: orange;
-}
-
-.logic-block .right {
-  background-color: orchid;
+  border-right: 0.5vw solid orchid;
 }
 
 .expression {
@@ -139,11 +127,10 @@ body {
 }
 
 .scope-divider {
-  height: 5vw;
   width: 5vw;
   background-color: cyan;
-  background-image: linear-gradient(90deg, transparent 93%, white 7%);
-  margin-top: 0vh;
+  border-right: 0.5vw solid white;
+  
   /*transform: scale(0.9);*/
 }
 
@@ -156,7 +143,8 @@ body {
 }
 
 .else {
-  background-image: linear-gradient(90deg, cyan 93%, black 7%);
+  background-color: cyan;
+  border-right: 0.5vw solid black;
 }
 
 .dialogButtonContainer
@@ -189,14 +177,12 @@ input[type="text"], input[type="number"], select {
   font-size: 1rem;
   font-weight: bold;
   border-width: 5px;
-  margin: 1vw;
+  margin: 1vh;
 }
 
 .literal-block input[type="number"] {
   width: 3ch;
 }
-
-
 
 .consistent-header-parent {
   border-radius: 5px;
@@ -221,18 +207,16 @@ input[type="text"], input[type="number"], select {
 
   background-color: red;
   border: black 2px solid;
-  margin: 1vw;
+  margin: 1vh;
   padding: 1vh;
 }
-
-
 
 .variable-name 
 {
   font-size: 1rem;
   font-weight: bold;
   text-decoration: underline;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 /* Checkbox CSS */
@@ -249,9 +233,9 @@ input[type="checkbox"]{
   cursor: pointer;
   border: black 2px solid;
   border-radius: 5px;
-  margin: 1vw;
 
   font-weight: bold;
+  margin: 1vh;
 }
 
 input[type="checkbox"]:checked:after {
