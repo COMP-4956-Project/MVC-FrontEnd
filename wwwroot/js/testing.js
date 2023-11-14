@@ -73,6 +73,10 @@ for (let i = 0; i < ScopeBlock.subTypes.length; i++)
 
 lineMaker(document.getElementById("test2"));
 
+function parseScope() {
+
+}
+
 document.getElementById("test-button").onclick = function () {
     console.log("clicked");
     let lines = document.getElementsByClassName("tab-contents")[0].getElementsByClassName("line");
@@ -89,7 +93,28 @@ document.getElementById("test-button").onclick = function () {
                     blockObject["input"].push({"type": blocks[j].dataset.blockType, "field": blocks[0].dataset.subType});
                 }
             }
-            list.push(blockObject);
+
+
+
+            if (blockObject.type === "scope") {
+
+                // go to next child
+                i++;
+                // make a list of children
+                blockObject["children"] = [];
+
+                // let stack = 
+
+                // go through all the block's children
+                if (lines[i].parentNode.parentNode.className === "scope-container") {
+                    console.log("child: " + blocks[i].dataset.blockType + " : " + blocks[0].dataset.subType);
+                    blockObject["children"].push({"type": blocks[i].dataset.blockType, "field": blocks[i].dataset.subType});
+                }
+
+                // add the block after getting all children
+                list.push(blockObject);
+            }
+            
         }
         
         // if (blocks) {
