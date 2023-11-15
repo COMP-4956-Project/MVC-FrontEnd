@@ -15,7 +15,7 @@
 
     .wrong-answer-message {
       top: 50%;
-      transform: translate(275%, -70%);
+      transform: translate(255%, -70%);
       width: 120px;
       font-size: 32px !important;
       white-space: nowrap;
@@ -161,29 +161,9 @@
             <button class="close-tab">x</button>
           </div>
           <!-- Dynamically added tabs will appear here -->
-          <button id="addTab">+</button>
+          @* <button id="addTab">+</button> *@
 
           <button class="run-button" onclick="checkAnswer()">Run</button>
-
-
-          <!-- ======================================== -->
-          <!-- ======= Run / Stop Code Section ======== -->
-          <!-- ======================================== -->
-          @* Run Button *@
-          @* <li class="nav-item run">
-          <div class="run">
-          <button id="run-button"></button>
-          <span><b>Run</b></span>
-          </div>
-          </li> *@
-
-          @* Stop Button *@
-          @* <li class="nav-item stop">
-          <div class="stop">
-          <button id="stop-button"></button>
-          <span><b>Stop</b></span>
-          </div>
-          </li> *@
 
         </div>
 
@@ -198,40 +178,18 @@
           <!-- Dynamically added tab contents will appear here -->
 
         </div>
-
-        <!-- ======================================== -->
-        <!-- =========== Console Section ============ -->
-        <!-- ======================================== -->
         <div class="consistent-header-parent console-container">
           <h5 class="consistent-header">
             Console Output
           </h5>
           <div class="console-content">
-            <textarea id="console-textarea" oninput="updateConsoleOutput(this.value)"></textarea>
+            <textarea id="console-textarea" rows="7" oninput="updateConsoleOutput(this.value)"></textarea>
             <div class="console-error-line"></div>
           </div>
         </div>
 
       </div>
     </div>
-
-    <!-- ======================================== -->
-    <!-- ========Tutorial Video Section ========= -->
-    <!-- ======================================== -->
-
-    @* <div class="container tutorial-sidebar">
-
-    <!-- ======================================== -->
-    <!-- ============ Tasks Section ============= -->
-    <!-- ======================================== -->
-
-    <div class="tasks-container">
-    <partial name="TasksModal" />
-    </div>
-
-    <partial name="TutorialSidebar" />
-
-    </div> *@
 
     <div id="tasksContainer">
       <partial name="TasksModal" />

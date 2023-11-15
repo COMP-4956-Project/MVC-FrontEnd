@@ -14,11 +14,7 @@ button {
   color: black;
   text-decoration: none;
 }
-.sidebar {
-  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-  width: 25%;
-  z-index: 600;
-}
+
 .sidebar .active {
   border-radius: 5px;
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
@@ -192,7 +188,7 @@ button {
   width: 80%;
   display: block;
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -225,7 +221,7 @@ button {
 
 .padding-10,
 .card {
-  padding: 10px;
+  padding: 5px;
   border: none;
 }
 
@@ -268,8 +264,13 @@ button {
 
 
 .run-button {
-  margin-left: 1005px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 45vw;
   width: 100px;
+  height: 5vh;
   padding: 10px 20px;
   background-color: #4caf50;
   color: #fff;
@@ -277,7 +278,10 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  text-align: center;
 }
+
+
 
 .run-button:hover {
   background-color: #45a049;
