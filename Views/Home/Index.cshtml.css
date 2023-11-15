@@ -316,3 +316,16 @@ div[title]:hover::after {
 #variableaddition, #createbutton {
   background-color: rgb(204, 83, 83);
 }
+
+.trash-image
+{
+  width: 10%;
+}
+
+.trash-container
+{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin: 1vw;
+}
