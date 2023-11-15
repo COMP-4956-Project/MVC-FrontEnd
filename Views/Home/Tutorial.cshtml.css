@@ -52,7 +52,7 @@
 	border-radius: 50px;
 }
 
-.container .video-list .vid .video {
+.container .video-list .vid iframe {
 	width: 100px;
     height: 100px;
 	border-radius: 5px;
