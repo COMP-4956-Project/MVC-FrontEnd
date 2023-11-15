@@ -101,14 +101,26 @@ document.getElementById("test-button").onclick = function () {
                 // go to next child
                 i++;
                 // make a list of children
-                blockObject["children"] = [];
+                
 
                 // let stack = 
 
                 // go through all the block's children
-                if (lines[i].parentNode.parentNode.className === "scope-container") {
-                    console.log("child: " + blocks[i].dataset.blockType + " : " + blocks[0].dataset.subType);
-                    blockObject["children"].push({"type": blocks[i].dataset.blockType, "field": blocks[i].dataset.subType});
+                while (lines[i].parentNode.parentNode.className === "scope-container") {
+                    let blocks = lines[i].getElementsByClassName("code-block");
+                    if (blocks.length) {
+                        console.log("child: " + blocks[0].dataset.blockType + " : " + blocks[0].dataset.subType);
+                        let blockObject = {"type": blocks[0].dataset.blockType, "field": blocks[0].dataset.subType};
+                        if (blocks.length > 1) {
+                            blockObject["children"] = [];
+                            for (let j = 1; j < blocks.length; j++) {
+                                console.log(blocks[j].dataset);
+                                console.log("child: " + blocks[j].dataset.blockType + " : " + blocks[j].dataset.subType);
+                                blockObject["children"].push({"type": blocks[j].dataset.blockType, "field": blocks[j].dataset.subType});
+                            }
+                        }
+                    }
+                    i++;
                 }
 
                 // add the block after getting all children
