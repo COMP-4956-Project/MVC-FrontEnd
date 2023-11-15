@@ -33,7 +33,7 @@ button {
   background-color: #e8cf7a;
 }
 
-#collapseOne {
+#collapseOne, #createvariable, #errorcontainer {
   background-color: #e5a4a4;
 }
 
@@ -303,4 +303,29 @@ button {
   top: 120px; 
   left: -250px; 
   font-size: small;
+}
+
+#downarrow {
+  float: right;
+}
+div[title]:hover::after {
+  content: attr(title);
+  font-size: large;
+  padding: 10px;
+}
+#variableaddition, #createbutton {
+  background-color: rgb(204, 83, 83);
+}
+
+.trash-image
+{
+  width: 10%;
+}
+
+.trash-container
+{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin: 1vw;
 }
