@@ -93,12 +93,22 @@
                          <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Login" >TEST LOGIN</a>
                         </li>
+                         
+                         @* Logout Button in text form *@
+                          <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Logout"><strong>LOGOUT</strong></a>
+                        </li>
+                         
+                           @* Logout Button in button form *@
+                       <li class="nav-item">
+                          <a class="nav-link text-dark btn btn-info" asp-area="" asp-controller="" asp-action="Logout"><strong>LOG OUT</strong></a>
+                        </li>
 
                     </ul>
                 </div>
             </div>
         </nav>
-                      @* -------------------------- End of Top Nav Bar ------------------------ *@
+                      @* -------------------------- End of Top Nav Bar -------------------------- *@
     </header>
     <div class="container-fluid body-content">
         <main role="main" class="pb-3">
