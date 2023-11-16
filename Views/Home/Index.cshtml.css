@@ -168,6 +168,12 @@ button {
   margin-right: 10px;
   margin-left: 50px;
   width: 25vw;
+  min-height: 96vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+  max-height: calc(100vh - 100px);
+  overflow-y: hidden; 
 }
 
 .left-sidebar-header {
@@ -183,19 +189,17 @@ button {
   color: #fff;
   border: none;
   border-radius: 5px;
-  padding: 10px 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   height: 40px;
-  margin-top: 10px;
   width: 80%;
-  display: block;
   margin: 0 auto;
-  margin-top: 15px;
+  margin-top: 5%;
   display: flex;
   align-items: center;
   justify-content: center;
+  top: 6.75vh
 }
 
 .tasks-button:hover {
@@ -205,6 +209,12 @@ button {
 .task-button-header-parent {
   width: 23.5vw;
   margin-bottom: 20px;
+}
+
+.task-description {
+  position: sticky;
+  top: 0;
+  z-index: 0;
 }
 
 .description-of-selected-task {
@@ -303,13 +313,12 @@ button {
 .checkmark-image {
   position: absolute;
   top: 120px;
-  left: -140px;
+  left: -30vw;
 }
 
 .wrong-answer-message {
-  position: absolute;
-  top: 120px;
-  left: -250px;
+  position: relative;
+  left: -60vw;
   font-size: small;
 }
 
@@ -318,7 +327,7 @@ button {
 }
 div[title]:hover::after {
   content: attr(title);
-  font-size: large;
+  font-size: small;
   padding: 10px;
 }
 #variableaddition,
@@ -332,3 +341,29 @@ div[title]:hover::after {
   margin-right: 1vw;
   margin-bottom: 1vw;
 }
+
+.card-container {
+  height: calc(100vh - 150px);
+  overflow-y: auto;
+  padding-top: 10px; 
+}
+
+.card {
+  max-height: fit-content; 
+  overflow-y: auto;
+}
+
+/* Initially hide titles */
+*[title]::after {
+  content: attr(title);
+  font-size: smaller;
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Display titles on hover */
+*[title]:hover::after {
+  visibility: visible;
+  opacity: 1;
+}
+
