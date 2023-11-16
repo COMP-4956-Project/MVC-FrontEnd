@@ -6,20 +6,9 @@ using MVC_Backend_Frontend.Models;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
-string text = File.ReadAllText(@"./test2.json");
-Console.WriteLine("=====================JSON=====================");
-Console.WriteLine(text);
-Blocks? JSONcode = JsonSerializer.Deserialize<Blocks>(text);
-Console.WriteLine("=====================CODE=====================");
-string code = "";
-if (JSONcode != null)
-{
-    foreach (var block in JSONcode.blocks)
-    {
-        code += JsonParser.Parse(block) + "\n";
-    }
-}
-Console.WriteLine(code);
+string json = File.ReadAllText(@"./test3.json");
+var pythonRunner = new PythonRunner();
+pythonRunner.RunFromBlockList(JsonSerializer.Deserialize<BlockList>(json)!);
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +46,20 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
+
+    // Routing to the Help page
+app.MapControllerRoute(
+    name: "help",
+    pattern: "{controller=Help}/{action=Help}/{id?}");
+
+// Routing to the Privacy page
+app.MapControllerRoute(
+    name: "privacy",
+    pattern: "{controller=Privacy}/{action=Privacy}/{id?}");
+
+// Routing to the Login page
+app.MapControllerRoute(
+    name: "login",
+    pattern: "{controller=Login}/{action=Login}/{id?}");
 
 app.Run();
