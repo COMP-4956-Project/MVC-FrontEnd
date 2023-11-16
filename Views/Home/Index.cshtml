@@ -8,14 +8,14 @@
   <style>
     #checkmark {
       top: 50%;
-      transform: translate(910%, -70%);
+      transform: translate(1150%, -70%);
       width: 100px;
       position: relative;
     }
 
     .wrong-answer-message {
       top: 50%;
-      transform: translate(275%, -70%);
+      transform: translate(325%, -70%);
       width: 120px;
       font-size: 32px !important;
       white-space: nowrap;
@@ -27,158 +27,161 @@
 </head>
 
 <body>
-
+  <!--<button id="test-button">Test</button>-->
   <div id="mainContainer">
     <nav class="collapse d-lg-block sidebar left-sidebar-menu consistent-header-parent">
       <h5 class=" consistent-header full-width">Tasks</h5>
       <button class="tasks-button padding-10" onclick="openTasksModal()">Select a task</button>
       <br>
-      <h5 class="consistent-header full-width">
+      <h5 class="consistent-header full-width fixed-header">
         Code Blocks
       </h5>
 
-      <div class="card">
-        <div class="card-header" id="headingOne" class="btn btn-link collapsed"
-         data-bs-toggle="collapse" data-bs-target="#collapseOne" title="Variables are used to store information.">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed">
-              Variables
-            </button>
-            <button id="downarrow" class="btn btn-link collapsed">
-              ▼
-            </button>
-          <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapse"
-           aria-expanded="false" aria-controls="collapse" id="variableaddition">
-            Add Variable +
-          </a>
-          </h5>  
-        </div>
-        <div class="collapse" id="collapse">
-          <div id="errorcontainer"></div>
-          <div class="card card-body" id="createvariable">
-            <input type="text" placeholder="Input name of Variable" name="name" id="textInput"></input>
-            <select id="selectType" name="type" aria-placeholder="Type">
-              <option></option>
-            </select>
-            <input type="text" id="valueInput" placeholder="Input value of Variable"></input>
-          <a class="btn btn-primary" id="createbutton">
-            Create Variable
-          </a>
+      <div class="card-container">
+        <div class="card">
+          <div class="card-header" id="headingOne" class="btn btn-link collapsed" data-bs-toggle="collapse"
+            data-bs-target="#collapseOne" title="Variables are used to store information.">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed">
+                Variables
+              </button>
+              <button id="downarrow" class="btn btn-link collapsed">
+                ▼
+              </button>
+              <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapse" aria-expanded="false"
+                aria-controls="collapse" id="variableaddition">
+                Add Variable +
+              </a>
+            </h5>
+          </div>
+          <div class="collapse" id="collapse">
+            <div id="errorcontainer"></div>
+            <div class="card card-body" id="createvariable">
+              <input type="text" placeholder="Input name of Variable" name="name" id="textInput"></input>
+              <select id="selectType" name="type" aria-placeholder="Type">
+                <option></option>
+              </select>
+              <input type="text" id="valueInput" placeholder="Input value of Variable"></input>
+              <a class="btn btn-primary" id="createbutton">
+                Create Variable
+              </a>
+            </div>
+          </div>
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
+            <div class="card-body" id="variableContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
+            </div>
           </div>
         </div>
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
-          <div class="card-body" id="variableContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+        <div class="card">
+          <div class="card-header" id="headingTwo" class="btn btn-link collapsed" data-bs-toggle="collapse"
+            data-bs-target="#collapseTwo" title="Logic contains logical operators.">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed">
+                Logic
+              </button>
+              <button id="downarrow" class="btn btn-link collapsed">
+                ▼
+              </button>
+            </h5>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
+            <div class="card-body" id="logicContainer">
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" id="headingThree" class="btn btn-link collapsed" data-bs-toggle="collapse"
+            data-bs-target="#collapseThree" title="Math contains basic mathematical operators.">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed">
+                Math
+              </button>
+              <button id="downarrow" class="btn btn-link collapsed">
+                ▼
+              </button>
+            </h5>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
+            <div class="card-body" id="expressionContainer"></div>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <div class="card-header" id="headingFour" class="btn btn-link collapsed" data-bs-toggle="collapse"
+            data-bs-target="#collapseFour" title="Functions contains pre-defined functions.">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed">
+                Functions
+              </button>
+              <button id="downarrow" class="btn btn-link collapsed">
+                ▼
+              </button>
+            </h5>
+          </div>
+          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-bs-parent="#accordion">
+            <div class="card-body" id="functionContainer">
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" id="headingFive" class="btn btn-link collapsed" data-bs-toggle="collapse"
+            data-bs-target="#collapseFive" title="Scope contains if conditions and loops.">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed">
+                Scope
+              </button>
+              <button id="downarrow" class="btn btn-link collapsed">
+                ▼
+              </button>
+            </h5>
+          </div>
+          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
+            <div class="card-body" id="scopeContainer">
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" id="headingSix" class="btn btn-link collapsed" data-bs-toggle="collapse"
+            data-bs-target="#collapseSix" title="Equality contains comparison blocks.">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed">
+                Equality
+              </button>
+              <button id="downarrow" class="btn btn-link collapsed">
+                ▼
+              </button>
+            </h5>
+          </div>
+          <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-bs-parent="#accordion">
+            <div class="card-body" id="equalityContainer">
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" id="headingSeven" class="btn btn-link collapsed" data-bs-toggle="collapse"
+            data-bs-target="#collapseSeven" title="Assignment contains ways to assign values.">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed">
+                Assignment
+              </button>
+              <button id="downarrow" class="btn btn-link collapsed">
+                ▼
+              </button>
+            </h5>
+          </div>
+          <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-bs-parent="#accordion">
+            <div class="card-body" id="assignmentContainer">
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-header" id="headingTwo" class="btn btn-link collapsed"
-         data-bs-toggle="collapse" data-bs-target="#collapseTwo" title="Logic contains logical operators.">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed">
-              Logic
-            </button>
-            <button id="downarrow" class="btn btn-link collapsed">
-              ▼
-            </button>
-          </h5>
-        </div>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
-          <div class="card-body" id="logicContainer">
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header" id="headingThree" class="btn btn-link collapsed"
-         data-bs-toggle="collapse" data-bs-target="#collapseThree" title="Math contains basic mathematical operators.">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed">
-              Math
-            </button>
-            <button id="downarrow" class="btn btn-link collapsed">
-              ▼
-            </button>
-          </h5>
-        </div>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
-          <div class="card-body" id="expressionContainer"></div>
-        </div>
-      </div>
-
-
-      <div class="card">
-        <div class="card-header" id="headingFour" class="btn btn-link collapsed"
-         data-bs-toggle="collapse" data-bs-target="#collapseFour" title="Functions contains pre-defined functions."> 
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed">
-              Functions
-            </button>
-            <button id="downarrow" class="btn btn-link collapsed">
-              ▼
-            </button>
-          </h5>
-        </div>
-        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-bs-parent="#accordion">
-          <div class="card-body" id="functionContainer">
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header" id="headingFive" class="btn btn-link collapsed"
-         data-bs-toggle="collapse" data-bs-target="#collapseFive" title="Scope contains if conditions and loops.">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed">
-              Scope
-            </button>
-            <button id="downarrow" class="btn btn-link collapsed">
-              ▼
-            </button>
-          </h5>
-        </div>
-        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
-          <div class="card-body" id="scopeContainer">
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header" id="headingSix" class="btn btn-link collapsed"
-         data-bs-toggle="collapse" data-bs-target="#collapseSix" title="Equality contains comparison blocks.">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed">
-              Equality
-            </button>
-            <button id="downarrow" class="btn btn-link collapsed">
-              ▼
-            </button>
-          </h5>
-        </div>
-        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-bs-parent="#accordion">
-          <div class="card-body" id="equalityContainer">
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header" id="headingSeven" class="btn btn-link collapsed"
-         data-bs-toggle="collapse" data-bs-target="#collapseSeven" title="Assignment contains ways to assign values.">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed">
-              Assignment
-            </button>
-            <button id="downarrow" class="btn btn-link collapsed">
-              ▼
-            </button>
-          </h5>
-        </div>
-        <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-bs-parent="#accordion">
-          <div class="card-body" id="assignmentContainer">
-          </div>
-        </div>
-      </div>
     </nav>
 
     <div class="consistent-header-parent">
@@ -199,29 +202,9 @@
             <button class="close-tab">x</button>
           </div>
           <!-- Dynamically added tabs will appear here -->
-          <button id="addTab">+</button>
+          @* <button id="addTab">+</button> *@
 
-          <button class="run-button" onclick="checkAnswer()">Run</button>
-
-
-          <!-- ======================================== -->
-          <!-- ======= Run / Stop Code Section ======== -->
-          <!-- ======================================== -->
-          @* Run Button *@
-          @* <li class="nav-item run">
-          <div class="run">
-          <button id="run-button"></button>
-          <span><b>Run</b></span>
-          </div>
-          </li> *@
-
-          @* Stop Button *@
-          @* <li class="nav-item stop">
-          <div class="stop">
-          <button id="stop-button"></button>
-          <span><b>Stop</b></span>
-          </div>
-          </li> *@
+          <button class="run-button" <!--onclick="checkAnswer()-->">Run</button>
 
         </div>
 
@@ -237,54 +220,25 @@
 
         </div>
 
-        <!-- ======================================== -->
-        <!-- =========== Garbaje Section ============ -->
-        <!-- ======================================== -->
-        <div class="consistent-header-parent console-container">
-          <h5 class="consistent-header">
-            Trash
-          </h5>
-          <div class="trash-container">          
-            <img src="images/trash.png" alt="trash" class="trash-image" id="trash" ondrop="deleteDrop(event)" ondragover="allowDrop(event)">
-            <div id="trash-container" class="trash-container"></div>
-          </div>
-
+        <div class="trash-container">
+          <img src="images/trash.png" alt="trash" class="trash-image" id="trash" ondrop="deleteDrop(event)"
+            ondragover="allowDrop(event)">
+          <div id="trash-container" class="trash-container"></div>
         </div>
 
 
-        <!-- ======================================== -->
-        <!-- =========== Console Section ============ -->
-        <!-- ======================================== -->
+
         <div class="consistent-header-parent console-container">
           <h5 class="consistent-header">
             Console Output
           </h5>
           <div class="console-content">
-            <textarea id="console-textarea" oninput="updateConsoleOutput(this.value)"></textarea>
+            <textarea id="console-textarea" rows="7" oninput="updateConsoleOutput(this.value)"></textarea>
             <div class="console-error-line"></div>
           </div>
         </div>
-
       </div>
     </div>
-
-    <!-- ======================================== -->
-    <!-- ========Tutorial Video Section ========= -->
-    <!-- ======================================== -->
-
-    @* <div class="container tutorial-sidebar">
-
-    <!-- ======================================== -->
-    <!-- ============ Tasks Section ============= -->
-    <!-- ======================================== -->
-
-    <div class="tasks-container">
-    <partial name="TasksModal" />
-    </div>
-
-    <partial name="TutorialSidebar" />
-
-    </div> *@
 
     <div id="tasksContainer">
       <partial name="TasksModal" />
@@ -391,6 +345,12 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="module" src="~/js/tabs.js"></script>
   <script type="module" src="js/dropdown.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', function ()
+    {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    });
+  </script>
 </body>
 
 </html>

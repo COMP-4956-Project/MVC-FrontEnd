@@ -98,8 +98,18 @@ export function drop(ev)
   // make a whole new space for scopes
   if(block.blockType == "scope")
   {
-    newScope(lineContainer, block.element.id);
-    lineIndex++;
+    let scopeContainer = document.getElementById(block.element.id + "-scope-container");
+
+    if(scopeContainer == null)
+    {
+      newScope(lineContainer, block.element.id);
+      lineIndex++;
+    }
+    else
+    {
+      block.element.parentElement.insertAdjacentElement("afterend", scopeContainer);
+    }
+  
   }
 
   //if we are at the end of the line container make a new line
@@ -248,10 +258,10 @@ function deleteDrop(ev)
   let deleteButton = document.getElementById("deleteButton");
   deleteButton.onclick = function() {doDelete(draggedBlock)};
 
-  if(draggedBlock.className.includes("scope-block"))
+  if(draggedBlock.className.includes("scope-block") || draggedBlock.className.includes("else"))
   {
     //deleteButton.onclick += function() {doDelete(document.getElementById(draggedBlock.id + "-scope-container"))};
-    deleteButton.addEventListener("click", function() {doDelete(document.getElementById(draggedBlock.id + "-scope-container"))});
+    deleteButton.addEventListener("click", function() {document.getElementById(draggedBlock.id + "-scope-container").remove();});
   }
   
   dialog.showModal();
@@ -261,10 +271,11 @@ function doDelete(element)
 {
   let trashContainer = document.getElementById("trash-container");
   trashContainer.appendChild(element);
-  if(trashContainer.children.length > 4)
-  {
-    trashContainer.removeChild(trashContainer.children[0]);
-  }
+  trashContainer.removeChild(trashContainer.children[0]);
+  // if(trashContainer.children.length > 4)
+  // {
+  //   trashContainer.removeChild(trashContainer.children[0]);
+  // }
   removeEmptyLines();
   //element.remove();
 }
