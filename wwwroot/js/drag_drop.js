@@ -258,7 +258,7 @@ function deleteDrop(ev)
   let deleteButton = document.getElementById("deleteButton");
   deleteButton.onclick = function() {doDelete(draggedBlock)};
 
-  if(draggedBlock.className.includes("scope-block"))
+  if(draggedBlock.className.includes("scope-block") || draggedBlock.className.includes("else"))
   {
     //deleteButton.onclick += function() {doDelete(document.getElementById(draggedBlock.id + "-scope-container"))};
     deleteButton.addEventListener("click", function() {document.getElementById(draggedBlock.id + "-scope-container").remove();});
