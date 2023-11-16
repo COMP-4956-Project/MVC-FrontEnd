@@ -81,11 +81,46 @@ document.getElementById("test-button").onclick = function () {
     console.log("clicked");
     let lines = document.getElementsByClassName("tab-contents")[0].getElementsByClassName("line");
     let list = [];
+
+    let vars = document.getElementById("variableContainer").getElementsByClassName("variable-block");
+    for (let i = 0; i < vars.length; i++) {
+        let b = {
+            "type": "value",
+        }
+        if (vars[i].dataset.subType === "number") {
+            b["field"] = "num"
+            b["num"] = vars[i].getElementsByClassName("number-input")[0].value
+        } else {
+            b["field"] = "text"
+            b["text"] = vars[i].getElementsByClassName("string-input")[0].value
+        }
+        list.push({
+            "type": "function",
+            "field": "operation",
+            "operation": "assign_variable",
+            "A": {
+                "type": "variable",
+                "name": vars[i].dataset.name
+            },
+            "B": b
+        })
+    }
+
+
     for (let i = 0; i < lines.length; i++) {
         let blocks = lines[i].getElementsByClassName("code-block");
         if (blocks.length) {
             console.log(blocks[0].dataset.blockType + " : " + blocks[0].dataset.subType);
-            let blockObject = {"type": blocks[0].dataset.blockType, "field": blocks[0].dataset.subType};
+            let blockObject = {"type": blocks[0].dataset.blockType, "instruction": blocks[0].dataset.subType};
+            if (blockObject.type === "function" && blockObject.instruction === "print") {
+                // blockObject["input"] = [];
+                let input = blocks[0].getElementsByClassName('value')[0];
+                if (input) {
+                    blockObject.input = {"type": "variable", "name": input.dataset.name };
+                }
+                console.log(blockObject);
+                list.push(blockObject);
+            }
             if (blocks.length > 1) {
                 blockObject["input"] = [];
                 for (let j = 1; j < blocks.length; j++) {
@@ -135,6 +170,14 @@ document.getElementById("test-button").onclick = function () {
         
     }
     console.log(list);
+    let blockList = {"blocks": list}
+    console.log(blockList);
+    fetch("http://localhost:5215/api/runPython", {
+      method: "POST",
+      body: JSON.stringify(blockList),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+    }).then((res) => res.json()).then((json) => document.getElementById("console-textarea").value = json);
+    
 };
 
 console.log("here");
