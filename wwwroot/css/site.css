@@ -191,6 +191,8 @@ input[type="text"], input[type="number"], select {
   margin: 10px;
   width: 66vw;
   margin-left: 0px;
+  position: sticky;
+  top: 0;
 }
 
 .consistent-header {
@@ -199,6 +201,8 @@ input[type="text"], input[type="number"], select {
   padding: 5px;
   text-align: center;
   font-weight: bold;
+  position: sticky;
+  top: 0;
 }
 
 .variable-block {
