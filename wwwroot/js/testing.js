@@ -175,7 +175,7 @@ function runCode () {
     let blockList = {"blocks": list}
     console.log(blockList);
     let clone;
-    fetch("http://localhost:5215/api/runPython", {
+    fetch( window.location.origin +  "/api/runPython", {
       method: "POST",
       body: JSON.stringify(blockList),
       headers: {"Content-type": "application/json; charset=UTF-8"}
