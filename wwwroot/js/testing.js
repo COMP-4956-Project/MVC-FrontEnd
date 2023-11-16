@@ -77,7 +77,9 @@ function parseScope() {
 
 }
 
-document.getElementById("test-button").onclick = function () {
+console.log(document.getElementsByClassName("run-button"));
+
+document.getElementsByClassName("run-button")[0].onclick = function () {
     console.log("clicked");
     let lines = document.getElementsByClassName("tab-contents")[0].getElementsByClassName("line");
     let list = [];
@@ -172,12 +174,25 @@ document.getElementById("test-button").onclick = function () {
     console.log(list);
     let blockList = {"blocks": list}
     console.log(blockList);
+    let clone;
     fetch("http://localhost:5215/api/runPython", {
       method: "POST",
       body: JSON.stringify(blockList),
       headers: {"Content-type": "application/json; charset=UTF-8"}
-    }).then((res) => res.json()).then((json) => document.getElementById("console-textarea").value = json);
-    
+    }).then((res) => {
+        console.log(res);
+        clone = res.clone();
+        return res.json();
+    }).then((json) => {
+        console.log(json); 
+        document.getElementById("console-textarea").value = json;
+    }, (rej) => {
+        console.log(rej);
+        clone.text().then((text) => {
+            console.log(text); 
+            document.getElementById("console-textarea").value = text;
+        })
+    });
 };
 
 console.log("here");
