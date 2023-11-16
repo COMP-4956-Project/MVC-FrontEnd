@@ -117,8 +117,15 @@ function runCode () {
             if (blockObject.type === "function" && blockObject.instruction === "print") {
                 // blockObject["input"] = [];
                 let input = blocks[0].getElementsByClassName('value')[0];
-                if (input) {
+                if (input.dataset.blockType === "variable") {
                     blockObject.input = {"type": "variable", "name": input.dataset.name };
+                } else if (input.dataset.blockType === "literal") {
+                    if (input.dataset.subType === "number") {
+                        blockObject.input = {"type": "value", "field": "num", "num": input.getElementsByClassName('number-input')[0].value };
+                    } else {
+                        blockObject.input = {"type": "value", "field": "text", "text": input.getElementsByClassName('string-input')[0].value };
+                    }
+                    
                 }
                 console.log(blockObject);
                 list.push(blockObject);
