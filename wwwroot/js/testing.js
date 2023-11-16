@@ -79,7 +79,7 @@ function parseScope() {
 
 console.log(document.getElementsByClassName("run-button"));
 
-document.getElementsByClassName("run-button")[0].onclick = function () {
+function runCode () {
     console.log("clicked");
     let lines = document.getElementsByClassName("tab-contents")[0].getElementsByClassName("line");
     let list = [];
@@ -180,19 +180,66 @@ document.getElementsByClassName("run-button")[0].onclick = function () {
       body: JSON.stringify(blockList),
       headers: {"Content-type": "application/json; charset=UTF-8"}
     }).then((res) => {
-        console.log(res);
         clone = res.clone();
         return res.json();
     }).then((json) => {
-        console.log(json); 
         document.getElementById("console-textarea").value = json;
     }, (rej) => {
-        console.log(rej);
         clone.text().then((text) => {
-            console.log(text); 
+            //console.log(text); 
             document.getElementById("console-textarea").value = text;
-        })
-    });
+            console.log(consoleOutput = document.getElementById("console-textarea").value);
+        }).then(() => checkAnswer());
+    }).then(() => checkAnswer());
 };
+
+
+let answerIsCorrect = false;
+    let consoleOutput = document.getElementById("console-textarea").value;
+    let answer = "hello world"; // for question 1
+    const checkmarkImage = document.getElementById('checkmark');
+    const checkmarkContainer = document.querySelector('.checkmark-image');
+    const incorrectAnswerMessageContainer = document.querySelector('.wrong-answer-message');
+
+function checkAnswer()
+    {
+    consoleOutput = document.getElementById("console-textarea").value;
+      console.log("run button clicked");
+      console.log("consoleOutput: ", consoleOutput);
+      console.log("answer: ", answer);
+
+      if (consoleOutput.trim() === answer)
+      {
+        answerIsCorrect = true;
+      } else
+      {
+        answerIsCorrect = false;
+      }
+
+      console.log("answerIsCorrect: ", answerIsCorrect);
+
+      if (answerIsCorrect)
+      {
+        incorrectAnswerMessageContainer.innerHTML = '';
+        checkmarkContainer.innerHTML = '<img src="/images/checkMark.png" alt="check mark image" id="checkmark">';
+        console.log("IF checkmarkContainer: ", checkmarkContainer);
+      } else
+      {
+        // Clear previous content in checkmarkContainer
+        checkmarkContainer.innerHTML = '';
+
+        incorrectAnswerMessageContainer.innerHTML = 'Oops! Let us try again :) ';
+      }
+}
+
+
+    
+
+function compileAndCheck() {
+    runCode();
+    //checkAnswer();
+}
+
+document.getElementsByClassName("run-button")[0].onclick = function() {compileAndCheck();}
 
 console.log("here");
