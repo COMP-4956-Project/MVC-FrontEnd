@@ -261,10 +261,11 @@ function doDelete(element)
 {
   let trashContainer = document.getElementById("trash-container");
   trashContainer.appendChild(element);
-  if(trashContainer.children.length > 4)
-  {
-    trashContainer.removeChild(trashContainer.children[0]);
-  }
+  trashContainer.removeChild(trashContainer.children[0]);
+  // if(trashContainer.children.length > 4)
+  // {
+  //   trashContainer.removeChild(trashContainer.children[0]);
+  // }
   removeEmptyLines();
   //element.remove();
 }

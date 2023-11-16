@@ -8,14 +8,14 @@
   <style>
     #checkmark {
       top: 50%;
-      transform: translate(910%, -70%);
+      transform: translate(1150%, -70%);
       width: 100px;
       position: relative;
     }
 
     .wrong-answer-message {
       top: 50%;
-      transform: translate(255%, -70%);
+      transform: translate(325%, -70%);
       width: 120px;
       font-size: 32px !important;
       white-space: nowrap;
@@ -206,7 +206,7 @@
           <button class="run-button" onclick="checkAnswer()">Run</button>
 
         </div>
-
+        
         <!-- Tab content -->
         <div class="tab-contents">
           <br><br>
@@ -218,6 +218,17 @@
           <!-- Dynamically added tab contents will appear here -->
 
         </div>
+<<<<<<< HEAD
+=======
+        
+          <div class="trash-container">          
+            <img src="images/trash.png" alt="trash" class="trash-image" id="trash" ondrop="deleteDrop(event)" ondragover="allowDrop(event)">
+            <div id="trash-container" class="trash-container"></div>
+          </div>
+
+
+
+>>>>>>> 386eed3ae6550d3bad96006dd99b50520ad09a82
         <div class="consistent-header-parent console-container">
           <h5 class="consistent-header">
             Console Output
@@ -227,7 +238,6 @@
             <div class="console-error-line"></div>
           </div>
         </div>
-
       </div>
     </div>
 
