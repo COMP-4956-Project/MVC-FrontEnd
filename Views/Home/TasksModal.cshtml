@@ -50,17 +50,18 @@
 
     function updateDescriptionInParent(selectedTask, isChallenge)
     {
-        let taskDescription = null;
         if (isChallenge) {
-            taskDescription = getChallenge();
+            getChallenge()
+                .then(challenge => {
+                    $('.description-of-selected-task').text(challenge);
+                })
+                .catch(error => {
+                    console.error('Error during getChallenge:', error);
+                });
         } else {
-            taskDescription = tasks[selectedTask]?.TaskDescription || "Currently no task selected";
-        }
-
-        // Update the description of container with class "description-of-selected-task" in the parent component (Index.cshtml)
-    @* $('.description-of-selected-task').text(selectedTask); *@
+            let taskDescription = tasks[selectedTask]?.TaskDescription || "Currently no task selected";
             $('.description-of-selected-task').text(taskDescription);
-    @* $('.description-of-selected-task').text("Task " + selectedTask + ": " + taskDescription); *@
+        }
     }
 
     function isChallengeTask(event) {
@@ -73,20 +74,20 @@
         }
     }
 
-    function getChallenge() {
-        fetch('https://codecraftapi.azurewebsites.net/api/challengeapi?id=653579c0b159a9878d692aff') // TODO: change param & move const
-            .then(response => {
-                if (!response.ok) {
+    async function getChallenge() {
+        try {
+            // TODO: chanage endpoint & move constant, for now testing purpose
+            const response = await fetch('https://codecraftapi.azurewebsites.net/api/challengeapi?id=653579c0b159a9878d692aff');
+            if (!response.ok) {
                 throw new Error(`Network response was not ok, status code: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                return data["question"];
-            })
-            .catch(error => {
-                console.error('Error during fetch:', error);
-            });
+            }
+
+            const data = await response.json();
+            return data["question"];
+        } catch (error) {
+            console.error('Error during fetch:', error);
+            throw error; // Re-throw the error so that it can be caught by the caller
+        }
     }
 
     function openTasksModal()
