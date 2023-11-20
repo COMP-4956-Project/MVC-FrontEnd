@@ -8,7 +8,11 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
@@ -21,228 +25,187 @@ body {
   margin-bottom: 60px;
 }
 
-.code-block
-{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-    aspect-ratio: 2/1;
-    width: 10vw;
-
-    text-align: center;
-
-    border-top-style: solid;
-    border-bottom-style: solid;
-    
-    border-width: 2px;
-    border-color: black;
+.code-block {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 5vw;
+  min-width: 5vw;
+  text-align: center;
+  border-top: 0.5vw solid transparent;
+  border-bottom: 0.5vw solid transparent;
+  margin-top: 1vh;
+  /* margin-left: 70px; 
+  transform: scale(0.9);*/
 }
 
-
-.code-block-slot
+p
 {
-  width: 10vw;
-  aspect-ratio: 2/1;
+  margin: 1vh;
+  white-space: nowrap;
+}
+
+.code-block-slot {
+  height: 5vw;
+  min-width: 10vw;
+  border: black 0.4vh solid;
+  margin-top: 1vh;
+  /* margin-left: 70px; 
+  transform: scale(0.9);*/
+}
+
+/* This is for the slots of variables/literals */
+.varlit {
+  min-height:2.5vw;
+  min-width: 2.5vw;
+  background-image: linear-gradient(to right, palevioletred, white);
   border: black 2px solid;
+  margin: 1vh;
 }
 
-
-.varlit
-{
-    height: 45%;
-    aspect-ratio: 1;
-    background-image: linear-gradient(to right, palevioletred, white);
-    border: black 2px solid;
+/* This is for the slots of variables */
+.var {
+  min-height:2.5vw;
+  min-width: 2.5vw;
+  background-color: red;
+  border: black 2px solid;
+  margin: 1vh;
 }
 
-.var
-{
-    height: 45%;
-    aspect-ratio: 1;
-    background-color: red;
-    border: black 2px solid;
+/* This is for literals in the sidebar */
+.dummy.lit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5vw;
+  aspect-ratio: 1;
+  background-color: white;
+  border: black 2px solid;
+  margin: 0.5vw;
 }
 
-.dummy.lit
-{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 5vw;
-    aspect-ratio: 1;
-    background-color: white;
-    border: black 2px solid;
-}
-
-.equality-block
-{
+.equality-block {
   background-color: orchid;
+  border-right: 0.5vw solid yellow;
 }
 
-.expression-block
-{
+.expression-block {
   background-color: orange;
 }
 
-.assignment-block
-{
+.assignment-block {
+  border-right: 0.5vw solid orange;
   background-color: rgb(110, 75, 239);
 }
 
-.function-block
-{
+.function-block {
   background-color: lightgreen;
 }
 
-.scope-block
-{
+.scope-block {
   background-color: cyan;
-  border: blue;
+  border-right: 0.5vw solid orchid;
+  border-bottom: 0.5vw solid white;
 }
 
-
-
-.logic-block
-{
+.logic-block {
   background-color: yellow;
+  border-right: 0.5vw solid orchid;
 }
 
-.sideBar
-{
-  height: 100%;
-  width: 5%;
-}
-
-.scope-block .right
-{
-  background-color: orchid;
-}
-
-.equality-block .right
-{
-  background-color: yellow;
-} 
-
-.assignment-block .right
-{
-  background-color: orange;
-}
-
-.logic-block .right
-{
-  background-color: orchid;
-}
-
-
-.expression
-{
+.expression {
   height: fit-content;
   font-size: 2rem;
   font-weight: bold;
 }
 
-
-
-.line
-{
+.line {
   width: min-content;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.scope-divider
-{
-  width: 10vw;
-  background-color: cyan;
-  background-image: linear-gradient(90deg, transparent 95%, black 5%);
-}
-
-.scope-container
-{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: min-content;
-}
-
-.else
-{
-  background-image: linear-gradient(90deg, cyan 95%, black 5%);
-}
-
-.threequarters
-{
-  width: 6.25vw;
-  aspect-ratio: 5/4;
-  justify-content: space-between;
-}
-
-.half
-{
+.scope-divider {
   width: 5vw;
-  aspect-ratio: 4/4;
-  justify-content: space-between;
+  background-color: cyan;
+  border-right: 0.5vw solid white;
+  
+  /*transform: scale(0.9);*/
 }
 
-.testContainer
-{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    height: 50vh;
-    border: 1px solid black;    
+.scope-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: min-content;
 }
 
-.card-body
+.else {
+  background-color: cyan;
+  border-bottom: 0.5vw solid white;
+  border-right: 0.5vw solid black;
+}
+
+.dialogButtonContainer
 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+
+.testContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  border: 1px solid black;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
   flex-wrap: wrap;
 }
 
-.code-block.dummy
-{
-
-}
-
-.literal-block input[type="text"]
-{
-  width: 80%;
-  height: 100%;
-  background-color: transparent;
+input[type="text"], input[type="number"], select {
   text-align: center;
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: bold;
+  border-width: 5px;
+  margin: 1vh;
 }
 
-.literal-block input[type="number"]
-{
-  width: 80%;
-  height: 100%;
-  background-color: transparent;
+.literal-block input[type="number"] {
+  width: 3ch;
+}
+
+.consistent-header-parent {
+  border-radius: 5px;
+  margin: 10px;
+  width: 66vw;
+  margin-left: 0px;
+  position: sticky;
+  top: 0;
+}
+
+.consistent-header {
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
   text-align: center;
-  font-size: 2rem;
   font-weight: bold;
+  position: sticky;
+  top: 0;
 }
 
-.literal-block input[type="checkbox"]
-{
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  text-align: center;
-  font-size: 10rem;
-  font-weight: bold;
-}
-
-.variable-block
-{
+.variable-block {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -250,17 +213,117 @@ body {
 
   background-color: red;
   border: black 2px solid;
+  margin: 1vh;
+  padding: 1vh;
 }
 
-.variable-block.dummy
+.variable-name 
 {
-  width: 5vw;
-  height: 5vw;
-}
-
-.variable-name
-{
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: bold;
   text-decoration: underline;
+  margin: 0;
+}
+
+/* Checkbox CSS */
+
+input[type="checkbox"]{
+  -webkit-appearance: initial;
+  appearance: initial;
+  min-width: 5ch;
+  min-height: 4ch;
+  border: none;
+  background: white;
+  position: relative;
+  color: black;
+  cursor: pointer;
+  border: black 2px solid;
+  border-radius: 5px;
+
+  font-weight: bold;
+  margin: 1vh;
+}
+
+input[type="checkbox"]:checked:after {
+  /* Heres your symbol replacement - this is a tick in Unicode. */
+  content: "True";
+  /* The following positions my tick in the center, 
+   * but you could just overlay the entire box
+   * with a full after element with a background if you want to */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+
+}
+
+
+
+input[type="checkbox"]:not(:checked):after {
+  /* Heres your symbol replacement - this is a tick in Unicode. */
+  content: "False";
+  /* The following positions my tick in the center, 
+   * but you could just overlay the entire box
+   * with a full after element with a background if you want to */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+
+/* Login Page CSS */
+
+.login-box {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: #FFC300;
+  padding: 20px;
+
+  max-width: 500px; 
+  margin: auto;
+}
+
+/* Registration Page CSS */
+
+.registration-box {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: #FFC300;
+  padding: 20px;
+
+  max-width: 500px; 
+  margin: auto;
+}
+
+/* mobile screens */
+@media (max-width: 768px) {
+  .container.login-box {
+      width: 100%;
+  }
+
+  .text-center img {
+      width: 80%;
+      height: auto;
+  }
+
+  .form-group {
+      margin: 10px 0;
+  }
+
+  .btn {
+      display: block;
+      width: 50%;
+      margin-bottom: 10px;
+  }
+}
+
+.sticky-footer {
+  margin-top: 0px;
 }

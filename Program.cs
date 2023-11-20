@@ -47,4 +47,19 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+    // Routing to the Help page
+app.MapControllerRoute(
+    name: "help",
+    pattern: "{controller=Help}/{action=Help}/{id?}");
+
+// Routing to the Privacy page
+app.MapControllerRoute(
+    name: "privacy",
+    pattern: "{controller=Privacy}/{action=Privacy}/{id?}");
+
+// Routing to the Login page
+app.MapControllerRoute(
+    name: "login",
+    pattern: "{controller=Login}/{action=Login}/{id?}");
+
 app.Run();

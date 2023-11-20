@@ -1,3 +1,11 @@
+#mainContainer {
+  display: flex;
+  zoom: 0.9;
+  transform: scale(0.9);
+  justify-content: center;
+  margin-top: -3vh;
+}
+
 p {
   font-size: 1em;
   font-weight: bold;
@@ -8,12 +16,7 @@ button {
   color: black;
   text-decoration: none;
 }
-.sidebar {
-  padding: 58px 0 0; /* Height of navbar */
-  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-  width: 240px;
-  z-index: 600;
-}
+
 .sidebar .active {
   border-radius: 5px;
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
@@ -28,7 +31,9 @@ button {
   background-color: #e8cf7a;
 }
 
-#collapseOne {
+#collapseOne,
+#createvariable,
+#errorcontainer {
   background-color: #e5a4a4;
 }
 
@@ -72,17 +77,13 @@ button {
   background-color: #9cd4e5;
 }
 
-#mainContainer {
-  display: flex;
-  flex-direction: row;
-}
-
 .content-wrapper {
   background-color: rgb(181, 181, 181);
-  height: 51vh;
-  width: 53.5vw;
+  height: auto;
+  width: 75vw;
   border-radius: 5px;
   margin-top: 10px;
+  max-width: 100%;
 }
 
 .tab-headers {
@@ -122,10 +123,12 @@ button {
 .tab-content {
   border-radius: 0 0 15px 15px;
   padding: 20px;
+  width: 30vw;
 }
 
 .tab-content.active {
   display: block;
+  margin-left: 70px;
 }
 
 .tutorial-sidebar {
@@ -146,7 +149,7 @@ button {
   border-radius: 5px;
   margin: 10px;
   padding: 10px;
-  width: 55vw;
+  width: 62vw;
   margin-left: 20px;
 }
 
@@ -162,8 +165,15 @@ button {
   border: 1px solid #ccc;
   border-radius: 5px;
   margin: 10px;
-  padding: 10px;
-  width: 55vw;
+  margin-right: 10px;
+  margin-left: 50px;
+  width: 25vw;
+  min-height: 96vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+  max-height: calc(100vh - 100px);
+  overflow-y: hidden; 
 }
 
 .left-sidebar-header {
@@ -173,3 +183,187 @@ button {
   text-align: center;
   font-weight: bold;
 }
+
+.tasks-button {
+  background-color: #a2a5a8;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  height: 40px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 6.75vh
+}
+
+.tasks-button:hover {
+  background-color: #5b5b5b;
+}
+
+.task-button-header-parent {
+  width: 23.5vw;
+  margin-bottom: 20px;
+}
+
+.task-description {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+}
+
+.description-of-selected-task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  margin: 40px;
+  margin-bottom: 28px;
+  margin-top: 28px;
+  font-weight: bold;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.padding-10,
+.card {
+  padding: 5px;
+  border: none;
+}
+
+.console-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.console-content {
+  flex-grow: 1;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 5px 0;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.console-line {
+  font-family: monospace;
+  margin: 2px 0;
+}
+
+.console-input {
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 5px;
+}
+
+#console-textarea {
+  width: 100%;
+  height: auto;
+  resize: none;
+  border: none;
+  outline: none;
+}
+
+.run-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 50vw;
+  margin-top: 1vw;
+  margin-right: 1vw;
+  margin-bottom: 1vw;
+  width: 100px;
+  height: 5vh;
+  padding: 10px 20px;
+  background-color: #29ad2d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.run-button:hover {
+  background-color: #45a049;
+}
+
+.content-wrapper {
+  position: sticky;
+  top: 0;
+}
+
+.tab-contents {
+  position: relative;
+}
+
+.checkmark-image {
+  position: absolute;
+  top: 120px;
+  left: -30vw;
+}
+
+.wrong-answer-message {
+  position: relative;
+  left: -60vw;
+  font-size: small;
+}
+
+#downarrow {
+  float: right;
+}
+div[title]:hover::after {
+  content: attr(title);
+  font-size: small;
+  padding: 10px;
+}
+#variableaddition,
+#createbutton {
+  background-color: rgb(204, 83, 83);
+}
+
+.trash-image {
+  width: 5%;
+  float: right;
+  margin-right: 1vw;
+  margin-bottom: 1vw;
+}
+
+.card-container {
+  height: calc(100vh - 150px);
+  overflow-y: auto;
+  padding-top: 10px; 
+}
+
+.card {
+  max-height: fit-content; 
+  overflow-y: auto;
+}
+
+/* Initially hide titles */
+*[title]::after {
+  content: attr(title);
+  font-size: smaller;
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Display titles on hover */
+*[title]:hover::after {
+  visibility: visible;
+  opacity: 1;
+}
+
