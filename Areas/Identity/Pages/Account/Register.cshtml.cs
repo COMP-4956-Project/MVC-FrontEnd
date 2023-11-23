@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -18,6 +19,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using MongoDB.Driver;
+using Mono.Unix.Native;
 using MVC_Backend_Frontend.Models;
 
 namespace MVC_Backend_Frontend.Areas.Identity.Pages.Account
@@ -30,13 +33,14 @@ namespace MVC_Backend_Frontend.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<CustomUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IMongoCollection<MongoUser> _userCollection;
 
         public RegisterModel(
             UserManager<CustomUser> userManager,
             IUserStore<CustomUser> userStore,
             SignInManager<CustomUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, IMongoClient mongoClient)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +48,9 @@ namespace MVC_Backend_Frontend.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+
+            var database = mongoClient.GetDatabase("CodeCraft");
+            _userCollection = database.GetCollection<MongoUser>("users");
         }
 
         /// <summary>
@@ -121,6 +128,16 @@ namespace MVC_Backend_Frontend.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    var newUser = new MongoUser
+                    {
+                        Email = Input.Email,
+                        Role = "user",
+                        Projects = new List<string> { },
+                        Level = "1"
+                    };
+
+                    await _userCollection.InsertOneAsync(newUser);
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

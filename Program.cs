@@ -5,6 +5,8 @@ using MVC_Backend_Frontend.Data;
 using MVC_Backend_Frontend.Models;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using MongoDB.Driver;
+using MongoDB.Bson;
 
 string json = File.ReadAllText(@"./test3.json");
 var pythonRunner = new PythonRunner();
@@ -29,6 +31,12 @@ options => {
 .AddDefaultUI()
 .AddDefaultTokenProviders()
 .AddRoles<CustomRole>();
+
+var mongoString = "mongodb+srv://admin:Wk2hn25gmfv1JpFh@comp4956.9hedzlx.mongodb.net/?retryWrites=true&w=majority"; // Update with your MongoDB server connection string
+var client = new MongoClient(mongoString);  // Replace with your database name
+
+// Add MongoDB services
+builder.Services.AddSingleton<IMongoClient>(client);
 
 builder.Services.AddControllersWithViews();
 
@@ -73,7 +81,6 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "logout",
     pattern: "{controller=Logout}/{action=Logout}/{id?}");
-
 
 app.MapControllerRoute(
     name: "default",

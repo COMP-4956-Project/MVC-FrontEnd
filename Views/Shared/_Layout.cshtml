@@ -44,7 +44,7 @@
 
                         @* Other Top Nav Bar Links: Home, Help, Privacy, testing *@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-action="">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Interactions">Code</a>
                         </li>
                         @* <li class="nav-item help">
 
@@ -58,7 +58,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/testing">testing</a>
                         </li>*@
                         <li class="nav-item"> 
-                            <a class="nav-link text-dark" asp-area="" asp-action="Tutorial">Tutorial</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Tutorial">Tutorial</a>
                         </li>
                         <partial name="_LoginPartial"/>
 
@@ -69,7 +69,7 @@
             
                            @* Logout Button in button form *@
                        <li class="nav-item logout">
-                          <a class="nav-link text-dark btn btn-info" asp-area="" asp-controller="" asp-action="Logout"><strong>LOG OUT</strong></a>
+                          <a class="nav-link text-dark btn btn-info" asp-area="" asp-controller="Home" asp-action="Logout"><strong>LOG OUT</strong></a>
                         </li>
                     </ul>
                 </div>
