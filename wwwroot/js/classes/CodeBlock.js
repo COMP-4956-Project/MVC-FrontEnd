@@ -383,6 +383,7 @@ export class EqualityBlock extends CodeBlock
 {
     static subTypes =
     [
+        "single",
         "==",
         "!=",
         "<",
@@ -420,8 +421,12 @@ export class EqualityBlock extends CodeBlock
         this.element.className += " equality-block";
 
         this.addVarLit();
-        this.addExpression(subType);
-        this.addVarLit();
+
+        if(subType != "single")
+        {
+            this.addExpression(subType);
+            this.addVarLit();
+        }
     }
 
     hasValidNeighbors(slot)

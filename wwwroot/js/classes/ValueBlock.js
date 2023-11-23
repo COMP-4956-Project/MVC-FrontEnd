@@ -147,10 +147,12 @@ export class VariableBlock
                 case "string":
                     valueInput = getStringInput();
                     valueInput.value = value;
+                    valueInput.size = valueInput.value.length;
                     break;
                 case "number":
                     valueInput = getNumberInput();
                     valueInput.value = value;
+                    valueInput.style.width = (valueInput.value.length + 4) + "ch";
                     break;
                 case "boolean":
                     valueInput = getBooleanInput();
@@ -159,6 +161,7 @@ export class VariableBlock
                 case "float":
                     valueInput = getFloatInput();
                     valueInput.value = value;
+                    valueInput.style.width = (valueInput.value.length + 5) + "ch";
                     break;
             }
 
