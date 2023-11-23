@@ -280,7 +280,7 @@ input[type="checkbox"]:not(:checked):after {
 
 /* Login Page CSS */
 
-.login-box {
+.login-box,.logout-box{
   border: 1px solid black;
   border-radius: 10px;
   background-color: #FFC300;
@@ -298,13 +298,16 @@ input[type="checkbox"]:not(:checked):after {
   background-color: #FFC300;
   padding: 20px;
 
-  max-width: 500px; 
+  padding-left: 60px; /* Add horizontal padding to the left side */
+  padding-right: 60px; /* Add horizontal padding to the right side */
+
+  max-width: 700px; 
   margin: auto;
 }
 
 /* mobile screens */
 @media (max-width: 768px) {
-  .container.login-box {
+  .container.login-box, .container.registration-box, .logout-box {
       width: 100%;
   }
 
@@ -326,4 +329,11 @@ input[type="checkbox"]:not(:checked):after {
 
 .sticky-footer {
   margin-top: 0px;
+}
+
+.container.body-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* This will take the full viewport height */
 }

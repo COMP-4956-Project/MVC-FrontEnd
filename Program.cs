@@ -62,4 +62,9 @@ app.MapControllerRoute(
     name: "login",
     pattern: "{controller=Login}/{action=Login}/{id?}");
 
+// Routing to the Logout page
+app.MapControllerRoute(
+    name: "logout",
+    pattern: "{controller=Logout}/{action=Logout}/{id?}");
+
 app.Run();
