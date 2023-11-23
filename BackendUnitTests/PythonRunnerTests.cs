@@ -20,18 +20,11 @@ public class PythonRunnerTests
     [Test]
     public void PythonRunnerTest1()
     {
-        string expectedResult;
-        if (OperatingSystem.IsWindows())
-        {
-            expectedResult = "donkey\r\n";
-        }
-        else
-        {
-            expectedResult = "donkey\n";
-        }
+        string expectedResult = "donkey\n";
         string pythonCode = "print('donkey')";
         PythonRunner _pythonRunner = new PythonRunner();
         string result = Regex.Unescape(_pythonRunner.RunFromString(pythonCode));
+        result = result.Replace("\r", "");
         Console.WriteLine(result);
         Assert.That(result, Is.EqualTo(expectedResult));
     }
@@ -39,18 +32,11 @@ public class PythonRunnerTests
     [Test]
     public void PythonRunnerTest2()
     {
-        string expectedResult;
-        if (OperatingSystem.IsWindows())
-        {
-            expectedResult = "donkey\r\ndonkey2\r\n";
-        }
-        else
-        {
-            expectedResult = "donkey\ndonkey2\n";
-        }
+        string expectedResult = "donkey\ndonkey2\n";
         string pythonCode = "print('donkey')\nprint('donkey2')";
         PythonRunner _pythonRunner = new PythonRunner();
         string result = Regex.Unescape(_pythonRunner.RunFromString(pythonCode));
+        result = result.Replace("\r", "");
         Console.WriteLine(result);
         Assert.That(result, Is.EqualTo(expectedResult));
         
