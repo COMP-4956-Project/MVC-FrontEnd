@@ -1,64 +1,72 @@
 import { lineMaker } from "./drag_drop.js";
 
-$(document).ready(function () {
-  let tabCounter = 1;
+$(document).ready(function() {
+    let tabCounter = 1;
 
-  // Switching between tabs
-  $(document).on("click", ".tab", function () {
-    let tabId = $(this).data("tab-id");
-    $(".tab, .tab-content").removeClass("active"); // Remove 'active' class from all tabs and contents
-    $(`.tab[data-tab-id="${tabId}"]`).addClass("active"); // Add 'active' class to clicked tab
-    $(".tab-content").hide(); // Hide all tab contents
-    $(`.tab-content[data-tab-id="${tabId}"]`).show(); // Show the clicked tab's content
-  });
-
-  // Closing tabs
-  $(document).on("click", ".close-tab", function (e) {
-    e.stopPropagation(); // Prevent triggering the tab switching
-    let tabId = $(this).parent().data("tab-id");
-    $(
-      `.tab[data-tab-id="${tabId}"], .tab-content[data-tab-id="${tabId}"]`
-    ).remove();
-
-    // If the removed tab was active, activate the first tab
-    if ($(".tab.active").length === 0 && $(".tab").length > 0) {
-      let firstTabId = $(".tab").first().data("tab-id");
-      $(`.tab[data-tab-id="${firstTabId}"]`).addClass("active");
-      $(`.tab-content[data-tab-id="${firstTabId}"]`).show();
+    // Function to update the tab title
+    function updateTabTitle(element, newTitle) {
+        // Update the tab title text
+        $(element).text(newTitle);
+        // Exit edit mode
+        $(element).removeAttr('contenteditable');
+        // Focus out after setting text
+        $(element).blur();
     }
-  });
 
-  $("#addTab").click(function () {
-    tabCounter++;
-    let tabId = "tab-" + tabCounter;
-    let newTab = `<div class="tab" data-tab-id="${tabCounter}"><span class="tab-title">Tab ${tabCounter}</span><button class="close-tab">x</button></div>`;
+    // Event delegation for dynamic elements (tabs)
+    $(document).on('dblclick', '.tab-title', function() {
+        // Make content editable on double click
+        $(this).attr('contenteditable', 'true').focus();
+    });
 
-    let newTabContent =
-      `<div class="tab-content" id="${tabId}" data-tab-id="${tabCounter}" style="display: none;">` +
-      `Content for Tab ${tabCounter}` +
-      `</div>`;
+    $(document).on('keypress', '.tab-title', function(e) {
+        // Check for Enter key
+        if (e.which === 13) {
+            e.preventDefault(); // Prevent the default Enter key behavior
+            let newTitle = $(this).text().trim();
+            updateTabTitle(this, newTitle);
+        }
+    });
 
-    // Append the new tab and content
-    $(".tab-headers").append(newTab);
-    $(".tab-contents").append(newTabContent);
+    // Click event on tab changes the active tab
+    $(document).on('click', '.tab', function() {
+        let tabId = $(this).data('tab-id');
+        $('.tab, .tab-content').removeClass('active');
+        $(`.tab[data-tab-id="${tabId}"]`).addClass('active');
+        $('.tab-content').hide();
+        $(`.tab-content[data-tab-id="${tabId}"]`).show();
+    });
 
-    // Activate the new tab
-    $(".tab, .tab-content").removeClass("active");
-    $(
-      `.tab[data-tab-id="${tabCounter}"], .tab-content[data-tab-id="${tabCounter}"]`
-    ).addClass("active");
-    $(".tab-content").hide();
-    $(`.tab-content[data-tab-id="${tabCounter}"]`).show();
+    // Close tab event
+    $(document).on('click', '.close-tab', function(e) {
+        e.stopPropagation();
+        let tabId = $(this).parent().data('tab-id');
+        $(`.tab[data-tab-id="${tabId}"], .tab-content[data-tab-id="${tabId}"]`).remove();
+        if ($('.tab.active').length === 0 && $('.tab').length > 0) {
+            let firstTabId = $('.tab').first().data('tab-id');
+            $(`.tab[data-tab-id="${firstTabId}"]`).addClass('active');
+            $(`.tab-content[data-tab-id="${firstTabId}"]`).show();
+        }
+    });
 
-    // Optionally call a function to handle the line making
-    lineMaker && lineMaker(document.getElementById(tabId)); // Check if lineMaker exists before calling
-
-    // Scroll the tab headers to the end to show the new tab
-    $(".tab-headers").animate(
-      {
-        scrollLeft: $(".tab-headers")[0].scrollWidth,
-      },
-      500
-    );
-  });
+    // Add new tab event
+    $('#addTab').click(function() {
+        tabCounter++;
+        let tabId = "tab-" + tabCounter;
+        let newTab = `<div class="tab" data-tab-id="${tabCounter}">` +
+                     `<span class="tab-title" ondblclick="this.contentEditable=true;">New Tab</span>` +
+                     `<button class="close-tab">x</button>` +
+                     `</div>`;
+        let newTabContent = `<div class="tab-content" id="${tabId}" data-tab-id="${tabCounter}" style="display: none;">` +
+                            `Content for New Tab` +
+                            `</div>`;
+        $('.tab-headers').append(newTab);
+        $('.tab-contents').append(newTabContent);
+        $('.tab, .tab-content').removeClass('active');
+        $(`.tab[data-tab-id="${tabCounter}"], .tab-content[data-tab-id="${tabCounter}"]`).addClass('active');
+        $('.tab-content').hide();
+        $(`.tab-content[data-tab-id="${tabCounter}"]`).show();
+        lineMaker && lineMaker(document.getElementById(tabId));
+        $('.tab-headers').animate({ scrollLeft: $('.tab-headers').prop("scrollWidth") }, 500);
+    });
 });

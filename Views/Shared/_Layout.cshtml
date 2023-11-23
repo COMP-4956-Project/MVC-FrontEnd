@@ -48,27 +48,33 @@
                         </li>
                         @* <li class="nav-item help">
 
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Help">Help</a>
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Help">Help</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/testing">testing</a>
+                        <a class="nav-link text-dark" asp-area="" asp-page="/testing">testing</a>
                         </li>*@
-                        <li class="nav-item"> 
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-action="Tutorial">Tutorial</a>
                         </li>
 
-                    @* Logout Button in text form *@
-                          @* <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Logout"><strong>LOGOUT</strong></a>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Profile">Profile</a>
+                        </li>
+
+                        @* Logout Button in text form *@
+                        @* <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller=""
+                        asp-action="Logout"><strong>LOGOUT</strong></a>
                         </li> *@
-            
-                           @* Logout Button in button form *@
-                       <li class="nav-item logout">
-                          <a class="nav-link text-dark btn btn-info" asp-area="" asp-controller="" asp-action="Logout"><strong>LOG OUT</strong></a>
+
+                        @* Logout Button in button form *@
+                        <li class="nav-item logout">
+                            <a class="nav-link text-dark btn btn-info" asp-area="" asp-controller=""
+                                asp-action="Logout"><strong>LOG OUT</strong></a>
                         </li>
                     </ul>
                 </div>
