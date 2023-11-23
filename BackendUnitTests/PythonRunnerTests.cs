@@ -20,20 +20,35 @@ public class PythonRunnerTests
     [Test]
     public void PythonRunnerTest1()
     {
+        string expectedResult;
+        if (OperatingSystem.IsWindows())
+        {
+            expectedResult = "donkey\r\n";
+        }
+        else
+        {
+            expectedResult = "donkey\n";
+        }
         string pythonCode = "print('donkey')";
-        string expectedResult = "donkey\n";
         PythonRunner _pythonRunner = new PythonRunner();
         string result = Regex.Unescape(_pythonRunner.RunFromString(pythonCode));
         Console.WriteLine(result);
         Assert.That(result, Is.EqualTo(expectedResult));
-        
     }
     
     [Test]
     public void PythonRunnerTest2()
     {
+        string expectedResult;
+        if (OperatingSystem.IsWindows())
+        {
+            expectedResult = "donkey\r\ndonkey2\r\n";
+        }
+        else
+        {
+            expectedResult = "donkey\r\ndonkey2\r\n";
+        }
         string pythonCode = "print('donkey')\nprint('donkey2')";
-        string expectedResult = "donkey\ndonkey2\n";
         PythonRunner _pythonRunner = new PythonRunner();
         string result = Regex.Unescape(_pythonRunner.RunFromString(pythonCode));
         Console.WriteLine(result);
@@ -44,11 +59,11 @@ public class PythonRunnerTests
     [Test]
     public void PythonRunnerTest3()
     {
-        string pythonCode = "i = 0\nprint('donkey')\nprint('donkey2')\nwhile(i < 4):\n\tprint(i)\n\ti += 1";
-        Console.WriteLine(pythonCode);
         string expectedResult = "donkey\ndonkey2\n0\n1\n2\n3\n";
+        string pythonCode = "i = 0\nprint('donkey')\nprint('donkey2')\nwhile(i < 4):\n\tprint(i)\n\ti += 1";
         PythonRunner _pythonRunner = new PythonRunner();
         string result = Regex.Unescape(_pythonRunner.RunFromString(pythonCode));
+        result = result.Replace("\r", "");
         Console.WriteLine(result);
         Assert.That(result, Is.EqualTo(expectedResult));
         
