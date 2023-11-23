@@ -48,14 +48,46 @@
     tasks[100] = { TaskID: 100, TaskDifficulty: "hard", TaskDescription: "Please reverse the string '!yenruoj gnidoc ruoy fo trap sa tfarCedoC gnisu rof uoy knahT\n.noitseuq lanif eht detelpmoc evah uoY !snoitalutargnoC' and print it", Answer: "Congratulations! You have completed the final question. Thank you for using CodeCraft as part of your coding journey!"  };
 
 
-    function updateDescriptionInParent(selectedTask)
+    function updateDescriptionInParent(selectedTask, isChallenge)
     {
-        let taskDescription = tasks[selectedTask]?.TaskDescription || "Currently no task selected";
-
-        // Update the description of container with class "description-of-selected-task" in the parent component (Index.cshtml)
-    @* $('.description-of-selected-task').text(selectedTask); *@
+        if (isChallenge) {
+            getChallenge()
+                .then(challenge => {
+                    $('.description-of-selected-task').text(challenge);
+                })
+                .catch(error => {
+                    console.error('Error during getChallenge:', error);
+                });
+        } else {
+            let taskDescription = tasks[selectedTask]?.TaskDescription || "Currently no task selected";
             $('.description-of-selected-task').text(taskDescription);
-    @* $('.description-of-selected-task').text("Task " + selectedTask + ": " + taskDescription); *@
+        }
+    }
+
+    function isChallengeTask(event) {
+        let clickedElement = event.target;
+        let parentContainer = clickedElement.parentElement;
+        let childElements = parentContainer.children;
+        let isLastChild = clickedElement === childElements[childElements.length - 1];
+        if (isLastChild) {
+            return true;
+        }
+    }
+
+    async function getChallenge() {
+        try {
+            // TODO: chanage endpoint & move constant, for now testing purpose
+            const response = await fetch('https://codecraftapi.azurewebsites.net/api/challengeapi?id=653579c0b159a9878d692aff');
+            if (!response.ok) {
+                throw new Error(`Network response was not ok, status code: ${response.status}`);
+            }
+
+            const data = await response.json();
+            return data["question"];
+        } catch (error) {
+            console.error('Error during fetch:', error);
+            throw error; // Re-throw the error so that it can be caught by the caller
+        }
     }
 
     function openTasksModal()
@@ -79,14 +111,14 @@
             taskSquare.dataset.task = taskNumber;
             taskSquare.textContent = taskNumber;
 
-            taskSquare.addEventListener('click', () =>
+            taskSquare.addEventListener('click', (event) =>
             {
                 const allTaskSquares = document.querySelectorAll('.task-square');
                 allTaskSquares.forEach(otherSquare =>
                 {
                     otherSquare.classList.remove('task-active');
                 });
-
+                let isChallenge = isChallengeTask(event);
                 taskSquare.classList.add('task-active');
                 selectedTask = taskSquare.textContent; //  ================================ set selectedTask to the value of the active task
 
@@ -103,7 +135,7 @@
                 confirmButton.addEventListener('click', () =>
                 {
                     console.log('Task number TO BE emitted: ', selectedTask);
-                    updateDescriptionInParent(selectedTask);
+                    updateDescriptionInParent(selectedTask, isChallenge);
                     closeModal();
                 });
             });

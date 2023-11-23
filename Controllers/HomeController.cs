@@ -68,6 +68,12 @@ public class HomeController : Controller
         return View();
     }
 
+    //Logout Page
+    public IActionResult Logout()
+    {
+        return View();
+    }
+
     //Register Page
     public IActionResult Register()
     {
