@@ -67,6 +67,7 @@ document.getElementById("createbutton").onclick = function()  {
             variableBlock = new VariableBlock(dropdown.value, textInput.value, valueInput.value);
         }
 
+        variableBlock.element.className += " global";
         varCon.appendChild(variableBlock.element)
     }
 }
