@@ -18,8 +18,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+/*builder.Services.AddDefaultIdentity<CustomUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbContext>();*/
+
+builder.Services.AddIdentity<CustomUser, CustomRole>(
+options => {
+    options.Stores.MaxLengthForKeys = 128;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultUI()
+.AddDefaultTokenProviders()
+.AddRoles<CustomRole>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -43,11 +53,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-    // Routing to the Help page
+// Routing to the Help page
 app.MapControllerRoute(
     name: "help",
     pattern: "{controller=Help}/{action=Help}/{id?}");
@@ -66,5 +73,12 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "logout",
     pattern: "{controller=Logout}/{action=Logout}/{id?}");
+
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();
