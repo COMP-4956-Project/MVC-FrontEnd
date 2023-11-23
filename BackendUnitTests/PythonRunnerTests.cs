@@ -46,7 +46,7 @@ public class PythonRunnerTests
         }
         else
         {
-            expectedResult = "donkey\r\ndonkey2\r\n";
+            expectedResult = "donkey\ndonkey2\n";
         }
         string pythonCode = "print('donkey')\nprint('donkey2')";
         PythonRunner _pythonRunner = new PythonRunner();
