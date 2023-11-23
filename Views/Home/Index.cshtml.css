@@ -79,28 +79,35 @@ button {
 
 .content-wrapper {
   background-color: rgb(181, 181, 181);
-  height: auto;
-  width: 75vw;
+  min-height: 100vh; /* Changed from height to min-height */
+  width: calc(75vw - 50px);
   border-radius: 5px;
   margin-top: 10px;
   max-width: 100%;
+  position: sticky;
+  top: 0;
 }
 
 .tab-headers {
   display: flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  align-items: center;
   border-bottom: 1px solid #ccc;
+  overflow-x: auto; /* Ensure horizontal scrolling */
+  margin-bottom: -1px;
 }
 
-.tab {
-  display: inline-block;
+.tab{
+  display: inline-flex; 
+  align-items: center; 
   padding: 10px 20px;
-  margin: 0 5px;
+  margin-right: 5px; 
   border-radius: 15px 15px 0 0;
   background-color: #fff;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-  position: relative;
-  top: 1px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .tab:hover {
@@ -123,12 +130,16 @@ button {
 .tab-content {
   border-radius: 0 0 15px 15px;
   padding: 20px;
-  width: 30vw;
+  width: 100vh;
+  display: none; 
+  height: 100%;
+  overflow-y: auto; 
+  overflow-y: scroll; 
 }
 
 .tab-content.active {
-  display: block;
-  margin-left: 70px;
+  display: block; /* Show only the active tab content */
+  overflow-y: auto; 
 }
 
 .tutorial-sidebar {
@@ -173,7 +184,7 @@ button {
   top: 0;
   overflow-y: auto;
   max-height: calc(100vh - 100px);
-  overflow-y: hidden; 
+  overflow-y: hidden;
 }
 
 .left-sidebar-header {
@@ -242,7 +253,8 @@ button {
 .console-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100vh; /* Ensure the container stretches to viewport height */
+  overflow-y: auto; /* Allow scrolling within the console */
 }
 
 .console-content {
@@ -301,13 +313,14 @@ button {
   background-color: #45a049;
 }
 
-.content-wrapper {
+/* .content-wrapper {
   position: sticky;
   top: 0;
-}
+} */
 
 .tab-contents {
   position: relative;
+  overflow-y: auto; 
 }
 
 .checkmark-image {
