@@ -126,7 +126,6 @@ export class VariableBlock
 
         this.element.dataset.blockType = "variable";
         this.element.dataset.name = name; 
-        this.element.dataset.array = array;
         this.element.dataset.subType = type;
         
         
@@ -185,8 +184,9 @@ export class ArrayBlock extends VariableBlock
         this.element.dataset.blockType = "array";
         this.element.className = "array-block";
 
-        valueInput = getNumberInput();
-        valueInput.value = value;
+        
+        let valueInput = getNumberInput();
+        valueInput.value = size;
         valueInput.style.width = (valueInput.value.length + 4) + "ch";
         this.element.appendChild(valueInput);
     }
