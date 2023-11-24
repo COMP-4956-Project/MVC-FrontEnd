@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,7 +12,7 @@
       top: 50%;
       transform: translate(1150%, -70%);
       width: 100px;
-      position: relative;
+      position: relative;y
     }
 
     .wrong-answer-message {
@@ -221,7 +223,7 @@
         </div>
 
         <div class="trash-container">
-          <img src="images/trash.png" alt="trash" class="trash-image" id="trash" ondrop="deleteDrop(event)"
+          <img src="~/images/trash.png" alt="trash" class="trash-image" id="trash" ondrop="deleteDrop(event)"
             ondragover="allowDrop(event)">
           <div id="trash-container" class="trash-container"></div>
         </div>
@@ -341,10 +343,10 @@
   </dialog>
 
 
-  <script type="module" defer src="js/testing.js"></script>
+  <script type="module" defer src="~/js/testing.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="module" src="~/js/tabs.js"></script>
-  <script type="module" src="js/dropdown.js"></script>
+  <script type="module" src="~/js/dropdown.js"></script>
   <script>document.addEventListener('DOMContentLoaded', function ()
     {
       document.body.style.overflow = 'hidden';
