@@ -6,9 +6,9 @@ using MVC_Backend_Frontend.Models;
 
 namespace MVC_Backend_Frontend
 {
-    public class JsonParser
+    public class BlockListParser
     {
-        public static string Parse(Block? block)
+        public static string ParseBlock(Block? block)
         {
             string code = "";
             if (block == null)
@@ -23,8 +23,8 @@ namespace MVC_Backend_Frontend
                 case "function":
                     if (block.field == "operation")
                     {
-                        string a = Parse(block.A);
-                        string b = Parse(block.B);
+                        string a = ParseBlock(block.A);
+                        string b = ParseBlock(block.B);
                         switch (block.operation) // assign, assign_add, assign_subtract, assign_multiply, assign_divide
                         {
                             case "assign_variable":
@@ -48,7 +48,7 @@ namespace MVC_Backend_Frontend
                     else
                     {
                         code += block.instruction + "(";
-                        code += Parse(block.input);
+                        code += ParseBlock(block.input);
                         code += ")";
                     }
                     break;
@@ -62,8 +62,8 @@ namespace MVC_Backend_Frontend
                             code += "'" + block.text + "'";
                             break;
                         case "operation":
-                            string a = Parse(block.A);
-                            string b = Parse(block.B);
+                            string a = ParseBlock(block.A);
+                            string b = ParseBlock(block.B);
                             switch (block.operation) // add, subtract, multiply, divide
                             {
                                 case "add":
@@ -94,7 +94,7 @@ namespace MVC_Backend_Frontend
                             }
                             if (block.input != null)
                             {
-                                code += Parse(block.input);
+                                code += ParseBlock(block.input);
                             }
                             break;
                         default: break;
@@ -107,7 +107,7 @@ namespace MVC_Backend_Frontend
                     }
                     code += block.instruction + " ";
                     if (block.instruction != "else") {
-                        code += Parse(block.input);
+                        code += ParseBlock(block.input);
                     }
                     code += ":";
                     foreach (var child in block.children)
@@ -118,18 +118,18 @@ namespace MVC_Backend_Frontend
                         {
                             code += "\t";
                         }
-                        code += "\t" + Parse(child);
+                        code += "\t" + ParseBlock(child);
                     }
                     break;
                 case "logic":
                     if (block.logic == "not")
                     {
                         code += block.logic + " ";
-                        code += Parse(block.input);
+                        code += ParseBlock(block.input);
                     } else
                     {
-                        string a = Parse(block.A);
-                        string b = Parse(block.B);
+                        string a = ParseBlock(block.A);
+                        string b = ParseBlock(block.B);
                         switch (block.logic) // not_equals equals greater_equals less_equals greater less not and or
                         {
                             case "not_equals":
@@ -163,6 +163,16 @@ namespace MVC_Backend_Frontend
                 default: break;
             }
             return code;
+        }
+        public static string ParseBlockList(BlockList blockList)
+        {
+            string codeResult = "";
+            foreach (var block in blockList.blocks)
+            {
+                codeResult += ParseBlock(block) + "\n";
+            }
+
+            return codeResult;
         }
     }
 }

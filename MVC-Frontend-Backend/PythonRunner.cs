@@ -43,7 +43,7 @@ namespace MVC_Backend_Frontend
             {
                 foreach (var block in blocklist.blocks)
                 {
-                    code += JsonParser.Parse(block) + "\n";
+                    code += BlockListParser.ParseBlock(block) + "\n";
                 }
             }
             Console.WriteLine(code);
