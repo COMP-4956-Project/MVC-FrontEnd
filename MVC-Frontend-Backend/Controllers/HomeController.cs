@@ -18,7 +18,36 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Interactions()
+    {
+        return View();
+    }
+
     public IActionResult Privacy()
+    {
+        return View();
+    }
+
+      // Help Page
+    public IActionResult Help()
+    {
+        return View();
+    }
+
+    //Login Page
+    public IActionResult Login()
+    {
+        return View();
+    }
+
+    //Logout Page
+    public IActionResult Logout()
+    {
+        return View();
+    }
+
+    //Register Page
+    public IActionResult Register()
     {
         return View();
     }
@@ -28,4 +57,9 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-}
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Tutorial()
+    {
+        return View(new TutorialModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }}
