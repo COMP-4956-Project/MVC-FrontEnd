@@ -183,6 +183,7 @@ export class ArrayBlock extends VariableBlock
     {
         super(type, name, null);
         this.element.dataset.blockType = "array";
+        this.element.className = "array-block";
 
         valueInput = getNumberInput();
         valueInput.value = value;
