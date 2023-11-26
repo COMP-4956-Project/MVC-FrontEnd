@@ -30,6 +30,10 @@ namespace MVC_Backend_Frontend.Models
 
         public int? num { get; set; } // int literal
 
+        public bool? boolean { get; set; } // bool literal
+
+        public float? float_num { get; set; } // float literal
+
         // add float
         // add boolean
 

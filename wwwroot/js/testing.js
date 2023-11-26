@@ -73,29 +73,300 @@ for (let i = 0; i < ScopeBlock.subTypes.length; i++)
 
 lineMaker(document.getElementById("test2"));
 
-function parseScope() {
+function matchType(block) {
 
+    // get the type of block
+    let value = block.dataset.blockType;
+
+    if (!block.classList.contains("global") && value === "variable" ) {
+
+        // get the variable name
+        return {"type": "variable", "name": block.dataset.name};
+    } else {
+
+        // match the type of value for literals and global variables
+        let type = block.dataset.subType;
+
+        // create the block object
+        switch (type) {
+            case "number":
+                return {"type": "value", 
+                        "field": "num", 
+                        "num": block.getElementsByClassName('number-input')[0].value};
+            case "string":
+                return {"type": "value", 
+                        "field": "text", 
+                        "text": block.getElementsByClassName('string-input')[0].value};
+            case "boolean":
+                return {"type": "value", 
+                        "field": "boolean", 
+                        "boolean": block.getElementsByClassName('boolean-input')[0].checked};
+            case "float":
+                return {"type": "value", 
+                        "field": "float", 
+                        "float_num": block.getElementsByClassName('float-input')[0].value};
+            default:
+                return null;
+        }
+    }
 }
 
-console.log(document.getElementsByClassName("run-button"));
+function getValue(blockObject, codeBlock) {
 
-function runCode () {
-    console.log("clicked");
-    let lines = document.getElementsByClassName("tab-contents")[0].getElementsByClassName("line");
+    // get the type of block
+    let type = blockObject["type"];
+
+    // check the block if there are any values
+    let input = codeBlock.getElementsByClassName('value');
+
+    // add the values to the object
+    if (input) {
+
+        // match the inputs needed for the block
+        switch (type) {
+            case "function":
+                if ("operation" in blockObject) {
+                    // assignment has A and B
+                    blockObject["A"] = {"type": "variable", "name": input[0].dataset.name};
+                    blockObject["B"] = matchType(input[1]);
+                } else {
+                    // print has input
+                    blockObject["input"] = matchType(input[0]);
+                }
+                break;
+            case "value":
+                // math has A
+                blockObject["A"] = matchType(input[0]);
+                break;
+            case "logic":
+                if (input[0].dataset.subType === "single") {
+                    // single has A
+                    blockObject["A"] = matchType(input[0]);
+                } else {
+                    // logic has A and B
+                    blockObject["A"] = matchType(input[0]);
+                    blockObject["B"] = matchType(input[1]);
+                }
+                break;
+            default:
+                break;
+        }
+    }    
+}
+
+function getInput(block, line) {
+
+    // use a temp variable to chain blocks
+    let reference = block;
+    // get the next block in the line
+    let inputIndex = 1;
+    // get the block type
+    let type = line[inputIndex].dataset.blockType === "equality" ? "logic" : "value";
+
+    // match the type
+    if (type === "logic") {
+        
+        // go through all the blocks in the line
+        while (inputIndex < line.length) {
+
+            // create the object
+            reference["input"] = {"type": type};
+
+            // match the type of logic block
+            let logic = line[inputIndex].dataset.subType;
+
+            // add the logic type to the object
+            switch (logic) {
+                case "single":
+                    reference["input"]["logic"] = "single_chain";
+                    break;
+                case "==":
+                    reference["input"]["logic"] = "equals_chain";
+                    break;
+                case "!=":
+                    reference["input"]["logic"] = "not_equals_chain";
+                    break;
+                case "<":
+                    reference["input"]["logic"] = "less_chain";
+                    break;
+                case ">":
+                    reference["input"]["logic"] = "greater_chain";
+                    break;
+                case "<=":
+                    reference["input"]["logic"] = "less_equals_chain";
+                    break;
+                case "<=":
+                    reference["input"]["logic"] = "greater_equals_chain";
+                    break; 
+                case "and":
+                    reference["input"]["logic"] = "and_chain";
+                    break;
+                case "or":
+                    reference["input"]["logic"] = "or_chain";
+                    break;
+                default:
+                    break;
+            }
+
+            // get the left and right values
+            if (reference["input"]["logic"] != "and_chain" && reference["input"]["logic"] != "or chain") {
+                getValue(reference["input"], line[inputIndex]);
+            }
+
+            // check the next block that was chained
+            reference = reference["input"];
+            inputIndex++;
+        }
+
+    } else {
+
+        // go through all the blocks in the line
+        while (inputIndex < line.length) {
+
+            // create the object
+            reference["input"] = {"type": type, "field": "operation"};
+
+            // match the type of operation block
+            let operation = line[inputIndex].dataset.subType;
+
+            // add the operation type to the object
+            switch (operation) {
+                case "+":
+                    reference["input"]["operation"] = "add_chain";
+                    break;
+                case "-":
+                    reference["input"]["operation"] = "subtract_chain";
+                    break;
+                case "*":
+                    reference["input"]["operation"] = "multiply_chain";
+                    break;
+                case "/":
+                    reference["input"]["operation"] = "divide_chain";
+                    break;
+                case "%":
+                    reference["input"]["operation"] = "modulo_chain";
+                    break;
+                default:
+                    break;
+            }
+
+            // get the single value
+            getValue(reference["input"], line[inputIndex]);
+
+            // check the next block that was chained
+            reference = reference["input"];
+            inputIndex++;
+        }
+    }
+}
+
+function parseLines (container, scoped) {
+
+    // build the list of lines
     let list = [];
 
+    // filter the container
+    let lines = scoped ? container.children[1].children 
+                       : container.children 
+    
+    // get the lines in container
+    lines = Array.prototype.slice.call( lines )
+        .filter((x) => x.className === "line" || x.className === "scope-container");
+
+    // go through all the lines
+    for (let i = 0; i < lines.length; i++) {
+
+        // get the blocks in line
+        let blocksInLine = lines[i].getElementsByClassName("code-block");
+        
+        // create
+        if (blocksInLine.length) {
+
+            // create the object
+            let block = { "type": blocksInLine[0].dataset.blockType };
+
+            // add the values for the block
+            switch (block["type"]) {
+                case "function":
+                    
+                    // print
+                    block["instruction"] =  blocksInLine[0].dataset.subType;
+                    getValue(block, blocksInLine[0]);
+                    break;
+
+                case "scope":
+                    
+                    // if elif else while
+                    block = {"type": "control", "instruction": blocksInLine[0].dataset.subType};
+
+                    // chain equality and logic blocks
+                    if (blocksInLine.length > 1) {
+                        getInput(block, blocksInLine);
+                    }
+
+                    // go inside scope container
+                    i++;
+
+                    // get the lines inside the scope container
+                    block["children"] = parseLines(lines[i], true);;
+                    break;
+                case "assignment":
+                    
+                    // = += -= *= /=
+                    block = {"type": "function", "field": "operation"};
+
+                    // match the operation block
+                    let operation = blocksInLine[0].dataset.subType;
+
+                    // add the operation type to the object
+                    switch(operation) {
+                        case "=":
+                            block["operation"] = "assign_variable";
+                            break;
+                        case "+=":
+                            block["operation"] = "assign_add";
+                            break;
+                        case "-=":
+                            block["operation"] = "assign_subtract";
+                            break;
+                        case "*=":
+                            block["operation"] = "assign_multiply";
+                            break;
+                        case "/=":
+                            block["operation"] = "assign_divide";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    getValue(block, blocksInLine[0]);
+
+                    // chain math blocks
+                    if (blocksInLine.length > 1) {
+                        getInput(block, blocksInLine);
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            // add the block to the list
+            list.push(block);
+        }
+    }
+    return list;
+}
+
+function runCode () {
+    let list = [];
+
+    // get the variables first
     let vars = document.getElementById("variableContainer").getElementsByClassName("variable-block");
+    
+    // go through all the variables
     for (let i = 0; i < vars.length; i++) {
-        let b = {
-            "type": "value",
-        }
-        if (vars[i].dataset.subType === "number") {
-            b["field"] = "num"
-            b["num"] = vars[i].getElementsByClassName("number-input")[0].value
-        } else {
-            b["field"] = "text"
-            b["text"] = vars[i].getElementsByClassName("string-input")[0].value
-        }
+
+        // add them to the list
         list.push({
             "type": "function",
             "field": "operation",
@@ -104,98 +375,42 @@ function runCode () {
                 "type": "variable",
                 "name": vars[i].dataset.name
             },
-            "B": b
+            "B": matchType(vars[i])
         })
     }
+    
+    // get the code container
+    let container = document.getElementsByClassName("tab-contents")[0]
+        .getElementsByClassName("active")[0];
 
-
-    for (let i = 0; i < lines.length; i++) {
-        let blocks = lines[i].getElementsByClassName("code-block");
-        if (blocks.length) {
-            console.log(blocks[0].dataset.blockType + " : " + blocks[0].dataset.subType);
-            let blockObject = {"type": blocks[0].dataset.blockType, "instruction": blocks[0].dataset.subType};
-            if (blockObject.type === "function" && blockObject.instruction === "print") {
-                // blockObject["input"] = [];
-                let input = blocks[0].getElementsByClassName('value')[0];
-                if (input.dataset.blockType === "variable") {
-                    blockObject.input = {"type": "variable", "name": input.dataset.name };
-                } else if (input.dataset.blockType === "literal") {
-                    if (input.dataset.subType === "number") {
-                        blockObject.input = {"type": "value", "field": "num", "num": input.getElementsByClassName('number-input')[0].value };
-                    } else {
-                        blockObject.input = {"type": "value", "field": "text", "text": input.getElementsByClassName('string-input')[0].value };
-                    }
-                    
-                }
-                console.log(blockObject);
-                list.push(blockObject);
-            }
-            if (blocks.length > 1) {
-                blockObject["input"] = [];
-                for (let j = 1; j < blocks.length; j++) {
-                    console.log("input: " + blocks[j].dataset.blockType + " : " + blocks[j].dataset.subType);
-                    blockObject["input"].push({"type": blocks[j].dataset.blockType, "field": blocks[0].dataset.subType});
-                }
-            }
-
-
-
-            if (blockObject.type === "scope") {
-
-                // go to next child
-                i++;
-                // make a list of children
-                
-
-                // let stack = 
-
-                // go through all the block's children
-                while (lines[i].parentNode.parentNode.className === "scope-container") {
-                    let blocks = lines[i].getElementsByClassName("code-block");
-                    if (blocks.length) {
-                        console.log("child: " + blocks[0].dataset.blockType + " : " + blocks[0].dataset.subType);
-                        let blockObject = {"type": blocks[0].dataset.blockType, "field": blocks[0].dataset.subType};
-                        if (blocks.length > 1) {
-                            blockObject["children"] = [];
-                            for (let j = 1; j < blocks.length; j++) {
-                                console.log(blocks[j].dataset);
-                                console.log("child: " + blocks[j].dataset.blockType + " : " + blocks[j].dataset.subType);
-                                blockObject["children"].push({"type": blocks[j].dataset.blockType, "field": blocks[j].dataset.subType});
-                            }
-                        }
-                    }
-                    i++;
-                }
-
-                // add the block after getting all children
-                list.push(blockObject);
-            }
-            
-        }
-        
-        // if (blocks) {
-        //     
-        // }
-        
-    }
-    console.log(list);
-    let blockList = {"blocks": list}
+    // add all the lines to the list
+    list = list.concat(parseLines(container, false));
+    
+    // create the block list
+    let blockList = {"blocks": list};
     console.log(blockList);
+
+    // send it to the server to be compiled
     let clone;
     fetch("http://localhost:5215/api/runPython", {
       method: "POST",
       body: JSON.stringify(blockList),
       headers: {"Content-type": "application/json; charset=UTF-8"}
     }).then((res) => {
+        // clone if you only have text
         clone = res.clone();
         return res.json();
     }).then((json) => {
+        // put it in the console
         document.getElementById("console-textarea").value = json;
+        consoleOutput = document.getElementById("console-textarea");
+        console.log(json);
     }, (rej) => {
         clone.text().then((text) => {
-            //console.log(text); 
+            // put it in the console if there is only text
             document.getElementById("console-textarea").value = text;
-            console.log(consoleOutput = document.getElementById("console-textarea").value);
+            consoleOutput = document.getElementById("console-textarea");
+            console.log(text);
         }).then(() => checkAnswer());
     }).then(() => checkAnswer());
 };
