@@ -59,7 +59,7 @@ p
 .varlit {
   min-height:2.5vw;
   min-width: 2.5vw;
-  background-image: linear-gradient(to right, palevioletred, white);
+  background: linear-gradient(to bottom right,#ffffff 0%,#ffffff 50%,red 50%,red 100%);
   border: black 2px solid;
   margin: 1vh;
 }
