@@ -5,6 +5,8 @@ using MVC_Backend_Frontend.Data;
 using MVC_Backend_Frontend.Models;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using MongoDB.Driver;
+using MongoDB.Bson;
 
 string json = File.ReadAllText(@"./test3.json");
 var pythonRunner = new PythonRunner();
@@ -18,8 +20,24 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+/*builder.Services.AddDefaultIdentity<CustomUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbContext>();*/
+
+builder.Services.AddIdentity<CustomUser, CustomRole>(
+options => {
+    options.Stores.MaxLengthForKeys = 128;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultUI()
+.AddDefaultTokenProviders()
+.AddRoles<CustomRole>();
+
+var mongoString = "mongodb+srv://admin:Wk2hn25gmfv1JpFh@comp4956.9hedzlx.mongodb.net/?retryWrites=true&w=majority"; // Update with your MongoDB server connection string
+var client = new MongoClient(mongoString);  // Replace with your database name
+
+// Add MongoDB services
+builder.Services.AddSingleton<IMongoClient>(client);
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -43,11 +61,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-    // Routing to the Help page
+// Routing to the Help page
 app.MapControllerRoute(
     name: "help",
     pattern: "{controller=Help}/{action=Help}/{id?}");
@@ -66,5 +81,11 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "logout",
     pattern: "{controller=Logout}/{action=Logout}/{id?}");
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();
