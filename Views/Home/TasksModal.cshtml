@@ -84,6 +84,21 @@
         }
     }
 
+    async function updateChallengeAttempted(challengeId) {
+        try {
+            const response = await fetch(`/api/updateChallengeAttempted?challengeId=${challengeId}`);
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+            } else {
+                console.error('Error:', response.status);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
     function isChallengeTask(event) {
         let clickedElement = event.target;
         let parentContainer = clickedElement.parentElement;
@@ -105,6 +120,8 @@
             }
 
             const data = await response.json();
+            const updateAttemptedResult = await updateChallengeAttempted(data.id);
+            console.log(updateAttemptedResult);
             return data["question"];
         } catch (error) {
             console.error('Error during fetch:', error);
