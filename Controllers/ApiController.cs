@@ -29,8 +29,6 @@ public class ApiController : Controller
     [HttpGet("updateChallengeAttempted")]
     public async Task<IActionResult> UpdateChallengeAttemptedAsync([FromQuery] string challengeId)
     {
-        Console.WriteLine("challengeId");
-        Console.WriteLine(challengeId);
         var database = _mongoClient.GetDatabase("CodeCraft");
         var collection = database.GetCollection<BsonDocument>("challenges_2");
 
