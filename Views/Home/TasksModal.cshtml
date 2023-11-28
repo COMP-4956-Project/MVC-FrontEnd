@@ -75,7 +75,6 @@
 
             if (response.ok) {
                 const data = await response.json();
-                console.log('API Response:', data);
                 return data;
             } else {
                 console.error('Error:', response.status);
@@ -86,13 +85,6 @@
     }
 
     function isChallengeTask(event) {
-        getUserId().then((data) => {
-            console.log("data");
-            console.log(data.message);
-        }).catch((error) => {
-            console.error(error);
-        });;
-
         let clickedElement = event.target;
         let parentContainer = clickedElement.parentElement;
         let childElements = parentContainer.children;
@@ -104,16 +96,16 @@
 
     async function getChallenge() {
         try {
-            getUserId().then((result) => {
-                const response = await fetch('https://codecraftapi.azurewebsites.net/api/challengeapi?id=' + result.message);
-                if (!response.ok) {
-                    throw new Error(`Network response was not ok, status code: ${response.status}`);
-                }
-                const data = await response.json();
-                return data["question"];
-            }).catch((error) => {
-                console.error(error);
-            });;
+            // TODO: chanage endpoint & move constant, for now testing purpose
+            const userId = await getUserId();
+            console.log(userId.message);
+            const response = await fetch('https://codecraftapi.azurewebsites.net/api/challengeapi?id=' + userId.message);
+            if (!response.ok) {
+                throw new Error(`Network response was not ok, status code: ${response.status}`);
+            }
+
+            const data = await response.json();
+            return data["question"];
         } catch (error) {
             console.error('Error during fetch:', error);
             throw error; // Re-throw the error so that it can be caught by the caller
