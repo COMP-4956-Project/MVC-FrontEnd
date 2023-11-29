@@ -44,6 +44,10 @@ namespace MVC_Backend_Frontend
                                 break;
                             default: break;
                         }
+                        if (block.input != null)
+                        {
+                            code += Parse(block.input);
+                        }
                     }
                     else
                     {
@@ -60,6 +64,12 @@ namespace MVC_Backend_Frontend
                             break;
                         case "text":
                             code += "'" + block.text + "'";
+                            break;
+                        case "boolean":
+                            code += block.boolean;
+                            break;
+                        case "float":
+                            code += block.float_num;
                             break;
                         case "operation":
                             string a = Parse(block.A);
@@ -90,6 +100,9 @@ namespace MVC_Backend_Frontend
                                 case "divide_chain":
                                     code += " / " + a;
                                     break;
+                                case "modulo_chain":
+                                    code += " % " + a;
+                                    break;
                                 default: break;
                             }
                             if (block.input != null)
@@ -116,9 +129,9 @@ namespace MVC_Backend_Frontend
                         child.parent = block.parent + 1;
                         for (int i = 0; i < block.parent; i++)
                         {
-                            code += "\t";
+                            code += "    ";
                         }
-                        code += "\t" + Parse(child);
+                        code += "    " + Parse(child);
                     }
                     break;
                 case "logic":
@@ -132,6 +145,9 @@ namespace MVC_Backend_Frontend
                         string b = Parse(block.B);
                         switch (block.logic) // not_equals equals greater_equals less_equals greater less not and or
                         {
+                            case "single_chain":
+                                code += a;
+                                break;
                             case "not_equals":
                                 code += a + " != " + b;
                                 break;
@@ -156,7 +172,34 @@ namespace MVC_Backend_Frontend
                             case "or":
                                 code += a + " or " + b;
                                 break;
+                            case "not_equals_chain":
+                                code += a + " != " + b;
+                                break;
+                            case "equals_chain":
+                                code += a + " == " + b;
+                                break;
+                            case "greater_equals_chain":
+                                code += a + " >= " + b;
+                                break;
+                            case "less_equals_chain":
+                                code += a + " <= " + b;
+                                break;
+                            case "greater_chain":
+                                code += a + " > " + b;
+                                break;
+                            case "less_chain":
+                                code += a + " < " + b;
+                                break;
+                            case "and_chain":
+                                code += " and ";
+                                break;
+                            case "or_chain":
+                                code += " or ";
+                                break;
                             default: break;
+                        }
+                        if (block.input != null) {
+                            code += Parse(block.input);
                         }
                     }
                     break;
