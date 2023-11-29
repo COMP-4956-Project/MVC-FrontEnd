@@ -23,30 +23,27 @@ public class FileController : Controller
     }
 
     [HttpPost]
+    [Route("uploadtext")]
     public ActionResult UploadText(string name, string content)
     {
-        if (string.IsNullOrEmpty(name))
-        {
-        ModelState.AddModelError("name", "Name cannot be null or empty.");
-        return View();
-        }
-
-        var fileName = name + ".json";
-        var filter = Builders<GridFSFileInfo>.Filter.Eq(x => x.Filename, fileName);
-        var fileExists = gridFS.Find(filter).Any();
-
-        if (fileExists)
-        {
-        ModelState.AddModelError("name", "A file with this name already exists.");
-        return View();
-        }
-
+        // Upload the file
         byte[] contentBytes = System.Text.Encoding.UTF8.GetBytes(content);
         var stream = new MemoryStream(contentBytes);
+        ObjectId fileId = gridFS.UploadFromStream(name, stream);
 
-        ObjectId fileId = gridFS.UploadFromStream(fileName, stream);
+        // Get the MongoUser document for the current user
+        var usersCollection = db.GetCollection<MongoUser>("users"); // replace "users" with the actual collection name
+        var userFilter = Builders<MongoUser>.Filter.Eq(u => u.Email, User.Identity.Name); // replace "Username" with the actual property name
+        var user = usersCollection.Find(userFilter).FirstOrDefault();
 
-        return RedirectToAction("Index");
+        if (user != null)
+        {
+            // Add the file name to the user's projects and save the updated user document
+            user.Projects.Add(name);
+            var userUpdate = Builders<MongoUser>.Update.Set(u => u.Projects, user.Projects);
+            usersCollection.UpdateOne(userFilter, userUpdate);
+        }
+        return RedirectToAction("Index", "Home");
     }
 
     [HttpGet]
@@ -62,6 +59,7 @@ public class FileController : Controller
     }
 
     [HttpPost]
+    [Route("savefile")]
     public ActionResult SaveFile(string fileName, string fileContents)
     {
         DeleteFile(fileName); // Delete the existing file
