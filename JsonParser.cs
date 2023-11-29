@@ -129,9 +129,9 @@ namespace MVC_Backend_Frontend
                         child.parent = block.parent + 1;
                         for (int i = 0; i < block.parent; i++)
                         {
-                            code += "\t";
+                            code += "    ";
                         }
-                        code += "\t" + Parse(child);
+                        code += "    " + Parse(child);
                     }
                     break;
                 case "logic":
