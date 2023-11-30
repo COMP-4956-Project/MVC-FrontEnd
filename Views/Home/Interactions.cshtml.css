@@ -342,11 +342,11 @@ div[title]:hover::after {
   margin-bottom: 1vw;
 }
 
-.card-container {
+/* .card-container {
   height: calc(100vh - 150px);
   overflow-y: auto;
   padding-top: 10px; 
-}
+} */
 
 .card {
   max-height: fit-content; 

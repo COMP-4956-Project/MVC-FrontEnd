@@ -77,6 +77,7 @@ lineMaker(document.getElementById("test2"));
 let varContainer = document.getElementById("variableContainer");
 let codeContainer = document.getElementsByClassName("tab-contents")[0];
 let URL = "http://localhost:5215";
+let urltest = "https://codecraft.azurewebsites.net"
 
 function runCode () {
     // get the variables first
@@ -97,7 +98,7 @@ function runCode () {
 
     // send it to the server to be compiled
     let clone;
-    fetch(URL + "/api/runPython", {
+    fetch(urltest + "/api/runPython", {
       method: "POST",
       body: JSON.stringify(blockList),
       headers: {"Content-type": "application/json; charset=UTF-8"}

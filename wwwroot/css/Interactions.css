@@ -12,6 +12,13 @@ p {
   text-align: center;
 }
 
+.divider
+{
+  height: 5px;
+  width: 100%;
+  background-color: #333;
+}
+
 button {
   color: black;
   text-decoration: none;
@@ -315,6 +322,8 @@ button {
 
 .tab-contents {
   position: relative;
+  height: 45vh;
+  overflow-y: auto;
 }
 
 .checkmark-image {
@@ -345,9 +354,9 @@ div[title]:hover::after {
 
 
 .card-container {
-  height: calc(100vh - 150px);
+  height: calc(100vh - 200px);
   overflow-y: auto;
-  padding-top: 10px; 
+  /* padding-top: 10px;  */
 }
 
 .card {
