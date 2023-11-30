@@ -115,7 +115,7 @@ export class VariableBlock
         }
 
         this.element = document.createElement("div");
-        this.element.className += "variable-block value";
+        this.element.className += "variable-block value global";
         //generate random id for the element
         this.element.id =  "variable-" + type + "-" + Math.floor(Math.random() * 1000000);
 
