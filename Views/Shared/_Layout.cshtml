@@ -19,7 +19,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg- border-bottom box-shadow mb-3">
             <div class="container">
                 <div class="ProjectName">
-                    <a class="navbar-brand" asp-area="" asp-page="/Index">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
 
                         @* CodeCraft Project Logo *@
                         <span class="logo"></span>
@@ -63,7 +63,9 @@
                         <li class="nav-item"> 
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Tutorial">Tutorial</a>
                         </li>
-                        <partial name="_LoginPartial"/>
+
+
+                        <partial style="align-self:flex-end" name="_LoginPartial"/>
 
                     @* Logout Button in text form *@
                           @* <li class="nav-item">
@@ -71,9 +73,9 @@
                         </li> *@
             
                            @* Logout Button in button form *@
-                       <li class="nav-item logout">
+@*                        <li class="nav-item logout">
                           <a class="nav-link text-dark btn btn-info" asp-area="" asp-controller="Home" asp-action="Logout"><strong>LOG OUT</strong></a>
-                        </li>
+                        </li> *@
                     </ul>
                 </div>
             </div>
