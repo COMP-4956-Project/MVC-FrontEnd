@@ -10,21 +10,34 @@ namespace MVC_Backend_Frontend
     {
         public static string Parse(Block? block)
         {
+            // code is long string
             string code = "";
+
+            // base case
             if (block == null)
             {
                 return code;
             }
+
+            // match the block type
             switch (block.type) // variable, function, control, logic, value
             {
+                // add the variable name
                 case "variable":
                     code += block.name;
                     break;
+
+                // for print and assignments
                 case "function":
+
+                    // for assignment operations
                     if (block.field == "operation")
                     {
+                        // get the left and right
                         string a = Parse(block.A);
                         string b = Parse(block.B);
+
+                        // add the left and right values with operation
                         switch (block.operation) // assign, assign_add, assign_subtract, assign_multiply, assign_divide
                         {
                             case "assign_variable":
@@ -44,20 +57,28 @@ namespace MVC_Backend_Frontend
                                 break;
                             default: break;
                         }
+
+                        // chain any operators
                         if (block.input != null)
                         {
                             code += Parse(block.input);
                         }
                     }
+                    // for print
                     else
                     {
+                        // add the print input
                         code += block.instruction + "(";
                         code += Parse(block.input);
                         code += ")";
                     }
                     break;
+
+                // for value literals and math
                 case "value":
-                    switch(block.field) // num, text, operation, var, assignment
+
+                    // add the value literal
+                    switch(block.field) // num, text, operation, var
                     {
                         case "num":
                             code += block.num;
@@ -71,10 +92,16 @@ namespace MVC_Backend_Frontend
                         case "float":
                             code += block.float_num;
                             break;
+
+                        // for math operations
                         case "operation":
+
+                            // get the right input
                             string a = Parse(block.A);
                             string b = Parse(block.B);
-                            switch (block.operation) // add, subtract, multiply, divide
+
+                            // add the right value for math
+                            switch (block.operation) // add, subtract, multiply, divide, modulo
                             {
                                 case "add":
                                     code += a + " + " + b;
@@ -105,24 +132,35 @@ namespace MVC_Backend_Frontend
                                     break;
                                 default: break;
                             }
+
+                            // chain any operators
                             if (block.input != null)
                             {
                                 code += Parse(block.input);
                             }
                             break;
+
                         default: break;
                     }
                     break;
-                case "control":
-                    if (block.parent == null)
-                    {
-                        block.parent = 0;
-                    }
+
+                // for scopes
+                case "control": // if elif else while
+
+                    // set parent to 0 if none
+                    block.parent ??= 0;
+
+                    // add the scope value
                     code += block.instruction + " ";
+
+                    // chain the equality and logic input
                     if (block.instruction != "else") {
                         code += Parse(block.input);
                     }
+
                     code += ":";
+
+                    // indent every line in the scope
                     foreach (var child in block.children)
                     {
                         code += "\n";
@@ -134,13 +172,20 @@ namespace MVC_Backend_Frontend
                         code += "    " + Parse(child);
                     }
                     break;
-                case "logic":
+
+                // for equality and logic
+                case "logic": // not_equals equals greater_equals less_equals greater less not and or
+
+                    // chain a single condition in not
                     if (block.logic == "not")
                     {
                         code += block.logic + " ";
                         code += Parse(block.input);
+
+                    // get the left and right values in equality
                     } else
                     {
+                        // get 
                         string a = Parse(block.A);
                         string b = Parse(block.B);
                         switch (block.logic) // not_equals equals greater_equals less_equals greater less not and or

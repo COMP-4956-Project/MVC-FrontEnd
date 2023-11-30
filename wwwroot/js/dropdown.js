@@ -75,14 +75,16 @@ document.getElementById("createbutton").onclick = function()  {
     } else {
         let variableBlock;
         if(!uniqueCheck(textInput.value)) {
+            console.log("here");
             if(dropdown.value == "boolean") 
             {
-                variableBlock = new VariableBlock(dropdown.value, textInput.value, valueInput.checked);
+                variableBlock = new VariableBlock(dropdown.value, textInput.value, valueInput.checked, true);
             }
             else
             {
-                variableBlock = new VariableBlock(dropdown.value, textInput.value, valueInput.value);
+                variableBlock = new VariableBlock(dropdown.value, textInput.value, valueInput.value, true);
             }
+            console.log(variableBlock);
             varCon.appendChild(variableBlock.element)
 
         } else {

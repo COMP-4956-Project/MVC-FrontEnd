@@ -106,7 +106,7 @@ export class LiteralBlock
 
 export class VariableBlock
 {
-    constructor(type, name, value = null)
+    constructor(type, name, value = null, global)
     {
         if (!LiteralBlock.subTypes.includes(type))
         {
@@ -115,7 +115,11 @@ export class VariableBlock
         }
 
         this.element = document.createElement("div");
-        this.element.className += "variable-block value global";
+        
+        console.log(global);
+        this.element.className += global ? "variable-block value global" 
+                                         : "variable-block value";
+
         //generate random id for the element
         this.element.id =  "variable-" + type + "-" + Math.floor(Math.random() * 1000000);
 
