@@ -223,7 +223,7 @@ export function varLitDrop(ev)
             ev.target.replaceWith(new LiteralBlock(draggedBlock.dataset.subType).element);
             break;
         case "variable":
-            let variableBlock = new VariableBlock(draggedBlock.dataset.subType, draggedBlock.dataset.name, null, false);
+            let variableBlock = new VariableBlock(draggedBlock.dataset.subType, draggedBlock.dataset.name);
             ev.target.replaceWith(variableBlock.element);
             break;
         default:

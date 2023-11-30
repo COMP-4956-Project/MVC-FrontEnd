@@ -106,7 +106,7 @@ export class LiteralBlock
 
 export class VariableBlock
 {
-    constructor(type, name, value = null, global)
+    constructor(type, name, value = null, global = false)
     {
         if (!LiteralBlock.subTypes.includes(type))
         {
