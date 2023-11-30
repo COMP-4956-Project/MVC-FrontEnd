@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -7,19 +8,20 @@
     <title>@ViewData["Title"] - COMP_4956_Projects</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/interactions.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MVC-Backend-Frontend.styles.css" asp-append-version="true" />
     @* <link rel="stylesheet" href="~/Pages/Shared/_Layout.cshtml.css" asp-append-version="true" /> *@
 </head>
 
 <body>
     <header>
-         @* -------------------------- Beginning of Top Nav Bar ------------------------ *@
+        @* -------------------------- Beginning of Top Nav Bar ------------------------ *@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg- border-bottom box-shadow mb-3">
             <div class="container">
                 <div class="ProjectName">
                     <a class="navbar-brand" asp-area="" asp-page="/Index">
-                    
-                    @* CodeCraft Project Logo *@
+
+                        @* CodeCraft Project Logo *@
                         <span class="logo"></span>
                     </a>
                 </div>
@@ -30,7 +32,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
 
-                     @* File Dropdown menu: New Project, Save, Open *@
+                        @* File Dropdown menu: New Project, Save, Open *@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,42 +45,11 @@
                             </ul>
                         </li>
 
-                        @* Run Button  *@
-                        <li class="nav-item run">
-                            <div class="run"> <button id="run-button"></button><span><b>Run</b></span></div>
-
-                        </li>
-                    
-                        @* Pause Button *@
-                        <li class="nav-item pause">
-                            <div class="pause"> <button id="pause-button"></button><span><b>Pause</b></span></div>
-
-                            
-                      @* Script for interactions for Run and Pause Buttons *@
-                        <script>
-                            const runButton = document.getElementById("run-button");
-                            const runText = runButton.nextElementSibling;
-                            const pauseButton = document.getElementById("pause-button");
-                            const pauseText = pauseButton.nextElementSibling;
-
-                            runButton.addEventListener("click", () => {
-                                runText.textContent = "Running...";
-                                pauseText.textContent = "Pause";
-                            });
-
-                            pauseButton.addEventListener("click", () => {
-                                pauseText.textContent = "Paused";
-                                runText.textContent = "Run";
-                            });
-                        </script>
-
-                        </li>
-                       
-                       @* Other Top Nav Bar Links: Home, Help, Privacy, testing *@
+                        @* Other Top Nav Bar Links: Home, Help, Privacy, testing *@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Interactions">Code</a>
                         </li>
-                        <li class="nav-item help">
+                        @* <li class="nav-item help">
 
                             <a class="nav-link text-dark" asp-area="" asp-page="/Help">Help</a>
                         </li>
@@ -88,17 +59,26 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/testing">testing</a>
+                        </li>*@
+                        <li class="nav-item"> 
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Tutorial">Tutorial</a>
                         </li>
+                        <partial name="_LoginPartial"/>
 
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Login" >TEST LOGIN</a>
+                    @* Logout Button in text form *@
+                          @* <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Logout"><strong>LOGOUT</strong></a>
+                        </li> *@
+            
+                           @* Logout Button in button form *@
+                       <li class="nav-item logout">
+                          <a class="nav-link text-dark btn btn-info" asp-area="" asp-controller="Home" asp-action="Logout"><strong>LOG OUT</strong></a>
                         </li>
-
                     </ul>
                 </div>
             </div>
         </nav>
-                      @* -------------------------- End of Top Nav Bar ------------------------ *@
+        @* -------------------------- End of Top Nav Bar ------------------------ *@
     </header>
     <div class="container-fluid body-content">
         <main role="main" class="pb-3">

@@ -98,8 +98,18 @@ export function drop(ev)
   // make a whole new space for scopes
   if(block.blockType == "scope")
   {
-    newScope(lineContainer, block.element.id);
-    lineIndex++;
+    let scopeContainer = document.getElementById(block.element.id + "-scope-container");
+
+    if(scopeContainer == null)
+    {
+      newScope(lineContainer, block.element.id);
+      lineIndex++;
+    }
+    else
+    {
+      block.element.parentElement.insertAdjacentElement("afterend", scopeContainer);
+    }
+  
   }
 
   //if we are at the end of the line container make a new line
@@ -231,6 +241,7 @@ function deleteDrop(ev)
 {
   ev.preventDefault();
 
+  //prevent dragging undragable things
   if(ev.target.className == "code-block-slot")
   {
     return;
@@ -243,15 +254,60 @@ function deleteDrop(ev)
   {
     return;
   }
-  
+
+  // if we delete a variable or literal we need to replace it with a dummy
+  if((draggedBlock.className.includes("variable-block") && draggedBlock.getElementsByTagName('input')[0] == undefined) || draggedBlock.className.includes("literal-block"))
+  {
+    let replacement = document.createElement("div");
+    
+    if(draggedBlock.parentElement.dataset.blockType == "assignment" && draggedBlock == draggedBlock.parentElement.firstChild)
+    {
+      replacement.className = "var";
+    }
+    else
+    {
+      replacement.className = "varlit";
+    }
+
+    replacement.addEventListener("dragover", function(event){allowDrop(event)});
+    replacement.addEventListener("drop", function(event){varLitDrop(event)});
+    draggedBlock.replaceWith(replacement);
+
+    return;
+  }
+
+
+  // Bring up a dialog box to confirm delete
   let dialog = document.getElementById("confirmDelete");
   let deleteButton = document.getElementById("deleteButton");
   deleteButton.onclick = function() {doDelete(draggedBlock)};
 
-  if(draggedBlock.className.includes("scope-block"))
+  // handle cascading deletions for scope blocks
+  if(draggedBlock.className.includes("scope-block") || draggedBlock.className.includes("else"))
   {
-    //deleteButton.onclick += function() {doDelete(document.getElementById(draggedBlock.id + "-scope-container"))};
-    deleteButton.addEventListener("click", function() {doDelete(document.getElementById(draggedBlock.id + "-scope-container"))});
+    deleteButton.addEventListener("click", function() {document.getElementById(draggedBlock.id + "-scope-container").remove();});
+
+    if(draggedBlock.dataset.subType == "if")
+    {
+      let line = draggedBlock.parentElement.nextElementSibling.nextElementSibling;
+      let nextLine = line.nextElementSibling;
+
+      while(line != null && nextLine != null)
+      {
+        if(nextLine.id.startsWith("scope-elif") || nextLine.id.startsWith("scope-else"))
+        {
+          let oldLine = line;
+          let oldNextLine = nextLine;
+          deleteButton.addEventListener("click", function() {oldLine.remove(); oldNextLine.remove();});
+          line = nextLine.nextElementSibling;
+          nextLine = line.nextElementSibling;
+        }
+        else
+        {
+          break;
+        }
+      }
+    }
   }
   
   dialog.showModal();
@@ -259,14 +315,8 @@ function deleteDrop(ev)
 
 function doDelete(element)
 {
-  let trashContainer = document.getElementById("trash-container");
-  trashContainer.appendChild(element);
-  if(trashContainer.children.length > 4)
-  {
-    trashContainer.removeChild(trashContainer.children[0]);
-  }
+  element.remove();
   removeEmptyLines();
-  //element.remove();
 }
 
 function makeIntoAppropriateBlock(blockType, subType, element)

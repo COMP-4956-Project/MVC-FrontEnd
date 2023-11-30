@@ -137,3 +137,9 @@ button.accept-policy {
   background-image: url('/images/Pause-Button-Red-Icon-Active.png');
   
 }
+
+.logout {
+  position: absolute;
+  right: 0;
+  margin-right: 30px;
+}

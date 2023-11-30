@@ -59,7 +59,7 @@ p
 .varlit {
   min-height:2.5vw;
   min-width: 2.5vw;
-  background-image: linear-gradient(to right, palevioletred, white);
+  background: linear-gradient(to bottom right,#ffffff 0%,#ffffff 50%,red 50%,red 100%);
   border: black 2px solid;
   margin: 1vh;
 }
@@ -191,6 +191,8 @@ input[type="text"], input[type="number"], select {
   margin: 10px;
   width: 66vw;
   margin-left: 0px;
+  position: sticky;
+  top: 0;
 }
 
 .consistent-header {
@@ -199,6 +201,8 @@ input[type="text"], input[type="number"], select {
   padding: 5px;
   text-align: center;
   font-weight: bold;
+  position: sticky;
+  top: 0;
 }
 
 .variable-block {
@@ -276,7 +280,7 @@ input[type="checkbox"]:not(:checked):after {
 
 /* Login Page CSS */
 
-.login-box {
+.login-box,.logout-box{
   border: 1px solid black;
   border-radius: 10px;
   background-color: #FFC300;
@@ -294,13 +298,16 @@ input[type="checkbox"]:not(:checked):after {
   background-color: #FFC300;
   padding: 20px;
 
-  max-width: 500px; 
+  padding-left: 60px; /* Add horizontal padding to the left side */
+  padding-right: 60px; /* Add horizontal padding to the right side */
+
+  max-width: 700px; 
   margin: auto;
 }
 
 /* mobile screens */
 @media (max-width: 768px) {
-  .container.login-box {
+  .container.login-box, .container.registration-box, .logout-box {
       width: 100%;
   }
 
@@ -322,4 +329,11 @@ input[type="checkbox"]:not(:checked):after {
 
 .sticky-footer {
   margin-top: 0px;
+}
+
+.container.body-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* This will take the full viewport height */
 }

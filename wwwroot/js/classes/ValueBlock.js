@@ -73,7 +73,7 @@ export class LiteralBlock
             this.element.id =   "literal-" + type + "-" + Math.floor(Math.random() * 1000000);
         }
 
-        this.element.className = "literal-block value";
+        this.element.className = "literal-block";
         this.element.dataset.blockType = "literal";
         this.element.dataset.subType = type;
         this.element.setAttribute("draggable", "true");
@@ -108,10 +108,14 @@ export class VariableBlock
 {
     constructor(type, name, value = null)
     {
-
+        if (!LiteralBlock.subTypes.includes(type))
+        {
+            console.log(type);
+            throw new Error("Invalid sub type");
+        }
 
         this.element = document.createElement("div");
-        this.element.className += "variable-block value";
+        this.element.className += "variable-block";
         //generate random id for the element
         this.element.id =  "variable-" + type + "-" + Math.floor(Math.random() * 1000000);
 
@@ -121,7 +125,7 @@ export class VariableBlock
         }
 
         this.element.dataset.blockType = "variable";
-        this.element.dataset.name = name;
+        this.element.dataset.name = name; 
         this.element.dataset.subType = type;
         
         
@@ -131,7 +135,7 @@ export class VariableBlock
 
         let variableName = document.createElement("p");
         variableName.className = "variable-name";
-        variableName.innerText = name;
+        variableName.innerText = type + " - " + name;
 
 
 
@@ -147,10 +151,12 @@ export class VariableBlock
                 case "string":
                     valueInput = getStringInput();
                     valueInput.value = value;
+                    valueInput.size = valueInput.value.length;
                     break;
                 case "number":
                     valueInput = getNumberInput();
                     valueInput.value = value;
+                    valueInput.style.width = (valueInput.value.length + 4) + "ch";
                     break;
                 case "boolean":
                     valueInput = getBooleanInput();
@@ -159,6 +165,7 @@ export class VariableBlock
                 case "float":
                     valueInput = getFloatInput();
                     valueInput.value = value;
+                    valueInput.style.width = (valueInput.value.length + 5) + "ch";
                     break;
             }
 
@@ -166,6 +173,22 @@ export class VariableBlock
             this.element.appendChild(valueInput);
         }
         
+    }
+}
+
+export class ArrayBlock extends VariableBlock
+{
+    constructor(type, name, size)
+    {
+        super(type, name, null);
+        this.element.dataset.blockType = "array";
+        this.element.className = "array-block";
+
+        
+        let valueInput = getNumberInput();
+        valueInput.value = size;
+        valueInput.style.width = (valueInput.value.length + 4) + "ch";
+        this.element.appendChild(valueInput);
     }
 }
 
