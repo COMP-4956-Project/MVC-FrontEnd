@@ -185,9 +185,11 @@ namespace MVC_Backend_Frontend
                     // get the left and right values in equality
                     } else
                     {
-                        // get 
+                        // get left and right value for equality
                         string a = Parse(block.A);
                         string b = Parse(block.B);
+
+                        // add the values for equality and logic
                         switch (block.logic) // not_equals equals greater_equals less_equals greater less not and or
                         {
                             case "single_chain":
@@ -243,13 +245,18 @@ namespace MVC_Backend_Frontend
                                 break;
                             default: break;
                         }
+
+                        // chain the equality or logic conditions
                         if (block.input != null) {
                             code += Parse(block.input);
                         }
                     }
                     break;
+
                 default: break;
             }
+
+            // return the code string
             return code;
         }
     }
