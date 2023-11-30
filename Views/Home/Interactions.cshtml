@@ -51,27 +51,24 @@
               <button id="downarrow" class="btn btn-link collapsed">
                 ▼
               </button>
-              <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapse" aria-expanded="false"
-                aria-controls="collapse" id="variableaddition">
-                Add Variable +
-              </a>
             </h5>
           </div>
           <div class="collapse" id="collapse">
             <div id="errorcontainer"></div>
-            <div class="card card-body" id="createvariable">
+
+          </div>
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
+            <div class="card-body" id="variableContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div style="background-color:#e87a7a" class="card card-body" id="createvariable">
+              <h3>Create a variable</h3>
               <input type="text" placeholder="Input name of Variable" name="name" id="textInput"></input>
               <select id="selectType" name="type" aria-placeholder="Type">
-                <option></option>
               </select>
               <input type="text" id="valueInput" placeholder="Input value of Variable"></input>
               <a class="btn btn-primary" id="createbutton">
                 Create Variable
               </a>
             </div>
-          </div>
-          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
-            <div class="card-body" id="variableContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
             </div>
           </div>
         </div>
