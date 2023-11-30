@@ -73,7 +73,7 @@ export class LiteralBlock
             this.element.id =   "literal-" + type + "-" + Math.floor(Math.random() * 1000000);
         }
 
-        this.element.className = "literal-block";
+        this.element.className = "literal-block value";
         this.element.dataset.blockType = "literal";
         this.element.dataset.subType = type;
         this.element.setAttribute("draggable", "true");
@@ -115,7 +115,7 @@ export class VariableBlock
         }
 
         this.element = document.createElement("div");
-        this.element.className += "variable-block";
+        this.element.className += "variable-block value";
         //generate random id for the element
         this.element.id =  "variable-" + type + "-" + Math.floor(Math.random() * 1000000);
 
