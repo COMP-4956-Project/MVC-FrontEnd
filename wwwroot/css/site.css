@@ -337,3 +337,27 @@ input[type="checkbox"]:not(:checked):after {
   align-items: center;
   height: 100vh; /* This will take the full viewport height */
 }
+
+.navbar-nav {
+  display: flex;
+  justify-content: flex-start; /* Align items to the start */
+  width: 100%;
+}
+
+.nav-item.logout {
+  absolute: right;
+  margin-left: 20px;
+  margin-right: 0px;
+  margin-top: 10px;
+}
+
+.nav-item.tutorial {
+  margin-right: 80px; /* Adjust this value as needed */
+}
+
+/* Username and Logout Button CSS */
+.nav-item.login-partial{
+  display: flex;
+  justify-content: flex-end;
+ 
+}

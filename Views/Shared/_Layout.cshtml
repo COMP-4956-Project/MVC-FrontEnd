@@ -60,12 +60,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/testing">testing</a>
                         </li>*@
-                        <li class="nav-item"> 
+                        <li class="nav-item tutorial"> 
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Tutorial">Tutorial</a>
                         </li>
 
 
-                        <partial style="align-self:flex-end" name="_LoginPartial"/>
+                        @* <partial style="align-self:flex-end" name="_LoginPartial"/> *@
+
+                     <li class="nav-item ml-auto">
+                       <div class="login-partial">
+                       <partial name="_LoginPartial"/>
+                       </div>
+                    </li>
 
                     @* Logout Button in text form *@
                           @* <li class="nav-item">
