@@ -7,6 +7,6 @@ namespace MVC_Backend_Frontend.Models
 {
     public class BlockList
     {
-        public List<Block> blocks { get; set; } // blocks
+        public List<Block>? blocks { get; set; } // blocks
     }
 }

@@ -116,7 +116,6 @@ export class VariableBlock
 
         this.element = document.createElement("div");
         
-        console.log(global);
         this.element.className += global ? "variable-block value global" 
                                          : "variable-block value";
 

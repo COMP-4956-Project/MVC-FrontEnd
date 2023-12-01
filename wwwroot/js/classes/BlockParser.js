@@ -259,7 +259,7 @@ export class BlockParser {
                     blockObject["A"] = this.#matchType(input[0]);
                     break;
                 case "logic":
-                    if (input[0].dataset.subType === "single") {
+                    if (blockObject["logic"] === "single_chain") {
                         // single has A
                         blockObject["A"] = this.#matchType(input[0]);
                     } else {

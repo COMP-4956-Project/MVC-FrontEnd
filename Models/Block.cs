@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace MVC_Backend_Frontend.Models
 {
     public class Block {
-        public string type { get; set; } // variable, function, control (scope), logic, value
+        public string? type { get; set; } // variable, function, control (scope), logic, value
         // variable = assignment
         // control = scope
         // logic = logic + equality

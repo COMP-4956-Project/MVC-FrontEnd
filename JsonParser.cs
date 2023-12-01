@@ -160,9 +160,10 @@ namespace MVC_Backend_Frontend
 
                     code += ":";
 
-                    // indent every line in the scope
-                    foreach (var child in block.children)
-                    {
+                    if (block.children != null) {
+                        // indent every line in the scope
+                        foreach (var child in block.children)
+                        {
                         code += "\n";
                         child.parent = block.parent + 1;
                         for (int i = 0; i < block.parent; i++)
@@ -170,6 +171,7 @@ namespace MVC_Backend_Frontend
                             code += "    ";
                         }
                         code += "    " + Parse(child);
+                        }
                     }
                     break;
 

@@ -39,7 +39,7 @@ namespace MVC_Backend_Frontend
         {
             Console.WriteLine("=====================CODE=====================");
             string code = "";
-            if (blocklist != null)
+            if (blocklist != null && blocklist.blocks != null)
             {
                 foreach (var block in blocklist.blocks)
                 {
