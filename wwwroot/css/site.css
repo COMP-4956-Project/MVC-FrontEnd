@@ -340,24 +340,33 @@ input[type="checkbox"]:not(:checked):after {
 
 .navbar-nav {
   display: flex;
-  justify-content: flex-start; /* Align items to the start */
+  justify-content: flex-start;
+  /* justify-content: space-between; */
   width: 100%;
+}
+
+.nav-item.ml-auto {
+  margin-left: auto;
 }
 
 .nav-item.logout {
   absolute: right;
-  margin-left: 20px;
+  margin-left: 10px; /* Decreased from 20px to 10px */
   margin-right: 0px;
   margin-top: 10px;
 }
 
-.nav-item.tutorial {
-  margin-right: 80px; /* Adjust this value as needed */
-}
 
 /* Username and Logout Button CSS */
 .nav-item.login-partial{
+  absolute: right;  
   display: flex;
   justify-content: flex-end;
- 
 }
+
+.nav-item.dropdown,
+.nav-item.code,
+.nav-item.tutorial {
+    margin-right: 5px; /* Adjust this value as needed */
+}
+
