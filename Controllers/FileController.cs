@@ -24,7 +24,7 @@ public class FileController : Controller
 
     [HttpPost]
     [Route("uploadtext")]
-    public ActionResult UploadText(string name, string content)
+    public ActionResult UploadText(string name, [FromBody] string content)
     {
         // Upload the file
         byte[] contentBytes = System.Text.Encoding.UTF8.GetBytes(content);

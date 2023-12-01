@@ -98,7 +98,7 @@ function runCode () {
 
     // send it to the server to be compiled
     let clone;
-    fetch(urltest + "/api/runPython", {
+    fetch(URL + "/api/runPython", {
       method: "POST",
       body: JSON.stringify(blockList),
       headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -164,6 +164,6 @@ function compileAndCheck() {
     runCode();
 }
 
-document.getElementsByClassName("run-button")[0].onclick = function() {compileAndCheck();}
+document.getElementById("run-button").onclick = function() {compileAndCheck();}
 
 console.log("here");

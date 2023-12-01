@@ -203,8 +203,8 @@
           </div>
           <!-- Dynamically added tabs will appear here -->
           @* <button id="addTab">+</button> *@
-
-          <button class="run-button" <!--onclick="checkAnswer()-->">Run</button>
+          <button id="save-button">Save</button>
+          <button id="run-button">Run</button>
 
         </div>
 
@@ -233,7 +233,7 @@
             Console Output
           </h5>
           <div class="console-content">
-            <textarea id="console-textarea" rows="7" oninput="updateConsoleOutput(this.value)"></textarea>
+            <textarea readonly id="console-textarea" rows="7" oninput="updateConsoleOutput(this.value)"></textarea>
             <div class="console-error-line"></div>
           </div>
         </div>

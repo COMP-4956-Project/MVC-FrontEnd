@@ -276,17 +276,15 @@ button {
   outline: none;
 }
 
-.run-button {
+#run-button {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-left: 50vw;
   margin-top: 1vw;
   margin-right: 1vw;
   margin-bottom: 1vw;
-  width: 100px;
-  height: 5vh;
+  height: 32px;
   padding: 10px 20px;
   background-color: #29ad2d;
   color: #fff;
@@ -297,8 +295,32 @@ button {
   text-align: center;
 }
 
-.run-button:hover {
+#run-button:hover {
   background-color: #45a049;
+}
+
+#save-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto; 
+  margin-right: 10px;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  height: 32px;
+  padding: 10px 20px;
+  background-color: #29abb9;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+#save-button:hover {
+  background-color: #458fa0;
 }
 
 .content-wrapper {
