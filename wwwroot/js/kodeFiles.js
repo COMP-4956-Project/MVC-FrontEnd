@@ -23,3 +23,38 @@ export const uploadDiv = async (kodeAsADiv) => {
         console.error(e);
     }
 };
+
+
+const showMyProjects = async () => {
+    try {
+        const response = await fetch(URL + '/showAllMyFiles');
+        console.log('openProject function called');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOMContentLoaded event triggered');
+
+    const openProjectListItem = document.getElementById('openProjectButton');
+
+    if (openProjectListItem) {
+        openProjectListItem.onclick = async (event) => {
+            event.preventDefault();
+            console.log('Open Project button clicked'); // Log that the button is clicked
+            await showMyProjects();
+        };
+    }
+});
+

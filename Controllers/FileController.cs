@@ -4,6 +4,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 using MVC_Backend_Frontend.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace MVC_Backend_Frontend.Controllers;
 
@@ -88,6 +89,7 @@ public class FileController : Controller
     }
 
     [HttpGet]
+    [Route("showAllFiles")]
     public List<string> ListAllFiles()
     {
         var filter = Builders<GridFSFileInfo>.Filter.Empty;
@@ -101,4 +103,29 @@ public class FileController : Controller
 
         return fileNames;
     }
+
+    // This is for showing all the projects of the logged in user
+    [HttpGet]
+    [Route("showAllMyFiles")]
+    public ActionResult<List<string>> ListAllUserFiles()
+    {
+        try
+        {
+            var usersCollection = db.GetCollection<MongoUser>("users");
+            var userFilter = Builders<MongoUser>.Filter.Eq(u => u.Email, User.Identity.Name);
+            var user = usersCollection.Find(userFilter).FirstOrDefault();
+            if (user != null)
+            {
+                return Ok(new { Projects = user.Projects });
+            }
+            return Ok(new { Projects = new List<string>() });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { ErrorMessage = ex.Message });
+        }
+    }
+
+
+
 }
