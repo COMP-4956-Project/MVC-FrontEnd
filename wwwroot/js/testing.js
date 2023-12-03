@@ -2,6 +2,7 @@ import { AssignmentBlock, EqualityBlock, ExpressionBlock, FunctionBlock, LogicBl
 import { lineMaker } from "./drag_drop.js";
 import { VariableBlock, LiteralBlock, DummyLiteralBlock } from "./classes/ValueBlock.js";
 import { BlockParser } from "./classes/BlockParser.js";
+import { uploadDiv } from "./kodeFiles.js";
 
 function test(){
     alert("Testing");
@@ -71,15 +72,21 @@ for (let i = 0; i < ScopeBlock.subTypes.length; i++)
     scopeCon.appendChild(block.element);
 }
 
-
-lineMaker(document.getElementById("test2"));
+const codeDiv = document.getElementById("test2");
+let codeDivToSave = codeDiv.outerHTML;
+lineMaker(codeDiv);
 
 let varContainer = document.getElementById("variableContainer");
 let codeContainer = document.getElementsByClassName("tab-contents")[0];
 let URL = "http://localhost:5215";
-let urltest = "https://codecraft.azurewebsites.net"
+let urltest = "https://codecraft.azurewebsites.net" // url for deployment
+
 
 function runCode () {
+
+    // upload the div to the db
+    uploadDiv(codeDivToSave)
+
     // get the variables first
     let vars = varContainer.getElementsByClassName("variable-block");
 
@@ -166,4 +173,3 @@ function compileAndCheck() {
 
 document.getElementById("run-button").onclick = function() {compileAndCheck();}
 
-console.log("here");
