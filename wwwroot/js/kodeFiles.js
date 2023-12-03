@@ -25,7 +25,7 @@ export const uploadDiv = async (kodeAsADiv) => {
 };
 
 
-const showMyProjects = async () => {
+export const showMyProjects = async () => {
     try {
         const response = await fetch(URL + '/showAllMyFiles');
         console.log('openProject function called');
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (openProjectListItem) {
         openProjectListItem.onclick = async (event) => {
             event.preventDefault();
-            console.log('Open Project button clicked'); // Log that the button is clicked
+            console.log('Open Project button clicked');
             await showMyProjects();
         };
     }
