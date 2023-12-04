@@ -25,27 +25,45 @@ public class FileController : Controller
 
     [HttpPost]
     [Route("uploadtext")]
-    public ActionResult UploadText(string name, [FromBody] string content)
+    public ActionResult UploadText([FromBody] UploadTextModel model)
     {
-        // Upload the file
-        byte[] contentBytes = System.Text.Encoding.UTF8.GetBytes(content);
-        var stream = new MemoryStream(contentBytes);
-        ObjectId fileId = gridFS.UploadFromStream(name, stream);
-
-        // Get the MongoUser document for the current user
-        var usersCollection = db.GetCollection<MongoUser>("users"); // replace "users" with the actual collection name
-        var userFilter = Builders<MongoUser>.Filter.Eq(u => u.Email, User.Identity.Name); // replace "Username" with the actual property name
-        var user = usersCollection.Find(userFilter).FirstOrDefault();
-
-        if (user != null)
+        try
         {
-            // Add the file name to the user's projects and save the updated user document
-            user.Projects.Add(name);
-            var userUpdate = Builders<MongoUser>.Update.Set(u => u.Projects, user.Projects);
-            usersCollection.UpdateOne(userFilter, userUpdate);
+            Console.WriteLine($"Received POST request to uploadtext. Name: {model.Name}, Content Length: {model.Content}");
+
+            if (model.Content == null)
+            {
+                return BadRequest("Content cannot be null");
+            }
+
+            // Upload the file
+            byte[] contentBytes = System.Text.Encoding.UTF8.GetBytes(model.Content);
+            var stream = new MemoryStream(contentBytes);
+            ObjectId fileId = gridFS.UploadFromStream(model.Name, stream);
+
+            // Get the MongoUser document for the current user
+            var usersCollection = db.GetCollection<MongoUser>("users"); // replace "users" with the actual collection name
+            var userFilter = Builders<MongoUser>.Filter.Eq(u => u.Email, User.Identity.Name); // replace "Username" with the actual property name
+            var user = usersCollection.Find(userFilter).FirstOrDefault();
+
+            if (user != null)
+            {
+                // Add the file name to the user's projects and save the updated user document
+                user.Projects.Add(model.Name);
+                var userUpdate = Builders<MongoUser>.Update.Set(u => u.Projects, user.Projects);
+                usersCollection.UpdateOne(userFilter, userUpdate);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
-        return RedirectToAction("Index", "Home");
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return StatusCode(500);
+        }
     }
+
+
 
     [HttpGet]
     public ActionResult DisplayFileContents(string fileName)

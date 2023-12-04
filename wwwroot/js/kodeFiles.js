@@ -1,28 +1,34 @@
-const URL = "http://localhost:5215/file"; // Change the localhost
+const URL = "http://localhost:5215/file";
 
 // const urltest = "https://codecraft.azurewebsites.net/file" <- change to actual db for deployment
 
 export const uploadDiv = async (name, kodeAsADiv) => {
     try {
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('content', kodeAsADiv);
+        const data = {
+            Name: name,
+            Content: kodeAsADiv
+        };
 
         const response = await fetch(URL + '/uploadtext', {
             method: 'POST',
-            body: formData,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
         });
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const data = await response.json();
-        console.log(data); 
+        const responseData = await response.json();
+        console.log(responseData);
     } catch (e) {
         console.error(e);
     }
 };
+
+
 
 
 export const showMyProjects = async () => {
