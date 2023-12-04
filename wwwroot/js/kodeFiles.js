@@ -2,10 +2,10 @@ const URL = "http://localhost:5215/file"; // Change the localhost
 
 // const urltest = "https://codecraft.azurewebsites.net/file" <- change to actual db for deployment
 
-export const uploadDiv = async (kodeAsADiv) => {
+export const uploadDiv = async (name, kodeAsADiv) => {
     try {
         const formData = new FormData();
-        formData.append('name', 'kodeDiv.txt');
+        formData.append('name', name);
         formData.append('content', kodeAsADiv);
 
         const response = await fetch(URL + '/uploadtext', {
@@ -48,6 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('DOMContentLoaded event triggered');
 
     const openProjectListItem = document.getElementById('openProjectButton');
+    const saveProjectButton = document.getElementById('saveProjectButton');
+    const saveButton = document.getElementById('saveButton');
 
     if (openProjectListItem) {
         openProjectListItem.onclick = async (event) => {
@@ -67,6 +69,26 @@ document.addEventListener('DOMContentLoaded', () => {
             let dialog = document.getElementById('openDialog');
             dialog.showModal();
         };
+    }
+
+    if (saveProjectButton) {
+        saveProjectButton.onclick = async (event) => {
+            event.preventDefault();
+            let dialog = document.getElementById('saveDialog');
+            dialog.showModal();
+        };
+    }
+
+    saveButton.onclick = async (event) => {
+        event.preventDefault();
+        let name = document.getElementById('saveDialogInput').value;
+
+        let kodeAsADiv = document.getElementById('test2').outerHTML;
+        console.log(kodeAsADiv);
+
+        await uploadDiv(name, kodeAsADiv);
+        // let dialog = document.getElementById('saveDialog');
+        // dialog.close();
     }
 });
 
