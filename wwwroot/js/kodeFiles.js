@@ -35,7 +35,7 @@ export const showMyProjects = async () => {
         }
 
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
         return data;
     } catch (e) {
         console.error(e);
@@ -53,7 +53,19 @@ document.addEventListener('DOMContentLoaded', () => {
         openProjectListItem.onclick = async (event) => {
             event.preventDefault();
             console.log('Open Project button clicked');
-            await showMyProjects();
+            let data = await showMyProjects();
+            let projectList = document.getElementById('openDialogList');
+            projectList.innerHTML = '';
+
+            for (let i = 0; i < data.projects.length; i++) {
+                let div = document.createElement('div');
+                div.className = 'openDialogListItem';
+                div.innerHTML = data.projects[i];
+                projectList.appendChild(div);
+            }
+
+            let dialog = document.getElementById('openDialog');
+            dialog.showModal();
         };
     }
 });
