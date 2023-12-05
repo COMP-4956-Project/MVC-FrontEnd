@@ -67,6 +67,7 @@
         } else {
             let taskDescription = tasks[selectedTask]?.TaskDescription || "Currently no task selected";
             $('.description-of-selected-task').text(taskDescription);
+            $('.description-of-selected-task').css('color', 'black');
         }
     }
 
