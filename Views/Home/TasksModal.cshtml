@@ -12,6 +12,7 @@
             <div class="modal-body-container">
                 <!-- Left Column - modal-body -->
                 <div class="modal-body">
+                    <p id="challenge-selected-text">Challenge Question Selected!</p>
                     <div class="task-label">Easy</div>
                     <div class="easy-tasks task-group"></div>
                     <div class="task-line"></div>
@@ -57,7 +58,8 @@
         if (isChallenge) {
             getChallenge()
                 .then(challenge => {
-                    $('.description-of-selected-task').text(challenge);
+                    $('.description-of-selected-task').text("Challenge: " + challenge);
+                    $('.description-of-selected-task').css('color', 'red');
                 })
                 .catch(error => {
                     console.error('Error during getChallenge:', error);
@@ -155,6 +157,12 @@
                     otherSquare.classList.remove('task-active');
                 });
                 let isChallenge = isChallengeTask(event);
+                let challengeSelectedText = document.getElementById("challenge-selected-text");
+                if (isChallenge) {
+                    challengeSelectedText.style.display = "block";
+                } else {
+                    challengeSelectedText.style.display = "none";
+                }
                 taskSquare.classList.add('task-active');
                 selectedTask = taskSquare.textContent; //  ================================ set selectedTask to the value of the active task
 
@@ -185,9 +193,16 @@
             {
                 difficultTasksContainer.appendChild(taskSquare);
             }
-
+            if (taskNumber == 20 || taskNumber == 80 || taskNumber == 100) {
+                setChallengeTask(taskSquare);
+            }
             taskNumber++;
         }
+    }
+
+    function setChallengeTask(taskSquare) {
+        taskSquare.style.backgroundColor = "red";
+        taskSquare.style.color = "white";
     }
 </script>
 
@@ -241,5 +256,11 @@
 
     .confirm-task-button:hover {
         background-color: #45a049;
+    }
+
+    #challenge-selected-text {
+        color: red;
+        display: none;
+        text-align: center;
     }
 </style>
