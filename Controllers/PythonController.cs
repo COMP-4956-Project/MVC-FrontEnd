@@ -10,9 +10,9 @@ using Newtonsoft.Json;
 namespace Backend.Controllers
 {
     [ApiController]
-    [Route("api/runPython")]
     public class PythonController : ControllerBase
     {
+        [Route("api/runPython")]
         [HttpPost]
         public async Task<IActionResult> PostPythonFromJson([FromBody] BlockList blockInput)
         {
@@ -72,6 +72,28 @@ namespace Backend.Controllers
                     // Log or handle otherError
                     return otherError;
                 }
+            }
+        }
+
+        [Route("api/parsePythonCode")]
+        [HttpPost]
+        public IActionResult PostPythonCode([FromBody] BlockList blockInput)
+        {
+            try
+            {
+                string code = "";
+            if (blockInput != null && blockInput.blocks != null)
+            {
+                foreach (var block in blockInput.blocks)
+                {
+                    code += JsonParser.Parse(block) + "\n";
+                }
+            }
+                return Ok(code);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 
