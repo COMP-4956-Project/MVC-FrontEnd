@@ -59,13 +59,12 @@ export const loadMyProject = async (myProject) => {
             const data = await response.json();
             console.log(data.projectContents);
 
-            // Replace the content of test2 with the loaded project contents
             const test2Container = document.getElementById('test2');
             console.log(test2Container);
 
             if (test2Container) {
                 console.log('Replacing content of test2...');
-                test2Container.innerHTML = data.projectContents;
+                test2Container.outerHTML = data.projectContents;
                 console.log('Content of test2 replaced successfully.');
             } else {
                 console.error('Element with id test2 not found.');

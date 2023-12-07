@@ -4,9 +4,6 @@ import { VariableBlock, LiteralBlock, DummyLiteralBlock } from "./classes/ValueB
 import { BlockParser } from "./classes/BlockParser.js";
 import { uploadDiv } from "./kodeFiles.js";
 
-function test(){
-    alert("Testing");
-}
 
 let expressionCon = document.getElementById("expressionContainer");
 let varCon = document.getElementById("variableContainer");
@@ -78,23 +75,24 @@ lineMaker(codeDiv);
 
 let varContainer = document.getElementById("variableContainer");
 let codeContainer = document.getElementsByClassName("tab-contents")[0];
-let URL = "http://localhost:5215";
 let urltest = "https://codecraft.azurewebsites.net" // url for deployment
-
+// let urltest =  "http://localhost:5215";
 
 function runCode () {
     // upload the div to the db
-    uploadDiv(codeDivToSave)
+    // uploadDiv(codeDivToSave)
+
+
 
     // get the variables first
     let vars = varContainer.getElementsByClassName("variable-block");
-
+    console.log(vars)
     // add all the vars to the list
     let list = BlockParser.parseVars(vars);
-    
+    console.log(list)
     // get the code container
     let container = codeContainer.getElementsByClassName("active")[0];
-
+    console.log(container)
     // add all the lines to the list
     list = list.concat(BlockParser.parseLines(container, false));
     
