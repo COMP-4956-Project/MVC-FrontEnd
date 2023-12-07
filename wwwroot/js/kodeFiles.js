@@ -50,7 +50,8 @@ export const showMyProjects = async () => {
 
 export const loadMyProject = async (myProject) => {
     try {
-        const url = `${urltest}/file/loadMyProject?projectName=${encodeURIComponent(myProject)}`;
+        console.log(myProject)
+        const url = `${urltest}/file/loadAProject?projectName=${encodeURIComponent(myProject)}`;
 
         const response = await fetch(url);
 
