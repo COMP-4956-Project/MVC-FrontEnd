@@ -12,10 +12,11 @@ namespace Backend.Controllers
 {
 
     [ApiController]
-    [Route("api/runPython")]
+
     public class PythonController : ControllerBase
     {
 
+        [Route("api/runPython")]
         [HttpPost]
         public IActionResult PostPythonFromJson([FromBody] BlockList blockInput)
         {
@@ -25,6 +26,28 @@ namespace Backend.Controllers
                 PythonRunner pyRunner = new PythonRunner();
                 string output = pyRunner.RunFromBlockList(blockInput);
                 return Ok(output);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Route("api/parsePython")]
+        [HttpPost]
+        public IActionResult PostPythonCodeFromJson([FromBody] BlockList blockInput)
+        {
+            try
+            {
+                string code = "";
+            if (blockInput != null && blockInput.blocks != null)
+            {
+                foreach (var block in blockInput.blocks)
+                {
+                    code += JsonParser.Parse(block) + "\n";
+                }
+            }
+                return Ok(code);
             }
             catch (Exception e)
             {
