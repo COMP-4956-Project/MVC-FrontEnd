@@ -105,7 +105,7 @@ function runCode () {
 
     // send it to the server to be compiled
     let clone;
-    fetch("/api/runPython", {
+    fetch(urltest + "/api/runPython", {
       method: "POST",
       body: JSON.stringify(blockList),
       headers: {"Content-type": "application/json; charset=UTF-8"}

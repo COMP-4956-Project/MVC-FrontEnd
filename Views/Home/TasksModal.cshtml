@@ -31,7 +31,7 @@
 
 
 <script>
-    const aiApiEndPoint = "https://codecraftapi.azurewebsites.net/api/challengeapi?id=";
+    const aiApiEndPoint = "https://codecraftapi.azurewebsites.net";
     let selectedTask = null;
     const easyTasksContainer = document.querySelector('.easy-tasks');
     const mediumTasksContainer = document.querySelector('.medium-tasks');
@@ -75,7 +75,7 @@
         try {
             let email = document.getElementById("username").innerText;
 
-            const response = await fetch(`/api/getUserId?email=${encodeURIComponent(email)}`);
+            const response = await fetch(aiApiEndPoint + `/api/getUserId?email=${encodeURIComponent(email)}`);
 
             if (response.ok) {
                 const data = await response.json();
@@ -90,7 +90,7 @@
 
     async function updateChallengeAttempted(challengeId) {
         try {
-            const response = await fetch(`/api/updateChallengeAttempted?challengeId=${challengeId}`);
+            const response = await fetch(aiApiEndPoint + `/api/updateChallengeAttempted?challengeId=${challengeId}`);
 
             if (response.ok) {
                 const data = await response.json();
@@ -115,7 +115,7 @@
     async function getChallenge() {
         try {
             const userId = await getUserId();
-            const response = await fetch(aiApiEndPoint + userId.message);
+            const response = await fetch(aiApiEndPoint + "/api/challengeapi?id=" + userId.message);
             if (!response.ok) {
                 throw new Error(`Network response was not ok, status code: ${response.status}`);
             }
