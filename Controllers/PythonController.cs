@@ -11,10 +11,11 @@ using MVC_Backend_Frontend;
 namespace Backend.Controllers
 {
     [ApiController]
-    [Route("api/runPython")]
+
     public class PythonController : ControllerBase
     {
 
+        [Route("api/runPython")]
         [HttpPost]
         public IActionResult PostPythonFromJson([FromBody] BlockList blockInput)
         {
@@ -31,6 +32,7 @@ namespace Backend.Controllers
             }
         }
 
+        [Route("api/parsePython")]
         [HttpPost]
         public IActionResult PostPythonCodeFromJson([FromBody] BlockList blockInput)
         {
