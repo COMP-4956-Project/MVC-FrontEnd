@@ -123,7 +123,7 @@
             }
 
             const data = await response.json();
-            const updateAttemptedResult = await updateChallengeAttempted(data.id);
+            @* const updateAttemptedResult = await updateChallengeAttempted(data.id); *@
             return data["question"];
         } catch (error) {
             console.error('Error during fetch:', error);
