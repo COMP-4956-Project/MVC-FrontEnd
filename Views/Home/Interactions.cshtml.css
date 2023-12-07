@@ -4,6 +4,7 @@
   transform: scale(0.9);
   justify-content: center;
   margin-top: -3vh;
+  border-radius: 40px;
 }
 
 p {
@@ -15,6 +16,14 @@ p {
 button {
   color: black;
   text-decoration: none;
+}
+
+input{
+  border-radius: 20px;
+}
+
+select{
+  border-radius: 20px;
 }
 
 #openDialogList {
@@ -51,6 +60,7 @@ button {
 #createvariable,
 #errorcontainer {
   background-color: #e5a4a4;
+  border-radius: 20px;
 }
 
 #headingFour {
@@ -158,6 +168,7 @@ button {
   padding: 10px;
   float: right;
   clear: right;
+  border-radius: 20px;
 }
 
 .code-editor {
@@ -309,6 +320,7 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-align: center;
+  font-weight: bold;
 }
 
 #run-button:hover {
@@ -333,6 +345,7 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-align: center;
+  font-weight: bold;
 }
 
 #save-button:hover {
@@ -389,6 +402,14 @@ div[title]:hover::after {
 .card {
   max-height: fit-content; 
   overflow-y: auto;
+  border-radius: 30px;
+}
+
+.card:hover{
+  transition: all 0.2s ease-out;
+    top: -4px;
+    background-color: white;
+    border-radius: 0px;
 }
 
 /* Initially hide titles */
