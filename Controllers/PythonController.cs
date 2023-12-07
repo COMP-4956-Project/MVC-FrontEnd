@@ -30,5 +30,26 @@ namespace Backend.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPost]
+        public IActionResult PostPythonCodeFromJson([FromBody] BlockList blockInput)
+        {
+            try
+            {
+                string code = "";
+            if (blockInput != null && blockInput.blocks != null)
+            {
+                foreach (var block in blockInput.blocks)
+                {
+                    code += JsonParser.Parse(block) + "\n";
+                }
+            }
+                return Ok(code);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

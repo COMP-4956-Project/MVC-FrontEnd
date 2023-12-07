@@ -78,13 +78,15 @@ lineMaker(codeDiv);
 
 let varContainer = document.getElementById("variableContainer");
 let codeContainer = document.getElementsByClassName("tab-contents")[0];
-let URL = "http://localhost:5215";
+// let urltest = "http://localhost:5215";
 let urltest = "https://codecraft.azurewebsites.net" // url for deployment
 
 
 function runCode () {
+    const codeDiv = document.getElementById("test2");
+    let codeDivToSave = codeDiv.outerHTML;
     // upload the div to the db
-    uploadDiv(codeDivToSave)
+    uploadDiv(codeDivToSave);
 
     // get the variables first
     let vars = varContainer.getElementsByClassName("variable-block");
