@@ -131,6 +131,7 @@ select{
 
 .tab:hover {
   background-color: #f0f0f0;
+  cursor: pointer;
 }
 
 .tab.active {
@@ -155,6 +156,11 @@ select{
 .tab-content.active {
   display: block;
   margin-left: 70px;
+}
+
+#addTab{
+  border: none;
+  border-radius: 20px;
 }
 
 .tutorial-sidebar {
@@ -402,11 +408,12 @@ div[title]:hover::after {
 .card {
   max-height: fit-content; 
   overflow-y: auto;
-  border-radius: 30px;
+  border-radius: 25px;
 }
 
 .card:hover{
-  transition: all 0.2s ease-out;
+  cursor: pointer;
+  transition: all 1s ease-out;
     top: -4px;
     background-color: white;
     border-radius: 0px;
