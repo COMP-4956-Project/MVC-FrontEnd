@@ -266,6 +266,9 @@
       textarea.style.height = 'auto';
       textarea.style.height = textarea.scrollHeight + 'px';
 
+      console.log(document.getElementsByClassName("description-of-selected-task").value);
+      console.log(document.getElementsByClassName("description-of-selected-task").textContent);
+
       if (document.getElementsByClassName("description-of-selected-task").textContent !== "Currently no task selected") {
         consoleOutput = "Incorrect";
         document.getElementById('console-textarea') = "Incorrect";
