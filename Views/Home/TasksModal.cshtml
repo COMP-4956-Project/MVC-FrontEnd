@@ -117,7 +117,7 @@
     async function getChallenge() {
         try {
             const userId = await getUserId();
-            const response = await fetch(aiApiEndPoint + "/api/challengeapi?id=" + userId.message);
+            const response = await fetch(aiApiEndPoint + "/api/challengeapi?id=" + decodeURIComponent(userId.message));
             if (!response.ok) {
                 throw new Error(`Network response was not ok, status code: ${response.status}`);
             }
