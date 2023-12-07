@@ -9,7 +9,7 @@ export const uploadDiv = async (name, kodeAsADiv) => {
             Content: kodeAsADiv
         };
 
-        const response = await fetch(URL + '/uploadtext', {
+        const response = await fetch('file/uploadtext', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ export const uploadDiv = async (name, kodeAsADiv) => {
 
 export const showMyProjects = async () => {
     try {
-        const response = await fetch(URL + '/showAllMyFiles');
+        const response = await fetch('file/showAllMyFiles');
         console.log('openProject function called');
         
         if (!response.ok) {
@@ -44,7 +44,7 @@ export const showMyProjects = async () => {
         //console.log(data);
         return data;
     } catch (e) {
-        console.error(e);
+        console.log(e);
     }
 };
 
@@ -60,20 +60,31 @@ document.addEventListener('DOMContentLoaded', () => {
     if (openProjectListItem) {
         openProjectListItem.onclick = async (event) => {
             event.preventDefault();
-            console.log('Open Project button clicked');
-            let data = await showMyProjects();
-            let projectList = document.getElementById('openDialogList');
-            projectList.innerHTML = '';
-
-            for (let i = 0; i < data.projects.length; i++) {
-                let div = document.createElement('div');
-                div.className = 'openDialogListItem';
-                div.innerHTML = data.projects[i];
-                projectList.appendChild(div);
-            }
 
             let dialog = document.getElementById('openDialog');
             dialog.showModal();
+
+            console.log('Open Project button clicked');
+            let data = await showMyProjects();
+            if (!data) {
+                console.log('No projects found');
+                return;
+            }
+            else{
+                let projectList = document.getElementById('openDialogList');
+                projectList.innerHTML = '';
+    
+                for (let i = 0; i < data.projects.length; i++) 
+                {
+                    let button = document.createElement('button');
+                    button.className = 'openDialogListItem';
+                    button.innerHTML = data.projects[i];
+                    projectList.appendChild(button);
+                }
+            }
+
+
+
         };
     }
 
@@ -93,8 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(kodeAsADiv);
 
         await uploadDiv(name, kodeAsADiv);
-        // let dialog = document.getElementById('saveDialog');
-        // dialog.close();
+        let dialog = document.getElementById('saveDialog');
+        dialog.close();
     }
 });
 
