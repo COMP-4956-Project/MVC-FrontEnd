@@ -14,66 +14,66 @@ namespace Backend.Controllers
     public class PythonController : ControllerBase
     {
         [HttpPost]
-       public async Task<IActionResult> PostPythonFromJson([FromBody] BlockList blockInput)
-{
-    Console.WriteLine(blockInput);
-    try
-    {
-        PythonRunner pyRunner = new PythonRunner();
-        string output = pyRunner.RunFromBlockList(blockInput);
-
-        // Sending the output to the API as an error message for demonstration purposes
-
-        return Ok(output);
-    }
-    catch (Exception e)
-    {
-         string error = e.Message;
-        string apiResponse = await SendErrorMessageToExternalAPI(error);
-        Console.WriteLine(apiResponse);
-        var response = JsonConvert.SerializeObject(apiResponse);
-        return BadRequest(response); 
-    }
-}
-
-
-       private async Task<string> SendErrorMessageToExternalAPI(string errorMessage)
-{
-    using (HttpClient client = new HttpClient())
-    {
-        try
+        public async Task<IActionResult> PostPythonFromJson([FromBody] BlockList blockInput)
         {
-            var apiUrl = "https://codecraftapierr.azurewebsites.net/api/api/send-err";
-            var content = new StringContent("{\"message\": \"" + errorMessage + "\"}", Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync(apiUrl, content);
-
-            if (response.IsSuccessStatusCode)
+            Console.WriteLine(blockInput);
+            try
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return responseContent;
+                PythonRunner pyRunner = new PythonRunner();
+                string output = pyRunner.RunFromBlockList(blockInput);
+
+                // Sending the output to the API as an error message for demonstration purposes
+
+                return Ok(output);
             }
-            else
+            catch (Exception e)
             {
-                string errorResponse = $"API call failed with status code: {response.StatusCode}";
-                // Log or handle errorResponse
-                return errorResponse;
+                string error = e.Message;
+                string apiResponse = await SendErrorMessageToExternalAPI(error);
+                Console.WriteLine(apiResponse);
+                MyError response = JsonConvert.DeserializeObject<MyError>(apiResponse);
+                return BadRequest(response.Message);
             }
         }
-        catch (HttpRequestException ex)
+
+
+        private async Task<string> SendErrorMessageToExternalAPI(string errorMessage)
         {
-            string requestError = $"HTTP Request Error: {ex.Message}";
-            // Log or handle requestError
-            return requestError;
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    var apiUrl = "https://codecraftapierr.azurewebsites.net/api/api/send-err";
+                    var content = new StringContent("{\"message\": \"" + errorMessage + "\"}", Encoding.UTF8, "application/json");
+
+                    var response = await client.PostAsync(apiUrl, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        return responseContent;
+                    }
+                    else
+                    {
+                        string errorResponse = $"API call failed with status code: {response.StatusCode}";
+                        // Log or handle errorResponse
+                        return errorResponse;
+                    }
+                }
+                catch (HttpRequestException ex)
+                {
+                    string requestError = $"HTTP Request Error: {ex.Message}";
+                    // Log or handle requestError
+                    return requestError;
+                }
+                catch (Exception ex)
+                {
+                    string otherError = $"An error occurred: {ex.Message}";
+                    // Log or handle otherError
+                    return otherError;
+                }
+            }
         }
-        catch (Exception ex)
-        {
-            string otherError = $"An error occurred: {ex.Message}";
-            // Log or handle otherError
-            return otherError;
-        }
-    }
-}
 
     }
 }
