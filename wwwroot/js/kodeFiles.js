@@ -1,6 +1,6 @@
 const URL = "http://localhost:5215/file";
 
-// const urltest = "https://codecraft.azurewebsites.net/file" <- change to actual db for deployment
+const urltest = "https://codecraft.azurewebsites.net/file" //<- change to actual db for deployment
 
 export const uploadDiv = async (name, kodeAsADiv) => {
     try {
@@ -9,7 +9,7 @@ export const uploadDiv = async (name, kodeAsADiv) => {
             Content: kodeAsADiv
         };
 
-        const response = await fetch('file/uploadtext', {
+        const response = await fetch('../file/uploadtext', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ export const uploadDiv = async (name, kodeAsADiv) => {
 
 export const showMyProjects = async () => {
     try {
-        const response = await fetch('file/showAllMyFiles');
+        const response = await fetch('../file/showAllMyFiles');
         console.log('openProject function called');
         
         if (!response.ok) {
