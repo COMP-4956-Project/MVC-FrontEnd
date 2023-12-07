@@ -74,8 +74,8 @@ lineMaker(codeDiv);
 
 let varContainer = document.getElementById("variableContainer");
 let codeContainer = document.getElementsByClassName("tab-contents")[0];
-//let urltest = "https://codecraft.azurewebsites.net" // url for deployment
- let urltest =  "http://localhost:5215";
+// let urltest = "https://codecraft.azurewebsites.net" // url for deployment
+let urltest =  "http://localhost:5215";
 
 const saveButton = () => {
     try {
@@ -102,7 +102,10 @@ const saveButton = () => {
 
 
 function runCode () {
-    console.log(codeDiv)
+    const codeDiv = document.getElementById("test2");
+    let codeDivToSave = codeDiv.outerHTML;
+    // upload the div to the db
+    uploadDiv(codeDivToSave);
 
     // get the variables first
     let vars = varContainer.getElementsByClassName("variable-block");

@@ -5,10 +5,11 @@ using System.Text;
 using MVC_Backend_Frontend.Models;
 using MVC_Backend_Frontend;
 using Newtonsoft.Json;
-namespace Backend.Controllers
-{
+namespace Backend.Controllers;
+
+
     [ApiController]
-    [Route("api/runPython")]
+
     public class PythonController : ControllerBase
     {
         [HttpPost]
@@ -74,5 +75,5 @@ namespace Backend.Controllers
 }
 
     }
-}
+
 

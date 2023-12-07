@@ -1,4 +1,4 @@
-//const urltest = "https://codecraft.azurewebsites.net" //<- change to actual db for deployment
+const urltest = "https://codecraft.azurewebsites.net" //<- change to actual db for deployment
 
 const urltest ="http://localhost:5215";
 
@@ -103,7 +103,7 @@ export const loadMyProject = async (myProject) => {
             } else {
                 console.error('Element with id test2 not found.');
             }
-
+            console.log(data.projectContents)
             return data.projectContents;
         } else {
             console.error(`Error: ${response.status} - ${response.statusText}`);
