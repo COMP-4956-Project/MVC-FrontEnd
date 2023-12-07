@@ -79,28 +79,51 @@ public class FileController : Controller
 
     [HttpPost]
     [Route("savefile")]
-    public ActionResult SaveFile(string fileName, string fileContents)
+    public ActionResult SaveFile([FromBody] UploadTextModel model)
     {
-        DeleteFile(fileName); // Delete the existing file
-
-        // Create a new file with the updated content
-        using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(fileContents)))
+        try
         {
-            gridFS.UploadFromStream(fileName, stream);
-        }
+            Console.WriteLine("file name " + model.Name);
+            Console.WriteLine("file contents " + model.Content);
+            DeleteFile(model.Name);
 
-        return RedirectToAction("Index");
+            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(model.Content)))
+            {
+                gridFS.UploadFromStream(model.Name, stream);
+            }
+
+            var usersCollection = db.GetCollection<MongoUser>("users");
+            var userFilter = Builders<MongoUser>.Filter.Eq(u => u.Email, User.Identity.Name);
+            var user = usersCollection.Find(userFilter).FirstOrDefault();
+
+            if (user != null)
+            {
+                user.Projects.Add(model.Name);
+                var userUpdate = Builders<MongoUser>.Update.Set(u => u.Projects, user.Projects);
+                usersCollection.UpdateOne(userFilter, userUpdate);
+            }
+
+            return Json(new { success = true, message = "Work successfully saved." });
+        }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = $"Error saving work: {ex.Message}" });
+        }
     }
+
+
 
     [HttpDelete]
     public ActionResult DeleteFile(string fileName)
-    {
+    {   
+        Console.WriteLine(" deleting file "+fileName);
         var filter = Builders<GridFSFileInfo>.Filter.Eq(x => x.Filename, fileName);
         var fileInfo = gridFS.Find(filter).FirstOrDefault();
 
         if (fileInfo != null)
         {
             gridFS.Delete(fileInfo.Id);
+            
         }
 
         return RedirectToAction("Index");

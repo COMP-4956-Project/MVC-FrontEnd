@@ -2,11 +2,8 @@ import { AssignmentBlock, EqualityBlock, ExpressionBlock, FunctionBlock, LogicBl
 import { lineMaker } from "./drag_drop.js";
 import { VariableBlock, LiteralBlock, DummyLiteralBlock } from "./classes/ValueBlock.js";
 import { BlockParser } from "./classes/BlockParser.js";
-import { uploadDiv } from "./kodeFiles.js";
+import { saveMyProject } from "./kodeFiles.js";
 
-function test(){
-    alert("Testing");
-}
 
 let expressionCon = document.getElementById("expressionContainer");
 let varCon = document.getElementById("variableContainer");
@@ -73,13 +70,35 @@ for (let i = 0; i < ScopeBlock.subTypes.length; i++)
 }
 
 const codeDiv = document.getElementById("test2");
-let codeDivToSave = codeDiv.outerHTML;
 lineMaker(codeDiv);
 
 let varContainer = document.getElementById("variableContainer");
 let codeContainer = document.getElementsByClassName("tab-contents")[0];
-// let urltest = "http://localhost:5215";
 let urltest = "https://codecraft.azurewebsites.net" // url for deployment
+// let urltest =  "http://localhost:5215";
+
+const saveButton = () => {
+    try {
+        console.log('save is clicked in testing');
+
+        const saveDialogInput = document.getElementById('saveDialogInput').value.trim();
+
+        let projectName = saveDialogInput || sessionStorage.getItem('projectName');
+
+        if (!projectName) {
+            const currentDate = new Date();
+            projectName = `unsavedProject_${currentDate.toISOString().replace(/[:.]/g, '-')}`;
+        }
+
+        let codeToSave = document.getElementById('test2').outerHTML;
+
+        saveMyProject(projectName, codeToSave);
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+
 
 
 function runCode () {
@@ -90,19 +109,15 @@ function runCode () {
 
     // get the variables first
     let vars = varContainer.getElementsByClassName("variable-block");
-
     // add all the vars to the list
     let list = BlockParser.parseVars(vars);
-    
     // get the code container
     let container = codeContainer.getElementsByClassName("active")[0];
-
     // add all the lines to the list
     list = list.concat(BlockParser.parseLines(container, false));
     
     // create the block list
     let blockList = {"blocks": list};
-    console.log(blockList);
 
     // send it to the server to be compiled
     let clone;
@@ -118,13 +133,11 @@ function runCode () {
         // put it in the console
         document.getElementById("console-textarea").value = json;
         consoleOutput = document.getElementById("console-textarea");
-        console.log(json);
     }, (rej) => {
         clone.text().then((text) => {
             // put it in the console if there is only text
             document.getElementById("console-textarea").value = text;
             consoleOutput = document.getElementById("console-textarea");
-            console.log(text);
         }).then(() => checkAnswer());
     }).then(() => checkAnswer());
 };
@@ -139,9 +152,6 @@ let answerIsCorrect = false;
 function checkAnswer()
     {
     consoleOutput = document.getElementById("console-textarea").value;
-      console.log("run button clicked");
-      console.log("consoleOutput: ", consoleOutput);
-      console.log("answer: ", answer);
 
       if (consoleOutput.trim() === answer)
       {
@@ -151,13 +161,11 @@ function checkAnswer()
         answerIsCorrect = false;
       }
 
-      console.log("answerIsCorrect: ", answerIsCorrect);
 
       if (answerIsCorrect)
       {
         incorrectAnswerMessageContainer.innerHTML = '';
         checkmarkContainer.innerHTML = '<img src="/images/checkMark.png" alt="check mark image" id="checkmark">';
-        console.log("IF checkmarkContainer: ", checkmarkContainer);
       } else
       {
         // Clear previous content in checkmarkContainer
@@ -173,4 +181,4 @@ function compileAndCheck() {
 }
 
 document.getElementById("run-button").onclick = function() {compileAndCheck();}
-
+document.getElementById("save-button").onclick =()=>{saveButton()}

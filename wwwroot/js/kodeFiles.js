@@ -2,7 +2,8 @@ const urltest = "https://codecraft.azurewebsites.net" //<- change to actual db f
 
 // const urltest ="http://localhost:5215";
 
-export const uploadDiv = async (name, kodeAsADiv) => {
+//for making a new one in the db
+const uploadDiv = async (name, kodeAsADiv) => {
     try {
         const data = {
             Name: name,
@@ -28,6 +29,40 @@ export const uploadDiv = async (name, kodeAsADiv) => {
     }
 };
 
+// for saving current work 
+export const saveMyProject = async (name, kodeAsADiv) => {
+    try {
+        console.log('clicked in kodeFile');
+        console.log('name '+name)
+        console.log('code '+kodeAsADiv)
+
+        const data = {
+            Name: name,
+            Content: kodeAsADiv
+        };
+
+        console.log(data)
+
+        const response = await fetch(urltest + '/file/savefile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            // Check if the response is not okay and handle the error
+            const errorMessage = await response.text();
+            throw new Error(`HTTP error! Status: ${response.status}. Message: ${errorMessage}`);
+        }
+
+        const responseData = await response.json();
+        console.log(responseData);
+    } catch (e) {
+        console.error(e);
+    }
+};
 
 
 
@@ -41,7 +76,6 @@ export const showMyProjects = async () => {
         }
 
         const data = await response.json();
-        //console.log(data);
         return data;
     } catch (e) {
         console.log(e);
@@ -50,7 +84,6 @@ export const showMyProjects = async () => {
 
 export const loadMyProject = async (myProject) => {
     try {
-        console.log(myProject);
         const url = `${urltest}/file/loadAProject?projectName=${encodeURIComponent(myProject)}`;
 
         const response = await fetch(url);
@@ -59,14 +92,14 @@ export const loadMyProject = async (myProject) => {
             const data = await response.json();
             console.log(data.projectContents);
 
-            // Replace the content of test2 with the loaded project contents
             const test2Container = document.getElementById('test2');
             console.log(test2Container);
 
             if (test2Container) {
                 console.log('Replacing content of test2...');
-                test2Container.innerHTML = data.projectContents;
+                test2Container.outerHTML = data.projectContents;
                 console.log('Content of test2 replaced successfully.');
+                sessionStorage.setItem('projectName', myProject)
             } else {
                 console.error('Element with id test2 not found.');
             }
@@ -81,7 +114,6 @@ export const loadMyProject = async (myProject) => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOMContentLoaded event triggered');
 
     const openProjectListItem = document.getElementById('openProjectButton');
     const saveProjectButton = document.getElementById('saveProjectButton');
@@ -135,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(kodeAsADiv);
 
         await uploadDiv(name, kodeAsADiv);
+        sessionStorage.setItem("projectName",name)
         let dialog = document.getElementById('saveDialog');
         dialog.close();
     }
