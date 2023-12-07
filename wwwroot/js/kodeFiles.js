@@ -1,6 +1,6 @@
 const URL = "http://localhost:5215/file";
 
-const urltest = "https://codecraft.azurewebsites.net/file" //<- change to actual db for deployment
+const urltest = "https://codecraft.azurewebsites.net" //<- change to actual db for deployment
 
 export const uploadDiv = async (name, kodeAsADiv) => {
     try {
