@@ -12,6 +12,8 @@ namespace Backend.Controllers;
 
     public class PythonController : ControllerBase
     {
+
+        [Route("api/runPython")]
         [HttpPost]
        public async Task<IActionResult> PostPythonFromJson([FromBody] BlockList blockInput)
 {

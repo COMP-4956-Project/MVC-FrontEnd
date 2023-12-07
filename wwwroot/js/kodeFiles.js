@@ -1,4 +1,4 @@
-const urltest = "https://codecraft.azurewebsites.net" //<- change to actual db for deployment
+//const urltest = "https://codecraft.azurewebsites.net"; //<- change to actual db for deployment
 
 const urltest ="http://localhost:5215";
 
