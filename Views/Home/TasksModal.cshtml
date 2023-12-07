@@ -38,6 +38,7 @@
     const difficultTasksContainer = document.querySelector('.difficult-tasks');
     const confirmButtonContainer = document.querySelector('.confirm-button-container');
     let taskNumber = 1;
+    const question = "";
     const tasks = {};
 
     tasks[1] = { TaskID: 1, TaskDifficulty: "easy", TaskDescription: "Print the string of text 'hello world'", Answer: "hello world"};
@@ -60,6 +61,7 @@
                 .then(challenge => {
                     $('.description-of-selected-task').text("Challenge: " + challenge);
                     $('.description-of-selected-task').css('color', 'red');
+                    question = challenge
                 })
                 .catch(error => {
                     console.error('Error during getChallenge:', error);
@@ -127,6 +129,11 @@
             console.error('Error during fetch:', error);
             throw error; // Re-throw the error so that it can be caught by the caller
         }
+    }
+
+    function runCode() {
+        const question = $('description-of-selected-task').text()
+        console.log(question)
     }
 
     function openTasksModal()
