@@ -144,6 +144,56 @@ public class FileController : Controller
         }
     }
 
+    [HttpGet]
+    [Route("loadAProject")]
+    public ActionResult<string> LoadAProject(string projectName, string userName = null)
+    {
+        try
+        {
+            // Use the provided userName parameter if available; otherwise, use the currently authenticated user's name
+            string userEmail = !string.IsNullOrEmpty(userName) ? userName : User.Identity.Name;
+
+            var usersCollection = db.GetCollection<MongoUser>("users");
+            var userFilter = Builders<MongoUser>.Filter.Eq(u => u.Email, userEmail);
+            var user = usersCollection.Find(userFilter).FirstOrDefault();
+
+            if (user != null)
+            {
+                // Check if projectName is provided
+                if (!string.IsNullOrEmpty(projectName))
+                {
+                    // If projectName is provided, filter projects based on the name
+                    var project = user.Projects.FirstOrDefault(p => p.Equals(projectName, StringComparison.OrdinalIgnoreCase));
+
+                    if (project != null)
+                    {
+                        // Retrieve the file contents based on the project name
+                        using (var stream = gridFS.OpenDownloadStreamByName(project))
+                        using (var reader = new StreamReader(stream))
+                        {
+                            string fileContents = reader.ReadToEnd();
+                            return Ok(new { ProjectContents = fileContents });
+                        }
+                    }
+                    else
+                    {
+                        return NotFound(new { ErrorMessage = $"Project '{projectName}' not found for the user." });
+                    }
+                }
+                else
+                {
+                    // If no projectName provided, return BadRequest
+                    return BadRequest(new { ErrorMessage = "ProjectName parameter is required for this request." });
+                }
+            }
+
+            return Ok(new { Projects = new List<string>() });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { ErrorMessage = ex.Message });
+        }
+    }
 
 
 }

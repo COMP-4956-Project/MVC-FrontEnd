@@ -1,6 +1,6 @@
-const URL = "http://localhost:5215/file";
+// const urltest = "https://codecraft.azurewebsites.net" //<- change to actual db for deployment
 
-const urltest = "https://codecraft.azurewebsites.net" //<- change to actual db for deployment
+const urltest ="http://localhost:5215";
 
 export const uploadDiv = async (name, kodeAsADiv) => {
     try {
@@ -48,6 +48,24 @@ export const showMyProjects = async () => {
     }
 };
 
+export const loadMyProject = async (myProject) => {
+    try {
+        const url = `${urltest}/file/loadMyProject?projectName=${encodeURIComponent(myProject)}`;
+
+        const response = await fetch(url);
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+        } else {
+            console.error(`Error: ${response.status} - ${response.statusText}`);
+        }
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -69,22 +87,23 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!data) {
                 console.log('No projects found');
                 return;
-            }
-            else{
+            } else {
                 let projectList = document.getElementById('openDialogList');
                 projectList.innerHTML = '';
-    
-                for (let i = 0; i < data.projects.length; i++) 
-                {
+
+                for (let i = 0; i < data.projects.length; i++) {
                     let button = document.createElement('button');
                     button.className = 'openDialogListItem';
                     button.innerHTML = data.projects[i];
+
+                    button.addEventListener('click', async () => {
+                        await loadMyProject(data.projects[i]);
+                        dialog.close();
+                    });
+
                     projectList.appendChild(button);
                 }
             }
-
-
-
         };
     }
 
@@ -108,4 +127,5 @@ document.addEventListener('DOMContentLoaded', () => {
         dialog.close();
     }
 });
+
 
