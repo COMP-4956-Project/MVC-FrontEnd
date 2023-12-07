@@ -5,15 +5,14 @@ using System.Text;
 using MVC_Backend_Frontend.Models;
 using MVC_Backend_Frontend;
 using Newtonsoft.Json;
-namespace Backend.Controllers;
 
 
+namespace Backend.Controllers
+{
     [ApiController]
-
+    [Route("api/runPython")]
     public class PythonController : ControllerBase
     {
-
-        [Route("api/runPython")]
         [HttpPost]
        public async Task<IActionResult> PostPythonFromJson([FromBody] BlockList blockInput)
 {
@@ -29,7 +28,7 @@ namespace Backend.Controllers;
     }
     catch (Exception e)
     {
-        string error = e.Message;
+         string error = e.Message;
         string apiResponse = await SendErrorMessageToExternalAPI(error);
         Console.WriteLine(apiResponse);
         var response = JsonConvert.SerializeObject(apiResponse);
@@ -77,5 +76,4 @@ namespace Backend.Controllers;
 }
 
     }
-
-
+}
