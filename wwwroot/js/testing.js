@@ -74,8 +74,8 @@ lineMaker(codeDiv);
 
 let varContainer = document.getElementById("variableContainer");
 let codeContainer = document.getElementsByClassName("tab-contents")[0];
-// let urltest = "https://codecraft.azurewebsites.net" // url for deployment
-let urltest =  "http://localhost:5215";
+let urltest = "https://codecraft.azurewebsites.net" // url for deployment
+// let urltest =  "http://localhost:5215";
 
 const saveButton = () => {
     try {
