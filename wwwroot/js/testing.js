@@ -105,7 +105,7 @@ function runCode () {
     const codeDiv = document.getElementById("test2");
     let codeDivToSave = codeDiv.outerHTML;
     // upload the div to the db
-    uploadDiv(codeDivToSave);
+    //uploadDiv(codeDivToSave);
 
     // get the variables first
     let vars = varContainer.getElementsByClassName("variable-block");
