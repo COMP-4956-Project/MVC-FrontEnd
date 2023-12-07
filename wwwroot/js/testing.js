@@ -121,6 +121,27 @@ function runCode () {
 
     // send it to the server to be compiled
     let clone;
+    let parsedPython;
+    fetch(urltest + "/api/parsePythonCode", {
+        method: "POST",
+        body: JSON.stringify(blockList),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      }).then((res) => {
+          // clone if you only have text
+          clone = res.clone();
+          return res.json();
+      }).then((json) => {
+          // put it in the console
+          console.log(json);
+          parsedPython = json;
+      }, (rej) => {
+          clone.text().then((text) => {
+              // put it in the console if there is only text
+              console.log(text);
+              parsedPython = text;
+          })
+      });
+
     fetch(urltest + "/api/runPython", {
       method: "POST",
       body: JSON.stringify(blockList),
