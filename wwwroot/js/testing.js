@@ -74,8 +74,8 @@ lineMaker(codeDiv);
 
 let varContainer = document.getElementById("variableContainer");
 let codeContainer = document.getElementsByClassName("tab-contents")[0];
-// let urltest = "https://codecraft.azurewebsites.net" // url for deployment
-let urltest =  "http://localhost:5215";
+let urltest = "https://codecraft.azurewebsites.net" // url for deployment
+// let urltest =  "http://localhost:5215";
 
 const saveButton = () => {
     try {
@@ -105,7 +105,7 @@ function runCode () {
     const codeDiv = document.getElementById("test2");
     let codeDivToSave = codeDiv.outerHTML;
     // upload the div to the db
-    uploadDiv(codeDivToSave);
+    //uploadDiv(codeDivToSave);
 
     // get the variables first
     let vars = varContainer.getElementsByClassName("variable-block");
@@ -121,6 +121,27 @@ function runCode () {
 
     // send it to the server to be compiled
     let clone;
+    let parsedPython;
+    fetch(urltest + "/api/parsePythonCode", {
+        method: "POST",
+        body: JSON.stringify(blockList),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      }).then((res) => {
+          // clone if you only have text
+          clone = res.clone();
+          return res.json();
+      }).then((json) => {
+          // put it in the console
+          console.log(json);
+          parsedPython = json;
+      }, (rej) => {
+          clone.text().then((text) => {
+              // put it in the console if there is only text
+              console.log(text);
+              parsedPython = text;
+          })
+      });
+
     fetch(urltest + "/api/runPython", {
       method: "POST",
       body: JSON.stringify(blockList),
