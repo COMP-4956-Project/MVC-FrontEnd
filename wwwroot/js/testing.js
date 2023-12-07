@@ -83,7 +83,6 @@ let urltest = "https://codecraft.azurewebsites.net" // url for deployment
 
 
 function runCode () {
-
     // upload the div to the db
     uploadDiv(codeDivToSave)
 

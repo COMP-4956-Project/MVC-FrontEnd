@@ -50,14 +50,28 @@ export const showMyProjects = async () => {
 
 export const loadMyProject = async (myProject) => {
     try {
-        console.log(myProject)
+        console.log(myProject);
         const url = `${urltest}/file/loadAProject?projectName=${encodeURIComponent(myProject)}`;
 
         const response = await fetch(url);
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
+            console.log(data.projectContents);
+
+            // Replace the content of test2 with the loaded project contents
+            const test2Container = document.getElementById('test2');
+            console.log(test2Container);
+
+            if (test2Container) {
+                console.log('Replacing content of test2...');
+                test2Container.innerHTML = data.projectContents;
+                console.log('Content of test2 replaced successfully.');
+            } else {
+                console.error('Element with id test2 not found.');
+            }
+
+            return data.projectContents;
         } else {
             console.error(`Error: ${response.status} - ${response.statusText}`);
         }
@@ -65,9 +79,6 @@ export const loadMyProject = async (myProject) => {
         console.error(e);
     }
 };
-
-
-
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOMContentLoaded event triggered');
