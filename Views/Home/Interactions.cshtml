@@ -269,7 +269,7 @@
       console.log(document.getElementsByClassName("description-of-selected-task").value);
       console.log(document.getElementsByClassName("description-of-selected-task").textContent);
 
-      if (document.getElementsByClassName("description-of-selected-task").textContent !== "Currently no task selected") {
+      if (document.getElementsByClassName("description-of-selected-task").value !== "Currently no task selected") {
         consoleOutput = "Incorrect";
         document.getElementById('console-textarea') = "Incorrect";
         const textarea = document.getElementById('console-textarea');
