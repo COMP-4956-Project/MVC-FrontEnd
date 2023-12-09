@@ -1,12 +1,7 @@
 
 
 using MVC_Backend_Frontend;
-using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
-using System.Text;
 using System.Text.RegularExpressions;
-using MVC_Backend_Frontend.Models;
-using MVC_Backend_Frontend;
 
 namespace BackendUnitTestProject;
 
