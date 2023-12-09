@@ -1,6 +1,6 @@
-const urltest = "https://codecraft.azurewebsites.net"; //<- change to actual db for deployment
+// const urltest = "https://codecraft.azurewebsites.net"; //<- change to actual db for deployment
 
-// const urltest ="http://localhost:5215";
+const urltest ="http://localhost:5215";
 
 //for making a new one in the db
 const uploadDiv = async (name, kodeAsADiv) => {
@@ -92,7 +92,7 @@ export const loadMyProject = async (myProject) => {
             const data = await response.json();
             console.log(data.projectContents);
 
-            const test2Container = document.getElementById('test2');
+            const test2Container = document.getElementById("code-container");
             console.log(test2Container);
 
             if (test2Container) {
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         let name = document.getElementById('saveDialogInput').value;
 
-        let kodeAsADiv = document.getElementById('test2').outerHTML;
+        let kodeAsADiv = document.getElementById("code-container").outerHTML;
         console.log(kodeAsADiv);
 
         await uploadDiv(name, kodeAsADiv);

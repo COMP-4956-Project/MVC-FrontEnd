@@ -69,13 +69,13 @@ for (let i = 0; i < ScopeBlock.subTypes.length; i++)
     scopeCon.appendChild(block.element);
 }
 
-const codeDiv = document.getElementById("test2");
+const codeDiv = document.getElementById("code-container");
 lineMaker(codeDiv);
 
 let varContainer = document.getElementById("variableContainer");
 let codeContainer = document.getElementsByClassName("tab-contents")[0];
-let urltest = "https://codecraft.azurewebsites.net" // url for deployment
-// let urltest =  "http://localhost:5215";
+// let urltest = "https://codecraft.azurewebsites.net" // url for deployment
+let urltest =  "http://localhost:5215";
 
 const saveButton = () => {
     try {
@@ -90,7 +90,7 @@ const saveButton = () => {
             projectName = `unsavedProject_${currentDate.toISOString().replace(/[:.]/g, '-')}`;
         }
 
-        let codeToSave = document.getElementById('test2').outerHTML;
+        let codeToSave = document.getElementById("code-container").outerHTML;
 
         saveMyProject(projectName, codeToSave);
     } catch (e) {
@@ -102,7 +102,7 @@ const saveButton = () => {
 
 
 function runCode () {
-    const codeDiv = document.getElementById("test2");
+    const codeDiv = document.getElementById("code-container");
     let codeDivToSave = codeDiv.outerHTML;
     // upload the div to the db
     //uploadDiv(codeDivToSave);
@@ -202,4 +202,3 @@ function compileAndCheck() {
 }
 
 document.getElementById("run-button").onclick = function() {compileAndCheck();}
-document.getElementById("save-button").onclick =()=>{saveButton()}

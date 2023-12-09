@@ -76,7 +76,7 @@ export function drop(ev) {
   //handle creating a new line
   let lineContainer = block.element.parentElement.closest(".line-container");
   if (lineContainer == null || lineContainer == undefined) {
-    lineContainer = document.getElementById("test2");
+    lineContainer = document.getElementById("code-container");
   }
 
   let lineIndex = Array.prototype.indexOf.call(lineContainer.children, block.element.parentElement);
