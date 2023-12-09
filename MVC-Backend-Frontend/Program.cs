@@ -1,16 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MVC_Backend_Frontend;
 using MVC_Backend_Frontend.Data;
 using MVC_Backend_Frontend.Models;
-using System.Text.Json;
-using System.Text.Json.Nodes;
 using MongoDB.Driver;
-using MongoDB.Bson;
 
-string json = File.ReadAllText(@"./test3.json");
-var pythonRunner = new PythonRunner();
-pythonRunner.RunFromBlockList(JsonSerializer.Deserialize<BlockList>(json)!);
 
 var builder = WebApplication.CreateBuilder(args);
 

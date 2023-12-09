@@ -1,5 +1,3 @@
-using System;
-using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using MVC_Backend_Frontend.Models;

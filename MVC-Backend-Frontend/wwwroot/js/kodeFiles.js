@@ -1,6 +1,6 @@
-// const urltest = "https://codecraft.azurewebsites.net"; //<- change to actual db for deployment
+const backendUrl = "https://codecraft.azurewebsites.net"; //<- change to actual db for deployment
 
-const urltest ="http://localhost:5215";
+// const backendUrl ="http://localhost:5215";
 
 //for making a new one in the db
 const uploadDiv = async (name, kodeAsADiv) => {
@@ -10,7 +10,7 @@ const uploadDiv = async (name, kodeAsADiv) => {
             Content: kodeAsADiv
         };
 
-        const response = await fetch(urltest + '/file/uploadtext', {
+        const response = await fetch(backendUrl + '/file/uploadtext', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ export const saveMyProject = async (name, kodeAsADiv) => {
 
         console.log(data)
 
-        const response = await fetch(urltest + '/file/savefile', {
+        const response = await fetch(backendUrl + '/file/savefile', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -68,7 +68,7 @@ export const saveMyProject = async (name, kodeAsADiv) => {
 
 export const showMyProjects = async () => {
     try {
-        const response = await fetch(urltest + '/file/showAllMyFiles');
+        const response = await fetch(backendUrl + '/file/showAllMyFiles');
         console.log('openProject function called');
         
         if (!response.ok) {
@@ -84,7 +84,7 @@ export const showMyProjects = async () => {
 
 export const loadMyProject = async (myProject) => {
     try {
-        const url = `${urltest}/file/loadAProject?projectName=${encodeURIComponent(myProject)}`;
+        const url = `${backendUrl}/file/loadAProject?projectName=${encodeURIComponent(myProject)}`;
 
         const response = await fetch(url);
 

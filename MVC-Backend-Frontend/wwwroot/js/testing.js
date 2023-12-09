@@ -74,8 +74,8 @@ lineMaker(codeDiv);
 
 let varContainer = document.getElementById("variableContainer");
 let codeContainer = document.getElementsByClassName("tab-contents")[0];
-// let urltest = "https://codecraft.azurewebsites.net" // url for deployment
-let urltest =  "http://localhost:5215";
+let backendUrl = "https://codecraft.azurewebsites.net" // url for deployment
+// let backendUrl =  "http://localhost:5215";
 
 const saveButton = () => {
     try {
@@ -122,7 +122,7 @@ function runCode () {
     // send it to the server to be compiled
     let clone;
     let parsedPython;
-    fetch(urltest + "/api/parsePythonCode", {
+    fetch(backendUrl + "/api/parsePythonCode", {
         method: "POST",
         body: JSON.stringify(blockList),
         headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -142,7 +142,7 @@ function runCode () {
           })
       });
 
-    fetch(urltest + "/api/runPython", {
+    fetch(backendUrl + "/api/runPython", {
       method: "POST",
       body: JSON.stringify(blockList),
       headers: {"Content-type": "application/json; charset=UTF-8"}

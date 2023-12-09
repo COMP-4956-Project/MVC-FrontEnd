@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MVC_Backend_Frontend.Models;
 
 namespace MVC_Backend_Frontend
@@ -78,7 +74,7 @@ namespace MVC_Backend_Frontend
                 case "value":
 
                     // add the value literal
-                    switch(block.field) // num, text, operation, var
+                    switch (block.field) // num, text, operation, var
                     {
                         case "num":
                             code += block.num;
@@ -154,23 +150,25 @@ namespace MVC_Backend_Frontend
                     code += block.instruction + " ";
 
                     // chain the equality and logic input
-                    if (block.instruction != "else") {
+                    if (block.instruction != "else")
+                    {
                         code += ParseBlock(block.input);
                     }
 
                     code += ":";
 
-                    if (block.children != null) {
+                    if (block.children != null)
+                    {
                         // indent every line in the scope
                         foreach (var child in block.children)
                         {
-                        code += "\n";
-                        child.parent = block.parent + 1;
-                        for (int i = 0; i < block.parent; i++)
-                        {
-                            code += "    ";
-                        }
-                        code += "    " + ParseBlock(child);
+                            code += "\n";
+                            child.parent = block.parent + 1;
+                            for (int i = 0; i < block.parent; i++)
+                            {
+                                code += "    ";
+                            }
+                            code += "    " + ParseBlock(child);
                         }
                     }
                     break;
@@ -184,8 +182,9 @@ namespace MVC_Backend_Frontend
                         code += block.logic + " ";
                         code += ParseBlock(block.input);
 
-                    // get the left and right values in equality
-                    } else
+                        // get the left and right values in equality
+                    }
+                    else
                     {
                         // get left and right value for equality
                         string a = ParseBlock(block.A);
@@ -249,7 +248,8 @@ namespace MVC_Backend_Frontend
                         }
 
                         // chain the equality or logic conditions
-                        if (block.input != null) {
+                        if (block.input != null)
+                        {
                             code += ParseBlock(block.input);
                         }
                     }
@@ -265,9 +265,12 @@ namespace MVC_Backend_Frontend
         public static string ParseBlockList(BlockList blockList)
         {
             string codeResult = "";
-            foreach (var block in blockList.blocks)
+            if (blockList != null && blockList.blocks != null)
             {
-                codeResult += ParseBlock(block) + "\n";
+                foreach (var block in blockList.blocks)
+                {
+                    codeResult += ParseBlock(block) + "\n";
+                }
             }
 
             return codeResult;
