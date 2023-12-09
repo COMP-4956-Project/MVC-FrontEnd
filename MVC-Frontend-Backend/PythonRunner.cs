@@ -39,7 +39,7 @@ namespace MVC_Backend_Frontend
         {
             Console.WriteLine("=====================CODE=====================");
             string code = "";
-            if (blocklist != null)
+            if (blocklist != null && blocklist.blocks != null)
             {
                 foreach (var block in blocklist.blocks)
                 {
@@ -50,9 +50,14 @@ namespace MVC_Backend_Frontend
             Console.WriteLine("====================RESULT====================");
             var result = RunFromString(code);
             Console.WriteLine(result);
+            Console.WriteLine("fart");
             return result;
         }
 
+        internal Task<string> RunFromBlockListAsync(BlockList blockInput)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

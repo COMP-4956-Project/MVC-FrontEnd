@@ -19,7 +19,8 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg- border-bottom box-shadow mb-3">
             <div class="container">
                 <div class="ProjectName">
-                    <a class="navbar-brand" href="~/">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+
                         @* CodeCraft Project Logo *@
                         <span class="logo"></span>
                     </a>
@@ -39,13 +40,13 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">New Project</a></li>
-                                <li><a class="dropdown-item" href="#">Save</a></li>
-                                <li><a class="dropdown-item" href="#">Open</a></li>
+                                <li><a id= "saveProjectButton" class="dropdown-item" href="#">Save</a></li>
+                                <li><a id="openProjectButton" class="dropdown-item" href="#">Open</a></li>
                             </ul>
                         </li>
 
                         @* Other Top Nav Bar Links: Home, Help, Privacy, testing *@
-                        <li class="nav-item">
+                        <li class="nav-item code">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Interactions">Code</a>
                         </li>
                         @* <li class="nav-item help">
@@ -59,10 +60,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/testing">testing</a>
                         </li>*@
-                        <li class="nav-item"> 
+                        <li class="nav-item tutorial"> 
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Tutorial">Tutorial</a>
                         </li>
-                        <partial name="_LoginPartial"/>
+
+
+                        @* <partial style="align-self:flex-end" name="_LoginPartial"/> *@
+
+                     <li class="nav-item ml-auto">
+                       <div class="login-partial">
+                       <partial name="_LoginPartial"/>
+                       </div>
+                    </li>
 
                     @* Logout Button in text form *@
                           @* <li class="nav-item">
@@ -70,9 +79,9 @@
                         </li> *@
             
                            @* Logout Button in button form *@
-                       <li class="nav-item logout">
+@*                        <li class="nav-item logout">
                           <a class="nav-link text-dark btn btn-info" asp-area="" asp-controller="Home" asp-action="Logout"><strong>LOG OUT</strong></a>
-                        </li>
+                        </li> *@
                     </ul>
                 </div>
             </div>
@@ -92,6 +101,7 @@
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/wwwroot/js/kodeFiles.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 

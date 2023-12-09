@@ -1,5 +1,6 @@
 import { LiteralBlock, DummyLiteralBlock, VariableBlock } from "./classes/ValueBlock.js";
 
+
 let varCon = document.getElementById("variableContainer");
 
 var options = ["string", "number", "boolean", "float"];
@@ -17,6 +18,7 @@ var valueInput = document.getElementById("valueInput");
 var textInput = document.getElementById("textInput");
 
 
+//This is to check what value is selected in the dropdown
 dropdown.addEventListener("change", function() {
 
     var selected = dropdown.value;
@@ -39,6 +41,20 @@ dropdown.addEventListener("change", function() {
     }
 })
 
+//This checks if the text value 
+
+function uniqueCheck(textValue) {
+    let childEle = varCon.children;
+
+    for (let i = 0; i < childEle.length; i++) {
+        let textElement = childEle[i].querySelector('.text-content');
+        if(textElement && textElement.textContent.trim() === textValue.trim()) {
+            return true;
+        }
+    }
+    return false;
+}
+//Functionality of the create button to create variables
 document.getElementById("createbutton").onclick = function()  {
     if(valueInput.text == "" || textInput.text == "" || dropdown.value == "") {
         var container = document.getElementById("createvariable");
@@ -58,16 +74,25 @@ document.getElementById("createbutton").onclick = function()  {
         }
     } else {
         let variableBlock;
-        if(dropdown.value == "boolean") 
-        {
-            variableBlock = new VariableBlock(dropdown.value, textInput.value, valueInput.checked);
-        }
-        else
-        {
-            variableBlock = new VariableBlock(dropdown.value, textInput.value, valueInput.value);
+        if(!uniqueCheck(textInput.value)) {
+            if(dropdown.value == "boolean") 
+            {
+                variableBlock = new VariableBlock(dropdown.value, textInput.value, valueInput.checked, true);
+            }
+            else
+            {
+                variableBlock = new VariableBlock(dropdown.value, textInput.value, valueInput.value, true);
+            }
+            varCon.appendChild(variableBlock.element)
+
+        } else {
+            var error = document.createElement("p");
+            error.id = "error"
+            error.textContent = "Please fill out all fields before creating the variable.";
+            error.style.color = "red";
         }
 
-        variableBlock.element.className += " global";
-        varCon.appendChild(variableBlock.element)
+        
+
     }
 }

@@ -59,7 +59,7 @@ p
 .varlit {
   min-height:2.5vw;
   min-width: 2.5vw;
-  background-image: linear-gradient(to right, palevioletred, white);
+  background: linear-gradient(to bottom right,#ffffff 0%,#ffffff 50%,red 50%,red 100%);
   border: black 2px solid;
   margin: 1vh;
 }
@@ -337,3 +337,36 @@ input[type="checkbox"]:not(:checked):after {
   align-items: center;
   height: 100vh; /* This will take the full viewport height */
 }
+
+.navbar-nav {
+  display: flex;
+  justify-content: flex-start;
+  /* justify-content: space-between; */
+  width: 100%;
+}
+
+.nav-item.ml-auto {
+  margin-left: auto;
+}
+
+.nav-item.logout {
+  absolute: right;
+  margin-left: 10px; /* Decreased from 20px to 10px */
+  margin-right: 0px;
+  margin-top: 10px;
+}
+
+
+/* Username and Logout Button CSS */
+.nav-item.login-partial{
+  absolute: right;  
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-item.dropdown,
+.nav-item.code,
+.nav-item.tutorial {
+    margin-right: 5px; /* Adjust this value as needed */
+}
+

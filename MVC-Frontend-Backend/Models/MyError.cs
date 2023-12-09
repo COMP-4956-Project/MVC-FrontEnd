@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace MVC_Backend_Frontend.Models
 {
-    public class BlockList
+    public class MyError
     {
-        public List<Block>? blocks { get; set; } // blocks
+        public string? Message { get; set; }
     }
 }

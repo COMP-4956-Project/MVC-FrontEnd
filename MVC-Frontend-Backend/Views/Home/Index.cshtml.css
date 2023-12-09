@@ -29,3 +29,26 @@
     background-position: center;
     background-size: contain;
   }
+.flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+.flex2 {
+  padding: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+.flex button {
+    font-size: large;
+    font-weight: bold;
+    background-color: #FED242;
+    border-radius: 10px;
+    width: 25vw;
+    height: 10vh;
+  }

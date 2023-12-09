@@ -73,7 +73,7 @@ export class LiteralBlock
             this.element.id =   "literal-" + type + "-" + Math.floor(Math.random() * 1000000);
         }
 
-        this.element.className = "literal-block";
+        this.element.className = "literal-block value";
         this.element.dataset.blockType = "literal";
         this.element.dataset.subType = type;
         this.element.setAttribute("draggable", "true");
@@ -106,7 +106,7 @@ export class LiteralBlock
 
 export class VariableBlock
 {
-    constructor(type, name, value = null)
+    constructor(type, name, value = null, global = false)
     {
         if (!LiteralBlock.subTypes.includes(type))
         {
@@ -115,7 +115,10 @@ export class VariableBlock
         }
 
         this.element = document.createElement("div");
-        this.element.className += "variable-block";
+        
+        this.element.className += global ? "variable-block value global" 
+                                         : "variable-block value";
+
         //generate random id for the element
         this.element.id =  "variable-" + type + "-" + Math.floor(Math.random() * 1000000);
 
@@ -126,7 +129,6 @@ export class VariableBlock
 
         this.element.dataset.blockType = "variable";
         this.element.dataset.name = name; 
-        this.element.dataset.array = array;
         this.element.dataset.subType = type;
         
         
@@ -185,8 +187,9 @@ export class ArrayBlock extends VariableBlock
         this.element.dataset.blockType = "array";
         this.element.className = "array-block";
 
-        valueInput = getNumberInput();
-        valueInput.value = value;
+        
+        let valueInput = getNumberInput();
+        valueInput.value = size;
         valueInput.style.width = (valueInput.value.length + 4) + "ch";
         this.element.appendChild(valueInput);
     }

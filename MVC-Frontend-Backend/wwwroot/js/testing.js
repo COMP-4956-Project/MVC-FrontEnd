@@ -1,10 +1,9 @@
 import { AssignmentBlock, EqualityBlock, ExpressionBlock, FunctionBlock, LogicBlock, ScopeBlock } from "./classes/CodeBlock.js";
 import { lineMaker } from "./drag_drop.js";
 import { VariableBlock, LiteralBlock, DummyLiteralBlock } from "./classes/ValueBlock.js";
+import { BlockParser } from "./classes/BlockParser.js";
+import { saveMyProject } from "./kodeFiles.js";
 
-function test(){
-    alert("Testing");
-}
 
 let expressionCon = document.getElementById("expressionContainer");
 let varCon = document.getElementById("variableContainer");
@@ -70,129 +69,99 @@ for (let i = 0; i < ScopeBlock.subTypes.length; i++)
     scopeCon.appendChild(block.element);
 }
 
+const codeDiv = document.getElementById("test2");
+lineMaker(codeDiv);
 
-lineMaker(document.getElementById("test2"));
+let varContainer = document.getElementById("variableContainer");
+let codeContainer = document.getElementsByClassName("tab-contents")[0];
+let urltest = "https://codecraft.azurewebsites.net" // url for deployment
+// let urltest =  "http://localhost:5215";
 
-function parseScope() {
+const saveButton = () => {
+    try {
+        console.log('save is clicked in testing');
 
-}
+        const saveDialogInput = document.getElementById('saveDialogInput').value.trim();
 
-console.log(document.getElementsByClassName("run-button"));
+        let projectName = saveDialogInput || sessionStorage.getItem('projectName');
+
+        if (!projectName) {
+            const currentDate = new Date();
+            projectName = `unsavedProject_${currentDate.toISOString().replace(/[:.]/g, '-')}`;
+        }
+
+        let codeToSave = document.getElementById('test2').outerHTML;
+
+        saveMyProject(projectName, codeToSave);
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+
+
 
 function runCode () {
-    console.log("clicked");
-    let lines = document.getElementsByClassName("tab-contents")[0].getElementsByClassName("line");
-    let list = [];
+    const codeDiv = document.getElementById("test2");
+    let codeDivToSave = codeDiv.outerHTML;
+    // upload the div to the db
+    //uploadDiv(codeDivToSave);
 
-    let vars = document.getElementById("variableContainer").getElementsByClassName("variable-block");
-    for (let i = 0; i < vars.length; i++) {
-        let b = {
-            "type": "value",
-        }
-        if (vars[i].dataset.subType === "number") {
-            b["field"] = "num"
-            b["num"] = vars[i].getElementsByClassName("number-input")[0].value
-        } else {
-            b["field"] = "text"
-            b["text"] = vars[i].getElementsByClassName("string-input")[0].value
-        }
-        list.push({
-            "type": "function",
-            "field": "operation",
-            "operation": "assign_variable",
-            "A": {
-                "type": "variable",
-                "name": vars[i].dataset.name
-            },
-            "B": b
-        })
-    }
+    // get the variables first
+    let vars = varContainer.getElementsByClassName("variable-block");
+    // add all the vars to the list
+    let list = BlockParser.parseVars(vars);
+    // get the code container
+    let container = codeContainer.getElementsByClassName("active")[0];
+    // add all the lines to the list
+    list = list.concat(BlockParser.parseLines(container, false));
+    
+    // create the block list
+    let blockList = {"blocks": list};
 
-
-    for (let i = 0; i < lines.length; i++) {
-        let blocks = lines[i].getElementsByClassName("code-block");
-        if (blocks.length) {
-            console.log(blocks[0].dataset.blockType + " : " + blocks[0].dataset.subType);
-            let blockObject = {"type": blocks[0].dataset.blockType, "instruction": blocks[0].dataset.subType};
-            if (blockObject.type === "function" && blockObject.instruction === "print") {
-                // blockObject["input"] = [];
-                let input = blocks[0].getElementsByClassName('value')[0];
-                if (input) {
-                    blockObject.input = {"type": "variable", "name": input.dataset.name };
-                }
-                console.log(blockObject);
-                list.push(blockObject);
-            }
-            if (blocks.length > 1) {
-                blockObject["input"] = [];
-                for (let j = 1; j < blocks.length; j++) {
-                    console.log("input: " + blocks[j].dataset.blockType + " : " + blocks[j].dataset.subType);
-                    blockObject["input"].push({"type": blocks[j].dataset.blockType, "field": blocks[0].dataset.subType});
-                }
-            }
-
-
-
-            if (blockObject.type === "scope") {
-
-                // go to next child
-                i++;
-                // make a list of children
-                
-
-                // let stack = 
-
-                // go through all the block's children
-                while (lines[i].parentNode.parentNode.className === "scope-container") {
-                    let blocks = lines[i].getElementsByClassName("code-block");
-                    if (blocks.length) {
-                        console.log("child: " + blocks[0].dataset.blockType + " : " + blocks[0].dataset.subType);
-                        let blockObject = {"type": blocks[0].dataset.blockType, "field": blocks[0].dataset.subType};
-                        if (blocks.length > 1) {
-                            blockObject["children"] = [];
-                            for (let j = 1; j < blocks.length; j++) {
-                                console.log(blocks[j].dataset);
-                                console.log("child: " + blocks[j].dataset.blockType + " : " + blocks[j].dataset.subType);
-                                blockObject["children"].push({"type": blocks[j].dataset.blockType, "field": blocks[j].dataset.subType});
-                            }
-                        }
-                    }
-                    i++;
-                }
-
-                // add the block after getting all children
-                list.push(blockObject);
-            }
-            
-        }
-        
-        // if (blocks) {
-        //     
-        // }
-        
-    }
-    console.log(list);
-    let blockList = {"blocks": list}
-    console.log(blockList);
+    // send it to the server to be compiled
     let clone;
-    fetch( window.location.origin +  "/api/runPython", {
+    let parsedPython;
+    fetch(urltest + "/api/parsePythonCode", {
+        method: "POST",
+        body: JSON.stringify(blockList),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      }).then((res) => {
+          // clone if you only have text
+          clone = res.clone();
+          return res.json();
+      }).then((json) => {
+          // put it in the console
+          console.log(json);
+          parsedPython = json;
+      }, (rej) => {
+          clone.text().then((text) => {
+              // put it in the console if there is only text
+              console.log(text);
+              parsedPython = text;
+          })
+      });
+
+    fetch(urltest + "/api/runPython", {
       method: "POST",
       body: JSON.stringify(blockList),
       headers: {"Content-type": "application/json; charset=UTF-8"}
     }).then((res) => {
+        // clone if you only have text
         clone = res.clone();
         return res.json();
     }).then((json) => {
+        // put it in the console
         document.getElementById("console-textarea").value = json;
+        consoleOutput = document.getElementById("console-textarea");
     }, (rej) => {
         clone.text().then((text) => {
-            //console.log(text); 
+            // put it in the console if there is only text
             document.getElementById("console-textarea").value = text;
-            console.log(consoleOutput = document.getElementById("console-textarea").value);
+            consoleOutput = document.getElementById("console-textarea");
         }).then(() => checkAnswer());
     }).then(() => checkAnswer());
 };
-
 
 let answerIsCorrect = false;
     let consoleOutput = document.getElementById("console-textarea").value;
@@ -204,9 +173,6 @@ let answerIsCorrect = false;
 function checkAnswer()
     {
     consoleOutput = document.getElementById("console-textarea").value;
-      console.log("run button clicked");
-      console.log("consoleOutput: ", consoleOutput);
-      console.log("answer: ", answer);
 
       if (consoleOutput.trim() === answer)
       {
@@ -216,13 +182,11 @@ function checkAnswer()
         answerIsCorrect = false;
       }
 
-      console.log("answerIsCorrect: ", answerIsCorrect);
 
       if (answerIsCorrect)
       {
         incorrectAnswerMessageContainer.innerHTML = '';
         checkmarkContainer.innerHTML = '<img src="/images/checkMark.png" alt="check mark image" id="checkmark">';
-        console.log("IF checkmarkContainer: ", checkmarkContainer);
       } else
       {
         // Clear previous content in checkmarkContainer
@@ -231,15 +195,11 @@ function checkAnswer()
         incorrectAnswerMessageContainer.innerHTML = 'Oops! Let us try again :) ';
       }
 }
-
-
     
 
 function compileAndCheck() {
     runCode();
-    checkAnswer();
 }
 
-document.getElementsByClassName("run-button")[0].onclick = function() {compileAndCheck();}
-
-console.log("here");
+document.getElementById("run-button").onclick = function() {compileAndCheck();}
+document.getElementById("save-button").onclick =()=>{saveButton()}
