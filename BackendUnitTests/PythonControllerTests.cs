@@ -20,7 +20,6 @@ public class PythonControllerTests
         var okResult = actionResult as OkObjectResult;
         string result = Regex.Unescape(okResult.Value as string);
         result = result.Replace("\r", "");
-        Console.WriteLine(result);
         Assert.That(result, Is.EqualTo(expectedResult));
         
     }

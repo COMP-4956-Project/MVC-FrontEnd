@@ -25,7 +25,6 @@ public class PythonRunnerTests
         PythonRunner _pythonRunner = new PythonRunner();
         string result = Regex.Unescape(_pythonRunner.RunFromString(pythonCode));
         result = result.Replace("\r", "");
-        Console.WriteLine(result);
         Assert.That(result, Is.EqualTo(expectedResult));
     }
     
@@ -37,7 +36,6 @@ public class PythonRunnerTests
         PythonRunner _pythonRunner = new PythonRunner();
         string result = Regex.Unescape(_pythonRunner.RunFromString(pythonCode));
         result = result.Replace("\r", "");
-        Console.WriteLine(result);
         Assert.That(result, Is.EqualTo(expectedResult));
         
     }
@@ -50,7 +48,6 @@ public class PythonRunnerTests
         PythonRunner _pythonRunner = new PythonRunner();
         string result = Regex.Unescape(_pythonRunner.RunFromString(pythonCode));
         result = result.Replace("\r", "");
-        Console.WriteLine(result);
         Assert.That(result, Is.EqualTo(expectedResult));
         
     }
