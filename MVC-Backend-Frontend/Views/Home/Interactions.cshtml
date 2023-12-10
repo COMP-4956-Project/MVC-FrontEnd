@@ -258,15 +258,15 @@
 
     function updateConsoleOutput(value) {
       consoleOutput = value;
-      console.log("consoleOutput: ", consoleOutput);
+      
 
       // Update the height of the textarea based on the content
       const textarea = document.getElementById('console-textarea');
       textarea.style.height = 'auto';
       textarea.style.height = textarea.scrollHeight + 'px';
 
-      console.log(document.getElementsByClassName("description-of-selected-task").value);
-      console.log(document.getElementsByClassName("description-of-selected-task").textContent);
+      
+      
 
       if (document.getElementsByClassName("description-of-selected-task").value !== "Currently no task selected") {
         consoleOutput = "Incorrect";
@@ -278,9 +278,9 @@
     }
 
     function checkAnswer() {
-      console.log("run button clicked");
-      console.log("consoleOutput: ", consoleOutput);
-      console.log("answer: ", answer);
+      
+      
+      
 
       if (consoleOutput.trim() === answer) {
         answerIsCorrect = true;
@@ -288,12 +288,12 @@
         answerIsCorrect = false;
       }
 
-      console.log("answerIsCorrect: ", answerIsCorrect);
+      
 
       if (answerIsCorrect) {
         incorrectAnswerMessageContainer.innerHTML = '';
         checkmarkContainer.innerHTML = '<img src="/images/checkMark.png" alt="check mark image" id="checkmark">';
-        console.log("IF checkmarkContainer: ", checkmarkContainer);
+        
       } else {
         // Clear previous content in checkmarkContainer
         checkmarkContainer.innerHTML = '';

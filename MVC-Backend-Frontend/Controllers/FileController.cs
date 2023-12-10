@@ -29,7 +29,7 @@ public class FileController : Controller
     {
         try
         {
-            Console.WriteLine($"Received POST request to uploadtext. Name: {model.Name}, Content Length: {model.Content}");
+            
 
             if (model.Content == null)
             {
@@ -58,7 +58,7 @@ public class FileController : Controller
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message);
+            
             return StatusCode(500);
         }
     }
@@ -83,8 +83,8 @@ public class FileController : Controller
     {
         try
         {
-            Console.WriteLine("file name " + model.Name);
-            Console.WriteLine("file contents " + model.Content);
+            
+            
             DeleteFile(model.Name);
 
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(model.Content)))
@@ -116,7 +116,7 @@ public class FileController : Controller
     [HttpDelete]
     public ActionResult DeleteFile(string fileName)
     {   
-        Console.WriteLine(" deleting file "+fileName);
+        
         var filter = Builders<GridFSFileInfo>.Filter.Eq(x => x.Filename, fileName);
         var fileInfo = gridFS.Find(filter).FirstOrDefault();
 

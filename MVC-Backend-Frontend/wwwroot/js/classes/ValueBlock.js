@@ -110,7 +110,7 @@ export class VariableBlock
     {
         if (!LiteralBlock.subTypes.includes(type))
         {
-            console.log(type);
+            
             throw new Error("Invalid sub type");
         }
 

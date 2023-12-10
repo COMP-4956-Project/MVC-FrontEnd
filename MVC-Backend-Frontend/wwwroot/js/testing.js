@@ -1,8 +1,7 @@
 import { AssignmentBlock, EqualityBlock, ExpressionBlock, FunctionBlock, LogicBlock, ScopeBlock } from "./classes/CodeBlock.js";
 import { lineMaker } from "./drag_drop.js";
-import { VariableBlock, LiteralBlock, DummyLiteralBlock } from "./classes/ValueBlock.js";
+import { DummyLiteralBlock } from "./classes/ValueBlock.js";
 import { BlockParser } from "./classes/BlockParser.js";
-import { saveMyProject } from "./kodeFiles.js";
 
 
 let expressionCon = document.getElementById("expressionContainer");
@@ -12,6 +11,9 @@ let scopeCon = document.getElementById("scopeContainer");
 let equalityCon = document.getElementById("equalityContainer");
 let functionCon = document.getElementById("functionContainer");
 let assCon = document.getElementById("assignmentContainer");
+
+// let backendUrl = "https://codecraft.azurewebsites.net" // url for deployment
+let backendUrl =  "http://localhost:5215";
 
 for(let i = 0; i < DummyLiteralBlock.subTypes.length; i++)
 {
@@ -74,32 +76,6 @@ lineMaker(codeDiv);
 
 let varContainer = document.getElementById("variableContainer");
 let codeContainer = document.getElementsByClassName("tab-contents")[0];
-let backendUrl = "https://codecraft.azurewebsites.net" // url for deployment
-// let backendUrl =  "http://localhost:5215";
-
-const saveButton = () => {
-    try {
-        console.log('save is clicked in testing');
-
-        const saveDialogInput = document.getElementById('saveDialogInput').value.trim();
-
-        let projectName = saveDialogInput || sessionStorage.getItem('projectName');
-
-        if (!projectName) {
-            const currentDate = new Date();
-            projectName = `unsavedProject_${currentDate.toISOString().replace(/[:.]/g, '-')}`;
-        }
-
-        let codeToSave = document.getElementById("code-container").outerHTML;
-
-        saveMyProject(projectName, codeToSave);
-    } catch (e) {
-        console.error(e);
-    }
-};
-
-
-
 
 function runCode () {
     const codeDiv = document.getElementById("code-container");
@@ -132,12 +108,12 @@ function runCode () {
           return res.json();
       }).then((json) => {
           // put it in the console
-          console.log(json);
+          
           parsedPython = json;
       }, (rej) => {
           clone.text().then((text) => {
               // put it in the console if there is only text
-              console.log(text);
+              
               parsedPython = text;
           })
       });

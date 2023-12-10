@@ -1,6 +1,6 @@
-const backendUrl = "https://codecraft.azurewebsites.net"; //<- change to actual db for deployment
+// const backendUrl = "https://codecraft.azurewebsites.net"; //<- change to actual db for deployment
 
-// const backendUrl ="http://localhost:5215";
+const backendUrl ="http://localhost:5215";
 
 //for making a new one in the db
 const uploadDiv = async (name, kodeAsADiv) => {
@@ -23,7 +23,7 @@ const uploadDiv = async (name, kodeAsADiv) => {
         }
 
         const responseData = await response.json();
-        console.log(responseData);
+        
     } catch (e) {
         console.error(e);
     }
@@ -32,16 +32,16 @@ const uploadDiv = async (name, kodeAsADiv) => {
 // for saving current work 
 export const saveMyProject = async (name, kodeAsADiv) => {
     try {
-        console.log('clicked in kodeFile');
-        console.log('name '+name)
-        console.log('code '+kodeAsADiv)
+        
+        
+        
 
         const data = {
             Name: name,
             Content: kodeAsADiv
         };
 
-        console.log(data)
+        
 
         const response = await fetch(backendUrl + '/file/savefile', {
             method: 'POST',
@@ -58,7 +58,7 @@ export const saveMyProject = async (name, kodeAsADiv) => {
         }
 
         const responseData = await response.json();
-        console.log(responseData);
+        
     } catch (e) {
         console.error(e);
     }
@@ -69,7 +69,7 @@ export const saveMyProject = async (name, kodeAsADiv) => {
 export const showMyProjects = async () => {
     try {
         const response = await fetch(backendUrl + '/file/showAllMyFiles');
-        console.log('openProject function called');
+        
         
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -78,7 +78,7 @@ export const showMyProjects = async () => {
         const data = await response.json();
         return data;
     } catch (e) {
-        console.log(e);
+        
     }
 };
 
@@ -90,20 +90,20 @@ export const loadMyProject = async (myProject) => {
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data.projectContents);
+            
 
             const test2Container = document.getElementById("code-container");
-            console.log(test2Container);
+            
 
             if (test2Container) {
-                console.log('Replacing content of test2...');
+                
                 test2Container.outerHTML = data.projectContents;
-                console.log('Content of test2 replaced successfully.');
+                
                 sessionStorage.setItem('projectName', myProject)
             } else {
                 console.error('Element with id test2 not found.');
             }
-            console.log(data.projectContents)
+            
             return data.projectContents;
         } else {
             console.error(`Error: ${response.status} - ${response.statusText}`);
@@ -126,10 +126,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let dialog = document.getElementById('openDialog');
             dialog.showModal();
 
-            console.log('Open Project button clicked');
+            
             let data = await showMyProjects();
             if (!data) {
-                console.log('No projects found');
+                
                 return;
             } else {
                 let projectList = document.getElementById('openDialogList');
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let name = document.getElementById('saveDialogInput').value;
 
         let kodeAsADiv = document.getElementById("code-container").outerHTML;
-        console.log(kodeAsADiv);
+        
 
         await uploadDiv(name, kodeAsADiv);
         sessionStorage.setItem("projectName",name)

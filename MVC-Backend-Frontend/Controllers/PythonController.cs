@@ -14,7 +14,7 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<IActionResult> PostPythonFromJson([FromBody] BlockList blockInput)
         {
-            Console.WriteLine(blockInput);
+            
             try
             {
                 PythonRunner pyRunner = new PythonRunner();
@@ -28,7 +28,7 @@ namespace Backend.Controllers
             {
                 string error = e.Message;
                 string apiResponse = await SendErrorMessageToExternalAPI(error);
-                Console.WriteLine(apiResponse);
+                
                 MyError response = JsonConvert.DeserializeObject<MyError>(apiResponse);
                 return BadRequest(response.Message);
             }

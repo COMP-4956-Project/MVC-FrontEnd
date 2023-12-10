@@ -8,3 +8,4 @@
 1. Open the terminal or command prompt in the BackendUnitTests folder
 2. Run `dotnet test`, after a few seconds it will inform you in the terminal if tests pass.
 ## PLEASE DO NOT USE VISUAL STUDIO FOR THE UNIT TESTS
+### Also, the AI generated challenges do not work on localhost.
